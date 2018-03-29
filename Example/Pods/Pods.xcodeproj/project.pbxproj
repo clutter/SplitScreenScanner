@@ -8,20 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		0DBFE1D50E4E14ECE8FC850A27BBD5BE /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		19CB36345721FB1AD3F33EDAD28E2AEC /* SplitScannerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC187945E06E781B38F74632B2B0BBF5 /* SplitScannerCoordinator.swift */; };
-		3432F6ED020FBFD177F347045397B0B8 /* SplitScreenScanner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 07D57D13B2D245B8FF81CDBCE0932C13 /* SplitScreenScanner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		138326AF59B0FF58EFF6A16F26E673BD /* SplitScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33C9CEDEB1B3F872DFB94B0B7B74A07F /* SplitScannerViewModel.swift */; };
+		2AC9FE8CA83A1405A9A8DBEE8F8F45FB /* SplitScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70AE578900652A26993A3D6FCB500278 /* SplitScanner.storyboard */; };
+		3432F6ED020FBFD177F347045397B0B8 /* SplitScreenScanner-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 535E00899B247F20137B2ADE4ECB9D5F /* SplitScreenScanner-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3669E3E5D7AAE9F4641D8417B130EB5D /* SplitScreenScanner.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 303F1C5300F5F2FB199900E05793258A /* SplitScreenScanner.bundle */; };
+		420023E129BD0C0947E07F9D13BB698A /* ScanHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0CF925106DC9227B489E111ABF51D32 /* ScanHistory.swift */; };
+		5730ADA0E34EA304A2A1CD852B45CCAA /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49CA4BBF85CFBCDCBEC525449BA626E2 /* Coordinator.swift */; };
 		6D3FC1525C3513B83EF2EBF4A1574658 /* Pods-SplitScreenScanner_Tests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D05FB98A096D7D9740AB96781EC62F6 /* Pods-SplitScreenScanner_Tests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		77E60111E82DA8F8124FA81E2F2C2D2B /* Pods-SplitScreenScanner_Example-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = FB869ABCB5A5299634B48A7D61B81369 /* Pods-SplitScreenScanner_Example-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		7B8AFF3A7BB794A546FEFA9D15DC6B84 /* SplitScanner.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0D253F0C0EA1969F1EAA6EDDE7F10E26 /* SplitScanner.storyboard */; };
+		8A1A92856ED52DC46F8073A5AFC4E806 /* SplitScannerCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 353732DE15B7325053C8621D0EB49341 /* SplitScannerCoordinator.swift */; };
 		8F813B38891901260FD84A8DD1785E83 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
-		B1EF68800FC5680F60F560E1AF02B968 /* SplitScreenScanner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = D2FEEF106F31E6FB950F2A81916E1A8B /* SplitScreenScanner-dummy.m */; };
-		B8CB46F56787138C80F3E8DDF502A222 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC7925DEA59B63AEF904999F22314518 /* Coordinator.swift */; };
+		A7C04A14775DA12F4D18A908EC2E4AF5 /* ScanHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4605A03F2445D03B58620D84B5849FB0 /* ScanHistoryCell.xib */; };
+		C63FB885C8EB3F5A9A00503DCBB1BB8B /* ScanHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5FB1986D073AC34730A9F7B3E27D1F18 /* ScanHistoryCell.swift */; };
 		C67C14DB0EC9FCA1D7C75A93DF8437AA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		C9BA634BAB7EF97A3E6B1548F4023954 /* Pods-SplitScreenScanner_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C61297A8D4CF6A3877867709E08ED66 /* Pods-SplitScreenScanner_Tests-dummy.m */; };
+		CC21B70C5A2FBF13A5E697AA6F96B1DE /* SplitScreenScanner-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = FDFEAB212A4F7E5D5CF44B8DC539132D /* SplitScreenScanner-dummy.m */; };
+		CE3A3849C94C99EB543322262746904D /* SplitScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFF7ACB2D2608976E52A8F65DAF6B334 /* SplitScannerViewController.swift */; };
 		D1A31105DD30380EC0534394C0CF3EAE /* Pods-SplitScreenScanner_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C03DC6DED04881349A7DD58774659037 /* Pods-SplitScreenScanner_Example-dummy.m */; };
-		D4AC7E1D7D0A094A88B37DD6F792C03E /* SplitScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11CE780B26D9AB442AC6B32820928069 /* SplitScannerViewController.swift */; };
-		F52C90158C0B664E1E6EE75BCD7E70BF /* SplitScannerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96B2E5EAA3C8D6AE676BC7C0E75351A /* SplitScannerViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,47 +52,50 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		059EDC03F9C42BE98A9D31345B6F11EE /* SplitScreenScanner.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; path = SplitScreenScanner.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		0663F9878434B09BBDD9350277E713F4 /* Pods-SplitScreenScanner_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SplitScreenScanner_Example-acknowledgements.plist"; sourceTree = "<group>"; };
-		07D57D13B2D245B8FF81CDBCE0932C13 /* SplitScreenScanner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SplitScreenScanner-umbrella.h"; sourceTree = "<group>"; };
-		0D253F0C0EA1969F1EAA6EDDE7F10E26 /* SplitScanner.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = SplitScanner.storyboard; path = SplitScreenScanner/Assets/SplitScanner.storyboard; sourceTree = "<group>"; };
-		11CE780B26D9AB442AC6B32820928069 /* SplitScannerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplitScannerViewController.swift; path = SplitScreenScanner/Classes/SplitScannerViewController.swift; sourceTree = "<group>"; };
+		11F98E12EF444C68207EC3CC4A77F018 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
 		1CFD80E7628A397911C04F7BEA738285 /* Pods-SplitScreenScanner_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SplitScreenScanner_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		1D82B285E449FBC5E8B5AE01097E9DDA /* Pods-SplitScreenScanner_Example-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SplitScreenScanner_Example-resources.sh"; sourceTree = "<group>"; };
-		303F1C5300F5F2FB199900E05793258A /* SplitScreenScanner.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SplitScreenScanner.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		246B16A9982D11B03FBD7DE8CAE0D580 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		303F1C5300F5F2FB199900E05793258A /* SplitScreenScanner.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = SplitScreenScanner.bundle; path = "SplitScreenScanner-SplitScreenScanner.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
 		33297D21E47735E6086A10FD3E8B4B5F /* Pods-SplitScreenScanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SplitScreenScanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		367708CFB927D443F5C6303766D477DB /* ResourceBundle-SplitScreenScanner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-SplitScreenScanner-Info.plist"; sourceTree = "<group>"; };
-		39D149C3D76683F9C4AA1DED8A0B93BB /* SplitScreenScanner.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SplitScreenScanner.xcconfig; sourceTree = "<group>"; };
-		3C839FA9E3B4A939B0BA1CA11C11C715 /* Pods_SplitScreenScanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitScreenScanner_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		33C9CEDEB1B3F872DFB94B0B7B74A07F /* SplitScannerViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplitScannerViewModel.swift; path = SplitScreenScanner/Classes/SplitScannerViewModel.swift; sourceTree = "<group>"; };
+		353732DE15B7325053C8621D0EB49341 /* SplitScannerCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplitScannerCoordinator.swift; path = SplitScreenScanner/Classes/SplitScannerCoordinator.swift; sourceTree = "<group>"; };
+		3C839FA9E3B4A939B0BA1CA11C11C715 /* Pods_SplitScreenScanner_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SplitScreenScanner_Tests.framework; path = "Pods-SplitScreenScanner_Tests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D05FB98A096D7D9740AB96781EC62F6 /* Pods-SplitScreenScanner_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SplitScreenScanner_Tests-umbrella.h"; sourceTree = "<group>"; };
+		4605A03F2445D03B58620D84B5849FB0 /* ScanHistoryCell.xib */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.xib; name = ScanHistoryCell.xib; path = SplitScreenScanner/Assets/ScanHistoryCell.xib; sourceTree = "<group>"; };
+		49CA4BBF85CFBCDCBEC525449BA626E2 /* Coordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = SplitScreenScanner/Classes/Coordinator.swift; sourceTree = "<group>"; };
 		4C61297A8D4CF6A3877867709E08ED66 /* Pods-SplitScreenScanner_Tests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SplitScreenScanner_Tests-dummy.m"; sourceTree = "<group>"; };
-		5B970FAF44CDA487E2F9788E401C53D6 /* SplitScreenScanner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = SplitScreenScanner.modulemap; sourceTree = "<group>"; };
-		5E4C21F4E1805F9595C33A783D2850B2 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		4D85EF3B42DA554F9A7D4A11EAAAD62E /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		535E00899B247F20137B2ADE4ECB9D5F /* SplitScreenScanner-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SplitScreenScanner-umbrella.h"; sourceTree = "<group>"; };
+		54060B798C494C24B2A15801E4001C36 /* SplitScreenScanner.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SplitScreenScanner.xcconfig; sourceTree = "<group>"; };
 		5F455AC7580550CB8426C6EB12D30131 /* Pods-SplitScreenScanner_Tests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SplitScreenScanner_Tests-resources.sh"; sourceTree = "<group>"; };
+		5FB1986D073AC34730A9F7B3E27D1F18 /* ScanHistoryCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScanHistoryCell.swift; path = SplitScreenScanner/Classes/ScanHistoryCell.swift; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		6769956B64FD5A30EB2C84CB3768EB6A /* Pods-SplitScreenScanner_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SplitScreenScanner_Tests.modulemap"; sourceTree = "<group>"; };
-		6D10A69E6FDB16E7D9DADC71F50F5854 /* Pods-SplitScreenScanner_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SplitScreenScanner_Example.modulemap"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		6769956B64FD5A30EB2C84CB3768EB6A /* Pods-SplitScreenScanner_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SplitScreenScanner_Tests.modulemap"; sourceTree = "<group>"; };
+		6D10A69E6FDB16E7D9DADC71F50F5854 /* Pods-SplitScreenScanner_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-SplitScreenScanner_Example.modulemap"; sourceTree = "<group>"; };
+		70AE578900652A26993A3D6FCB500278 /* SplitScanner.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = SplitScanner.storyboard; path = SplitScreenScanner/Assets/SplitScanner.storyboard; sourceTree = "<group>"; };
+		72EC18DD339771A0618978DC4CA5F3C4 /* ResourceBundle-SplitScreenScanner-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "ResourceBundle-SplitScreenScanner-Info.plist"; sourceTree = "<group>"; };
+		753B2B8CF01707ADC143C5880E379E09 /* SplitScreenScanner.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = SplitScreenScanner.modulemap; sourceTree = "<group>"; };
+		7E125696F77E5F6A93B246E67EEF7B7E /* SplitScreenScanner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SplitScreenScanner-prefix.pch"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94823867BAA64C82106AB41E35349E0E /* Pods-SplitScreenScanner_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SplitScreenScanner_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		9918332E75A86413524DF62ABEF35C05 /* Pods-SplitScreenScanner_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SplitScreenScanner_Example.release.xcconfig"; sourceTree = "<group>"; };
-		BC187945E06E781B38F74632B2B0BBF5 /* SplitScannerCoordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplitScannerCoordinator.swift; path = SplitScreenScanner/Classes/SplitScannerCoordinator.swift; sourceTree = "<group>"; };
 		C03DC6DED04881349A7DD58774659037 /* Pods-SplitScreenScanner_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-SplitScreenScanner_Example-dummy.m"; sourceTree = "<group>"; };
 		C069709C1460F26EF8EA25E2F3CA128A /* Pods-SplitScreenScanner_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-SplitScreenScanner_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		CA93AA8714280C715AD55646EB1A870F /* Pods-SplitScreenScanner_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-SplitScreenScanner_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
+		CBF602974857FD0F086B60587842E458 /* SplitScreenScanner.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; path = SplitScreenScanner.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		CD928932C275EA432F67082DB3DB1739 /* Pods-SplitScreenScanner_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SplitScreenScanner_Example-frameworks.sh"; sourceTree = "<group>"; };
 		D0E3F75274F9CF5493F2AA0D8C3BE273 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D2FEEF106F31E6FB950F2A81916E1A8B /* SplitScreenScanner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SplitScreenScanner-dummy.m"; sourceTree = "<group>"; };
-		D37B6D4E9669319620A950DEF5348497 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DEDDBD7433A4CC4A405EA7C60153CCA1 /* Pods-SplitScreenScanner_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SplitScreenScanner_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
-		EC7925DEA59B63AEF904999F22314518 /* Coordinator.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Coordinator.swift; path = SplitScreenScanner/Classes/Coordinator.swift; sourceTree = "<group>"; };
-		EC7D46D5A2559E966CF079036D34B0A9 /* Pods_SplitScreenScanner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SplitScreenScanner_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		EEC5D4A364E285FCFC6A1BC4215AC11C /* SplitScreenScanner-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SplitScreenScanner-prefix.pch"; sourceTree = "<group>"; };
+		DFF7ACB2D2608976E52A8F65DAF6B334 /* SplitScannerViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplitScannerViewController.swift; path = SplitScreenScanner/Classes/SplitScannerViewController.swift; sourceTree = "<group>"; };
+		EC7D46D5A2559E966CF079036D34B0A9 /* Pods_SplitScreenScanner_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SplitScreenScanner_Example.framework; path = "Pods-SplitScreenScanner_Example.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF2ECC46C8744C2EEF91E46517897DA4 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		F4959DA94980F5B6E9A0E41D8A6CA255 /* SplitScreenScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SplitScreenScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F0CF925106DC9227B489E111ABF51D32 /* ScanHistory.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ScanHistory.swift; path = SplitScreenScanner/Classes/ScanHistory.swift; sourceTree = "<group>"; };
+		F4959DA94980F5B6E9A0E41D8A6CA255 /* SplitScreenScanner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = SplitScreenScanner.framework; path = SplitScreenScanner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5D984CAF097EE9E533A95C177D2DAEB /* Pods-SplitScreenScanner_Tests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SplitScreenScanner_Tests-frameworks.sh"; sourceTree = "<group>"; };
-		F82D48F4ADBDDF772C129B80556D30EF /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		F96B2E5EAA3C8D6AE676BC7C0E75351A /* SplitScannerViewModel.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = SplitScannerViewModel.swift; path = SplitScreenScanner/Classes/SplitScannerViewModel.swift; sourceTree = "<group>"; };
 		FB869ABCB5A5299634B48A7D61B81369 /* Pods-SplitScreenScanner_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SplitScreenScanner_Example-umbrella.h"; sourceTree = "<group>"; };
+		FDFEAB212A4F7E5D5CF44B8DC539132D /* SplitScreenScanner-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "SplitScreenScanner-dummy.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,60 +162,61 @@
 			path = "Target Support Files/Pods-SplitScreenScanner_Tests";
 			sourceTree = "<group>";
 		};
-		20BDC3514400040637D08E82FBAAD699 /* Pod */ = {
+		2EE37B5664BB89E11AB664B989B47F94 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				5E4C21F4E1805F9595C33A783D2850B2 /* LICENSE */,
-				F82D48F4ADBDDF772C129B80556D30EF /* README.md */,
-				059EDC03F9C42BE98A9D31345B6F11EE /* SplitScreenScanner.podspec */,
+				4605A03F2445D03B58620D84B5849FB0 /* ScanHistoryCell.xib */,
+				70AE578900652A26993A3D6FCB500278 /* SplitScanner.storyboard */,
 			);
-			name = Pod;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		6BDFF0924CD49CCA31727EFA9246CFE3 /* Development Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8E4C008716B76A52239B1DD447A41523 /* SplitScreenScanner */,
+			);
+			name = "Development Pods";
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
 			isa = PBXGroup;
 			children = (
 				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
-				887ADF4CAB15E9497464147D39BE23D0 /* Development Pods */,
+				6BDFF0924CD49CCA31727EFA9246CFE3 /* Development Pods */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
 				144339133EAF62031519ACE185366B66 /* Products */,
 				A18AE2C071E77664ED976E10AE4A140D /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		887ADF4CAB15E9497464147D39BE23D0 /* Development Pods */ = {
+		8E4C008716B76A52239B1DD447A41523 /* SplitScreenScanner */ = {
 			isa = PBXGroup;
 			children = (
-				9269DA7CA4AC14AED75CE99751C801F7 /* SplitScreenScanner */,
-			);
-			name = "Development Pods";
-			sourceTree = "<group>";
-		};
-		9269DA7CA4AC14AED75CE99751C801F7 /* SplitScreenScanner */ = {
-			isa = PBXGroup;
-			children = (
-				EC7925DEA59B63AEF904999F22314518 /* Coordinator.swift */,
-				BC187945E06E781B38F74632B2B0BBF5 /* SplitScannerCoordinator.swift */,
-				11CE780B26D9AB442AC6B32820928069 /* SplitScannerViewController.swift */,
-				F96B2E5EAA3C8D6AE676BC7C0E75351A /* SplitScannerViewModel.swift */,
-				20BDC3514400040637D08E82FBAAD699 /* Pod */,
-				DD7DDDCAB3823B55BC120CCF34ACC6DD /* Resources */,
-				9EAA9588C852845F58A19618FFC18C0A /* Support Files */,
+				49CA4BBF85CFBCDCBEC525449BA626E2 /* Coordinator.swift */,
+				F0CF925106DC9227B489E111ABF51D32 /* ScanHistory.swift */,
+				5FB1986D073AC34730A9F7B3E27D1F18 /* ScanHistoryCell.swift */,
+				353732DE15B7325053C8621D0EB49341 /* SplitScannerCoordinator.swift */,
+				DFF7ACB2D2608976E52A8F65DAF6B334 /* SplitScannerViewController.swift */,
+				33C9CEDEB1B3F872DFB94B0B7B74A07F /* SplitScannerViewModel.swift */,
+				BD4AAEB479A53599376DFA4686C651CC /* Pod */,
+				2EE37B5664BB89E11AB664B989B47F94 /* Resources */,
+				941B021457A9D804E6AFBBB764B6E2F3 /* Support Files */,
 			);
 			name = SplitScreenScanner;
 			path = ../..;
 			sourceTree = "<group>";
 		};
-		9EAA9588C852845F58A19618FFC18C0A /* Support Files */ = {
+		941B021457A9D804E6AFBBB764B6E2F3 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				D37B6D4E9669319620A950DEF5348497 /* Info.plist */,
-				367708CFB927D443F5C6303766D477DB /* ResourceBundle-SplitScreenScanner-Info.plist */,
-				5B970FAF44CDA487E2F9788E401C53D6 /* SplitScreenScanner.modulemap */,
-				39D149C3D76683F9C4AA1DED8A0B93BB /* SplitScreenScanner.xcconfig */,
-				D2FEEF106F31E6FB950F2A81916E1A8B /* SplitScreenScanner-dummy.m */,
-				EEC5D4A364E285FCFC6A1BC4215AC11C /* SplitScreenScanner-prefix.pch */,
-				07D57D13B2D245B8FF81CDBCE0932C13 /* SplitScreenScanner-umbrella.h */,
+				4D85EF3B42DA554F9A7D4A11EAAAD62E /* Info.plist */,
+				72EC18DD339771A0618978DC4CA5F3C4 /* ResourceBundle-SplitScreenScanner-Info.plist */,
+				753B2B8CF01707ADC143C5880E379E09 /* SplitScreenScanner.modulemap */,
+				54060B798C494C24B2A15801E4001C36 /* SplitScreenScanner.xcconfig */,
+				FDFEAB212A4F7E5D5CF44B8DC539132D /* SplitScreenScanner-dummy.m */,
+				7E125696F77E5F6A93B246E67EEF7B7E /* SplitScreenScanner-prefix.pch */,
+				535E00899B247F20137B2ADE4ECB9D5F /* SplitScreenScanner-umbrella.h */,
 			);
 			name = "Support Files";
 			path = "Example/Pods/Target Support Files/SplitScreenScanner";
@@ -250,20 +257,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		BD4AAEB479A53599376DFA4686C651CC /* Pod */ = {
+			isa = PBXGroup;
+			children = (
+				11F98E12EF444C68207EC3CC4A77F018 /* LICENSE */,
+				246B16A9982D11B03FBD7DE8CAE0D580 /* README.md */,
+				CBF602974857FD0F086B60587842E458 /* SplitScreenScanner.podspec */,
+			);
+			name = Pod;
+			sourceTree = "<group>";
+		};
 		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
 			isa = PBXGroup;
 			children = (
 				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
 			);
 			name = iOS;
-			sourceTree = "<group>";
-		};
-		DD7DDDCAB3823B55BC120CCF34ACC6DD /* Resources */ = {
-			isa = PBXGroup;
-			children = (
-				0D253F0C0EA1969F1EAA6EDDE7F10E26 /* SplitScanner.storyboard */,
-			);
-			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,7 +311,7 @@
 			buildPhases = (
 				9DE766FD0A5200CD19049F7C86FF682C /* Sources */,
 				D6D58DDEC46BDEC55025B0D6CA407B40 /* Frameworks */,
-				5D47261140D45D477C3CC86F54A25758 /* Resources */,
+				F3F013FABAAF92A24B774BA32E228DBD /* Resources */,
 			);
 			buildRules = (
 			);
@@ -335,7 +344,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = DCF88DD806ACA3E044898D6D3A37EAAB /* Build configuration list for PBXNativeTarget "SplitScreenScanner" */;
 			buildPhases = (
-				2CF4BCC4C35A2D6491850DBCCF86A0B5 /* Sources */,
+				06C782B19E6C819A888F2621E9C5407F /* Sources */,
 				62A9367007F77BD636C691F25895B167 /* Frameworks */,
 				0D8477E98753647063F4D025CC62F5F5 /* Resources */,
 				772D21F33C495998DE7B280B5AF89BD0 /* Headers */,
@@ -376,12 +385,6 @@
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0700;
-				TargetAttributes = {
-					24933FAF6928EEF4A7716283C442F517 = {
-						DevelopmentTeam = T4U6BU9TBH;
-						ProvisioningStyle = Automatic;
-					};
-				};
 			};
 			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -412,26 +415,29 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		5D47261140D45D477C3CC86F54A25758 /* Resources */ = {
+		F3F013FABAAF92A24B774BA32E228DBD /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B8AFF3A7BB794A546FEFA9D15DC6B84 /* SplitScanner.storyboard in Resources */,
+				A7C04A14775DA12F4D18A908EC2E4AF5 /* ScanHistoryCell.xib in Resources */,
+				2AC9FE8CA83A1405A9A8DBEE8F8F45FB /* SplitScanner.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		2CF4BCC4C35A2D6491850DBCCF86A0B5 /* Sources */ = {
+		06C782B19E6C819A888F2621E9C5407F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B8CB46F56787138C80F3E8DDF502A222 /* Coordinator.swift in Sources */,
-				19CB36345721FB1AD3F33EDAD28E2AEC /* SplitScannerCoordinator.swift in Sources */,
-				D4AC7E1D7D0A094A88B37DD6F792C03E /* SplitScannerViewController.swift in Sources */,
-				F52C90158C0B664E1E6EE75BCD7E70BF /* SplitScannerViewModel.swift in Sources */,
-				B1EF68800FC5680F60F560E1AF02B968 /* SplitScreenScanner-dummy.m in Sources */,
+				5730ADA0E34EA304A2A1CD852B45CCAA /* Coordinator.swift in Sources */,
+				420023E129BD0C0947E07F9D13BB698A /* ScanHistory.swift in Sources */,
+				C63FB885C8EB3F5A9A00503DCBB1BB8B /* ScanHistoryCell.swift in Sources */,
+				8A1A92856ED52DC46F8073A5AFC4E806 /* SplitScannerCoordinator.swift in Sources */,
+				CE3A3849C94C99EB543322262746904D /* SplitScannerViewController.swift in Sources */,
+				138326AF59B0FF58EFF6A16F26E673BD /* SplitScannerViewModel.swift in Sources */,
+				CC21B70C5A2FBF13A5E697AA6F96B1DE /* SplitScreenScanner-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -534,57 +540,6 @@
 				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SYMROOT = "${SRCROOT}/../build";
-			};
-			name = Release;
-		};
-		40217A3535122E112C106C0B82EA91D1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39D149C3D76683F9C4AA1DED8A0B93BB /* SplitScreenScanner.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
-				CURRENT_PROJECT_VERSION = 1;
-				DEFINES_MODULE = YES;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				GCC_PREFIX_HEADER = "Target Support Files/SplitScreenScanner/SplitScreenScanner-prefix.pch";
-				INFOPLIST_FILE = "Target Support Files/SplitScreenScanner/Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				MODULEMAP_FILE = "Target Support Files/SplitScreenScanner/SplitScreenScanner.modulemap";
-				PRODUCT_NAME = SplitScreenScanner;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				VERSIONING_SYSTEM = "apple-generic";
-				VERSION_INFO_PREFIX = "";
-			};
-			name = Debug;
-		};
-		43A6491311041C879B79B493E28D1140 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39D149C3D76683F9C4AA1DED8A0B93BB /* SplitScreenScanner.xcconfig */;
-			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
-				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SplitScreenScanner";
-				DEVELOPMENT_TEAM = T4U6BU9TBH;
-				INFOPLIST_FILE = "Target Support Files/SplitScreenScanner/ResourceBundle-SplitScreenScanner-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
-				PRODUCT_NAME = SplitScreenScanner;
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
 		};
@@ -750,29 +705,56 @@
 			};
 			name = Debug;
 		};
-		7C39C464A43E75905FA27F1CAD203E4A /* Debug */ = {
+		73BF77FB67705C080535777A107F760D /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39D149C3D76683F9C4AA1DED8A0B93BB /* SplitScreenScanner.xcconfig */;
+			baseConfigurationReference = 54060B798C494C24B2A15801E4001C36 /* SplitScreenScanner.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Automatic;
 				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SplitScreenScanner";
-				DEVELOPMENT_TEAM = T4U6BU9TBH;
 				INFOPLIST_FILE = "Target Support Files/SplitScreenScanner/ResourceBundle-SplitScreenScanner-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_NAME = SplitScreenScanner;
-				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = bundle;
 			};
+			name = Release;
+		};
+		B9680D0F3EAFDDEB3AD50ECC94F4BFA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54060B798C494C24B2A15801E4001C36 /* SplitScreenScanner.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREFIX_HEADER = "Target Support Files/SplitScreenScanner/SplitScreenScanner-prefix.pch";
+				INFOPLIST_FILE = "Target Support Files/SplitScreenScanner/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "Target Support Files/SplitScreenScanner/SplitScreenScanner.modulemap";
+				PRODUCT_NAME = SplitScreenScanner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
 			name = Debug;
 		};
-		7E440C5A272338AF83F96D198117FC16 /* Release */ = {
+		C47AD692586438AD15296D4F99770CD4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 39D149C3D76683F9C4AA1DED8A0B93BB /* SplitScreenScanner.xcconfig */;
+			baseConfigurationReference = 54060B798C494C24B2A15801E4001C36 /* SplitScreenScanner.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
@@ -801,6 +783,22 @@
 				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
+		};
+		ECB6E08C928E64458119C5CB736EAAA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 54060B798C494C24B2A15801E4001C36 /* SplitScreenScanner.xcconfig */;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CONFIGURATION_BUILD_DIR = "$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)/SplitScreenScanner";
+				INFOPLIST_FILE = "Target Support Files/SplitScreenScanner/ResourceBundle-SplitScreenScanner-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_NAME = SplitScreenScanner;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
 		};
 		EE50C49CA5C9B616D142A715FBDC8B7D /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -869,8 +867,8 @@
 		9B8687653B03C05A8E02F98303B39FC8 /* Build configuration list for PBXNativeTarget "SplitScreenScanner-SplitScreenScanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7C39C464A43E75905FA27F1CAD203E4A /* Debug */,
-				43A6491311041C879B79B493E28D1140 /* Release */,
+				ECB6E08C928E64458119C5CB736EAAA7 /* Debug */,
+				73BF77FB67705C080535777A107F760D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -878,8 +876,8 @@
 		DCF88DD806ACA3E044898D6D3A37EAAB /* Build configuration list for PBXNativeTarget "SplitScreenScanner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				40217A3535122E112C106C0B82EA91D1 /* Debug */,
-				7E440C5A272338AF83F96D198117FC16 /* Release */,
+				B9680D0F3EAFDDEB3AD50ECC94F4BFA6 /* Debug */,
+				C47AD692586438AD15296D4F99770CD4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
