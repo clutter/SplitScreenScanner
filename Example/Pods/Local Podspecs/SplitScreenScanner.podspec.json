@@ -1,0 +1,27 @@
+{
+  "name": "SplitScreenScanner",
+  "version": "0.1.0",
+  "summary": "A short description of SplitScreenScanner.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/10d656fb252a6769bbb7c085a1a2012bc5a98ebe/SplitScreenScanner",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "10d656fb252a6769bbb7c085a1a2012bc5a98ebe": "sean.machen@clutter.com"
+  },
+  "source": {
+    "git": "https://github.com/10d656fb252a6769bbb7c085a1a2012bc5a98ebe/SplitScreenScanner.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "SplitScreenScanner/Classes/**/*",
+  "resource_bundles": {
+    "SplitScreenScanner": [
+      "SplitScreenScanner/Assets/**/*.storyboard"
+    ]
+  }
+}

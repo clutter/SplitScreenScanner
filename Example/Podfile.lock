@@ -1,0 +1,16 @@
+PODS:
+  - SplitScreenScanner (0.1.0)
+
+DEPENDENCIES:
+  - SplitScreenScanner (from `../`)
+
+EXTERNAL SOURCES:
+  SplitScreenScanner:
+    :path: ../
+
+SPEC CHECKSUMS:
+  SplitScreenScanner: 773408786ba10d7c8cdb1ae2cd376071d4981817
+
+PODFILE CHECKSUM: 0579beb14927b85d30887744dce2bd6955f1c2ce
+
+COCOAPODS: 1.4.0

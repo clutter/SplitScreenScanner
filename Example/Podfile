@@ -1,11 +1,9 @@
 use_frameworks!
 
+pod 'SplitScreenScanner', :path => '../'
+
 target 'SplitScreenScanner_Example' do
-  pod 'SplitScreenScanner', :path => '../'
+end
 
-  target 'SplitScreenScanner_Tests' do
-    inherit! :search_paths
-
-    
-  end
+target 'SplitScreenScanner_Tests' do
 end
