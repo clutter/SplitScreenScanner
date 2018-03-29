@@ -11,18 +11,20 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+- iOS 11 or greater
+
 ## Installation
 
 SplitScreenScanner is available through [CocoaPods](http://cocoapods.org). To install
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SplitScreenScanner'
+pod 'SplitScreenScanner', :git => 'https://github.com/clutter/SplitScreenScanner'
 ```
 
 ## Author
 
-10d656fb252a6769bbb7c085a1a2012bc5a98ebe, sean.machen@clutter.com
+Sean Machen, sean.machen@clutter.com
 
 ## License
 
