@@ -53,14 +53,14 @@
                                     <constraint firstItem="4T8-tK-tow" firstAttribute="top" secondItem="KIK-1o-Irv" secondAttribute="top" constant="2" id="tuY-nd-M8a"/>
                                 </constraints>
                             </view>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biA-b2-Qqq" userLabel="Scanner Container View">
-                                <rect key="frame" x="0.0" y="60" width="375" height="283.5"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biA-b2-Qqq">
+                                <rect key="frame" x="0.0" y="60" width="375" height="284"/>
                                 <connections>
                                     <segue destination="hUQ-W1-Sfk" kind="embed" id="IBQ-Ni-7Wd"/>
                                 </connections>
                             </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bl-Gg-sNm" userLabel="Info Container View">
-                                <rect key="frame" x="0.0" y="343.5" width="375" height="323.5"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bl-Gg-sNm">
+                                <rect key="frame" x="0.0" y="344" width="375" height="323"/>
                                 <connections>
                                     <segue destination="9bw-FQ-1Ky" kind="embed" id="Q0b-0u-Dfa"/>
                                 </connections>
@@ -83,21 +83,23 @@
                         <viewLayoutGuide key="safeArea" id="wmN-Dq-EBl"/>
                     </view>
                     <connections>
+                        <outlet property="barcodeScannerContainerView" destination="biA-b2-Qqq" id="MTp-08-3Ff"/>
                         <outlet property="doneButton" destination="nA3-sz-7m8" id="oMr-l9-Y4t"/>
-                        <outlet property="scannerTitleLabel" destination="Rar-8r-fDF" id="Bdv-EJ-ILY"/>
-                        <outlet property="torchButton" destination="D3G-jG-FMq" id="gJZ-SH-nJC"/>
+                        <outlet property="scanHistoryContainerView" destination="0bl-Gg-sNm" id="8BN-BI-hVy"/>
+                        <outlet property="scannerTitleLabel" destination="Rar-8r-fDF" id="LET-hT-qi2"/>
+                        <outlet property="torchButton" destination="D3G-jG-FMq" id="YLE-UY-4JB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mkG-KF-Ung" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="164" y="103"/>
         </scene>
-        <!--Scanner View Controller-->
+        <!--Barcode Scanner View Controller-->
         <scene sceneID="r2O-tC-FHc">
             <objects>
-                <viewController id="hUQ-W1-Sfk" userLabel="Scanner View Controller" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BarcodeScanner" id="hUQ-W1-Sfk" customClass="BarcodeScannerViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJl-lC-Ea8">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="283.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="284"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
@@ -111,7 +113,7 @@
             <objects>
                 <viewController id="9bw-FQ-1Ky" userLabel="Info View Controller" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="rhP-EH-GtC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="323.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="323"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>

@@ -36,17 +36,17 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
 
     public func start() {
         let bundle = Bundle(for: SplitScannerCoordinator.self)
-        if let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) {
-            rootCoordinator?.pushCoordinator(self)
+        guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
+            let resourceBundle = Bundle(url: resourceBundleURL) else { return }
 
-            let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
-            if let vc = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
-                viewModel.delegate = self
-                vc.viewModel = viewModel
+        rootCoordinator?.pushCoordinator(self)
 
-                navigation.present(vc, animated: true)
-            }
+        let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+        if let vc = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
+            viewModel.delegate = self
+            vc.viewModel = viewModel
+
+            navigation.present(vc, animated: true)
         }
     }
 }

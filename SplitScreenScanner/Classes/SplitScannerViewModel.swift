@@ -13,18 +13,14 @@ protocol SplitScannerViewModelDelegate: class {
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
 }
 
-enum SplitScannerError: Error {
-    case noCamera
-}
-
 class SplitScannerViewModel {
-    private let device: AVCaptureDevice
+    let device: AVCaptureDevice
 
     weak var delegate: SplitScannerViewModelDelegate?
 
     init() throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
-            throw SplitScannerError.noCamera
+            throw ContinuousBarcodeScannerError.noCamera
         }
         self.device = videoDevice
     }
