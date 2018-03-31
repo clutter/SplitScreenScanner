@@ -33,6 +33,11 @@ class SplitScannerViewController: UIViewController {
         viewModel.scannerTitleBinding = { [weak self] scannerTitle in
             self?.scannerTitleLabel.text = scannerTitle
         }
+
+        viewModel.torchButtonImageBinding = { [weak self] isTorchOn in
+            let torchImage = ScannerStyleKit.imageOfTorchSymbol(isTorchOn: isTorchOn)
+            self?.torchButton.setImage(torchImage, for: .normal)
+        }
     }
 
     override var prefersStatusBarHidden: Bool {

@@ -41,6 +41,6 @@ class BarcodeScannerViewController: UIViewController {
 // MARK: - ContinuousBarcodeScannerDelegate
 extension BarcodeScannerViewController: ContinuousBarcodeScannerDelegate {
     func didScan(barcode: String) {
-        print(barcode)
+        print("Scanned: \(barcode)")
     }
 }

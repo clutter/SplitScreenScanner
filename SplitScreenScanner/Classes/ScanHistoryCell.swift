@@ -18,13 +18,13 @@ class ScanHistoryCell: UITableViewCell {
 
         switch kind {
         case .success(let description):
-            // assign success image
+            iconImageView.image = ScannerStyleKit.imageOfCheckMarkSymbol(imageSize: bounds.size)
             descriptionLabel.text = description
         case .warning(let description):
-            // assign warning image
+            iconImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: bounds.size, isError: false)
             descriptionLabel.text = description
         case .Error(let description):
-            // assign error image
+            iconImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: bounds.size, isError: true)
             descriptionLabel.text = description
         }
 

@@ -18,6 +18,10 @@ class SplitScannerViewModel {
 
     weak var delegate: SplitScannerViewModelDelegate?
 
+    var isTorchOn: Bool {
+        return device.torchMode == .on
+    }
+
     init() throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
@@ -30,6 +34,12 @@ class SplitScannerViewModel {
     var scannerTitleBinding: ((String?) -> Void)? {
         didSet {
             scannerTitleBinding?(scannerTitle())
+        }
+    }
+
+    var torchButtonImageBinding: ((Bool) -> Void)? {
+        didSet {
+            torchButtonImageBinding?(isTorchOn)
         }
     }
 
@@ -48,9 +58,10 @@ extension SplitScannerViewModel {
         do {
             try device.lockForConfiguration()
 
-            let isTorchOn = device.torchMode == .on
             device.torchMode = !isTorchOn ? .on : .off
             device.unlockForConfiguration()
+
+            torchButtonImageBinding?(isTorchOn)
         } catch {
             let alertVC = UIAlertController(title: "Failed to Toggle Torch", message: "Could not lock the device for current configuration.", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
