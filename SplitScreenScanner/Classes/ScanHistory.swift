@@ -17,7 +17,7 @@ struct ScanHistory {
     enum ScanKind {
         case success(description: String?)
         case warning(description: String)
-        case Error(description: String)
+        case error(description: String)
     }
 
     init(barcode: String, scanKind: ScanKind) {

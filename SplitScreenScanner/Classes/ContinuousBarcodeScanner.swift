@@ -10,8 +10,8 @@ import AVFoundation
 enum ContinuousBarcodeScannerError: Error {
     case noCamera
     case couldNotInitCamera
-    case cannotAddMetadataOutput
-    case cannotAddImageOutput
+    case couldNotAddVideoInput
+    case couldNotAddMetadataOutput
 }
 
 protocol ContinuousBarcodeScannerDelegate: class {
@@ -29,7 +29,7 @@ final class ContinuousBarcodeScanner {
         override init() {
             metadataOutput = AVCaptureMetadataOutput()
             super.init()
-            let metadataQueue = DispatchQueue(label: "org.cocoapods.SplitScreenScanner.metadata", attributes: [])
+            let metadataQueue = DispatchQueue(label: "com.clutter.SplitScreenScanner.metadata", attributes: [])
             metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
             metadataOutput.setMetadataObjectsDelegate(self, queue: metadataQueue)
         }
@@ -84,6 +84,8 @@ final class ContinuousBarcodeScanner {
             captureSession.sessionPreset = .high
             if captureSession.canAddInput(videoInput) {
                 captureSession.addInput(videoInput)
+            } else {
+                throw ContinuousBarcodeScannerError.couldNotAddVideoInput
             }
         } catch {
             throw ContinuousBarcodeScannerError.couldNotInitCamera
@@ -97,7 +99,7 @@ final class ContinuousBarcodeScanner {
         if captureSession.canAddOutput(metadataCapture.metadataOutput) {
             captureSession.addOutput(metadataCapture.metadataOutput)
         } else {
-            throw ContinuousBarcodeScannerError.cannotAddMetadataOutput
+            throw ContinuousBarcodeScannerError.couldNotAddMetadataOutput
         }
     }
 }
@@ -112,8 +114,8 @@ extension ContinuousBarcodeScanner {
             self?.delegate?.didScan(barcode: barcode)
         }
 
-        if let subLayer = previewView.layer.sublayers?[0] {
-            previewView.layer.insertSublayer(previewLayer, below: subLayer)
+        if let sublayer = previewView.layer.sublayers?.first {
+            previewView.layer.insertSublayer(previewLayer, below: sublayer)
         } else {
             previewView.layer.addSublayer(previewLayer)
         }

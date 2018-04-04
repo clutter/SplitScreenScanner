@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func titleForScanner(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
@@ -24,14 +25,14 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     weak var navigation: UINavigationController!
 
     public init(navigation: UINavigationController) throws {
-        do {
-            self.navigation = navigation
-            self.viewModel = try SplitScannerViewModel()
-
-            self.rootCoordinator = self
-        } catch {
-            throw error
+        guard let videoDevice = AVCaptureDevice.default(for: .video) else {
+            throw ContinuousBarcodeScannerError.noCamera
         }
+        let deviceProvider = DeviceProvider(device: videoDevice)
+        self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider)
+
+        self.navigation = navigation
+        self.rootCoordinator = self
     }
 
     public func start() {
