@@ -5,7 +5,7 @@
 //  Created by Sean Machen on 3/27/18.
 //
 
-import AVFoundation
+import Foundation
 
 protocol SplitScannerViewModelDelegate: class {
     func titleForScanner(_ splitScreenScannerViewModel: SplitScannerViewModel) -> String?
@@ -13,20 +13,13 @@ protocol SplitScannerViewModelDelegate: class {
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
 }
 
-enum SplitScannerError: Error {
-    case noCamera
-}
-
 class SplitScannerViewModel {
-    private let device: AVCaptureDevice
+    var deviceProvider: DeviceProviding
 
     weak var delegate: SplitScannerViewModelDelegate?
 
-    init() throws {
-        guard let videoDevice = AVCaptureDevice.default(for: .video) else {
-            throw SplitScannerError.noCamera
-        }
-        self.device = videoDevice
+    init(deviceProvider: DeviceProviding) {
+        self.deviceProvider = deviceProvider
     }
 
     // MARK: - Bindings, Observers, Getters
@@ -34,6 +27,12 @@ class SplitScannerViewModel {
     var scannerTitleBinding: ((String?) -> Void)? {
         didSet {
             scannerTitleBinding?(scannerTitle())
+        }
+    }
+
+    var torchButtonImageBinding: ((Bool) -> Void)? {
+        didSet {
+            torchButtonImageBinding?(deviceProvider.isTorchOn)
         }
     }
 
@@ -47,14 +46,15 @@ extension SplitScannerViewModel {
     }
 
     func toggleTorch() {
-        guard device.hasTorch else { return }
+        guard deviceProvider.hasTorch else { return }
 
         do {
-            try device.lockForConfiguration()
+            try deviceProvider.lockForConfiguration()
 
-            let isTorchOn = device.torchMode == .on
-            device.torchMode = !isTorchOn ? .on : .off
-            device.unlockForConfiguration()
+            deviceProvider.isTorchOn = !deviceProvider.isTorchOn
+            deviceProvider.unlockForConfiguration()
+
+            torchButtonImageBinding?(deviceProvider.isTorchOn)
         } catch {
             let alertVC = UIAlertController(title: "Failed to Toggle Torch", message: "Could not lock the device for current configuration.", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)

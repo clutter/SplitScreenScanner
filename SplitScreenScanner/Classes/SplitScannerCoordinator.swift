@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func titleForScanner(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
@@ -24,29 +25,29 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     weak var navigation: UINavigationController!
 
     public init(navigation: UINavigationController) throws {
-        do {
-            self.navigation = navigation
-            self.viewModel = try SplitScannerViewModel()
-
-            self.rootCoordinator = self
-        } catch {
-            throw error
+        guard let videoDevice = AVCaptureDevice.default(for: .video) else {
+            throw ContinuousBarcodeScannerError.noCamera
         }
+        let deviceProvider = DeviceProvider(device: videoDevice)
+        self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider)
+
+        self.navigation = navigation
+        self.rootCoordinator = self
     }
 
     public func start() {
         let bundle = Bundle(for: SplitScannerCoordinator.self)
-        if let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) {
-            rootCoordinator?.pushCoordinator(self)
+        guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
+            let resourceBundle = Bundle(url: resourceBundleURL) else { return }
 
-            let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
-            if let vc = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
-                viewModel.delegate = self
-                vc.viewModel = viewModel
+        rootCoordinator?.pushCoordinator(self)
 
-                navigation.present(vc, animated: true)
-            }
+        let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+        if let vc = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
+            viewModel.delegate = self
+            vc.viewModel = viewModel
+
+            navigation.present(vc, animated: true)
         }
     }
 }

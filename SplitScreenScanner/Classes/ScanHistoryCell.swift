@@ -16,15 +16,16 @@ class ScanHistoryCell: UITableViewCell {
     func reset(barcode: String, kind: ScanHistory.ScanKind, scanNumber: Int) {
         barcodeLabel.text = "#\(barcode)"
 
+        let imageSize = iconImageView.bounds.size
         switch kind {
         case .success(let description):
-            // assign success image
+            iconImageView.image = ScannerStyleKit.imageOfCheckMarkSymbol(imageSize: imageSize)
             descriptionLabel.text = description
         case .warning(let description):
-            // assign warning image
+            iconImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: imageSize, isError: false)
             descriptionLabel.text = description
-        case .Error(let description):
-            // assign error image
+        case .error(let description):
+            iconImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: imageSize, isError: true)
             descriptionLabel.text = description
         }
 
