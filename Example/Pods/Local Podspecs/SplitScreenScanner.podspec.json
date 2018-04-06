@@ -23,5 +23,10 @@
     "SplitScreenScanner": [
       "SplitScreenScanner/Assets/**/*.{xib,storyboard}"
     ]
+  },
+  "dependencies": {
+    "Sections": [
+
+    ]
   }
 }

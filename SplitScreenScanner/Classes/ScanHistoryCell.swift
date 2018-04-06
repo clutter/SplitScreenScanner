@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ScanHistoryCell: UITableViewCell {
+class ScanHistoryCell: UITableViewCell, IdentifierViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var barcodeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!

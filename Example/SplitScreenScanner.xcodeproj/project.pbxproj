@@ -276,10 +276,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Sections/Sections.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitScreenScanner/SplitScreenScanner.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitScreenScanner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,10 +314,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Sections/Sections.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitScreenScanner/SplitScreenScanner.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitScreenScanner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;

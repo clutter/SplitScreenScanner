@@ -10,6 +10,8 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func titleForScanner(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
+    func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
+    func textForNothingScanned(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
 
     func didPressDoneButton(_ SplitScannerCoordinator: SplitScannerCoordinator)
 }
@@ -19,6 +21,9 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     var identifier: UUID = UUID()
 
     var viewModel: SplitScannerViewModel
+
+    var barcodeScannerVC: BarcodeScannerViewController?
+    var scanHistoryVC: ScanHistoryTableViewController?
 
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
@@ -43,12 +48,37 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
         rootCoordinator?.pushCoordinator(self)
 
         let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
-        if let vc = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
-            viewModel.delegate = self
-            vc.viewModel = viewModel
+        if let splitScannerParentVC = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
 
-            navigation.present(vc, animated: true)
+            viewModel.delegate = self
+            splitScannerParentVC.viewModel = viewModel
+
+            navigation.present(splitScannerParentVC, animated: true)
+
+            if let barcodeScannerVC = storyboard.instantiateViewController(withIdentifier: "BarcodeScanner") as? BarcodeScannerViewController,
+                let scanHistoryVC = storyboard.instantiateViewController(withIdentifier: "ScanHistory") as? ScanHistoryTableViewController {
+                self.barcodeScannerVC = barcodeScannerVC
+                self.scanHistoryVC = scanHistoryVC
+
+                embed(childVC: barcodeScannerVC, in: splitScannerParentVC.barcodeScannerContainerView, withParent: splitScannerParentVC)
+
+                let tableViewHeader = delegate?.headerForScanHistoryTableView(self) ?? "Scan History"
+                let noScanText = delegate?.textForNothingScanned(self) ?? "Nothing yet scanned"
+                scanHistoryVC.viewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText)
+                embed(childVC: scanHistoryVC, in: splitScannerParentVC.scanHistoryContainerView, withParent: splitScannerParentVC)
+            }
         }
+    }
+}
+
+// MARK: - Private Methods
+private extension SplitScannerCoordinator {
+    func embed(childVC: UIViewController, in containerView: UIView, withParent parentVC: UIViewController) {
+        childVC.willMove(toParentViewController: parentVC)
+        containerView.addSubview(childVC.view)
+        parentVC.addChildViewController(childVC)
+        childVC.view.frame = containerView.bounds
+        childVC.didMove(toParentViewController: parentVC)
     }
 }
 

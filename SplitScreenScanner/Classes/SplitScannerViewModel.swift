@@ -18,6 +18,8 @@ class SplitScannerViewModel {
 
     weak var delegate: SplitScannerViewModelDelegate?
 
+
+
     init(deviceProvider: DeviceProviding) {
         self.deviceProvider = deviceProvider
     }
@@ -51,7 +53,8 @@ extension SplitScannerViewModel {
         do {
             try deviceProvider.lockForConfiguration()
 
-            deviceProvider.isTorchOn = !deviceProvider.isTorchOn
+            let toggledIsTorchOn = !deviceProvider.isTorchOn
+            deviceProvider.isTorchOn = toggledIsTorchOn
             deviceProvider.unlockForConfiguration()
 
             torchButtonImageBinding?(deviceProvider.isTorchOn)

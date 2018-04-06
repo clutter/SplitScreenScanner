@@ -9,7 +9,7 @@ import Foundation
 
 protocol Coordinator: class {
     var identifier: UUID { get }
-    weak var rootCoordinator: RootCoordinator? { get set }
+    var rootCoordinator: RootCoordinator? { get set }
 }
 
 protocol RootCoordinator: class {
