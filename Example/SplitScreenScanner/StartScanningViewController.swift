@@ -18,7 +18,7 @@ class StartScanningViewController: UIViewController {
             splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation)
             splitScannerCoordinator?.delegate = self
 
-            splitScannerCoordinator?.start()
+            try splitScannerCoordinator?.start()
         } catch {
             print(error)
         }
@@ -27,6 +27,10 @@ class StartScanningViewController: UIViewController {
 
 // MARK: - SplitScannerCoordinatorDelegate
 extension StartScanningViewController: SplitScannerCoordinatorDelegate {
+    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) {
+        print("Scanned: " + barcode)
+    }
+    
     func titleForScanner(_ splitScreenScannerViewModel: SplitScannerCoordinator) -> String? {
         return "Test Barcode Scanner"
     }
