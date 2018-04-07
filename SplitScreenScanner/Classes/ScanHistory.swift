@@ -7,9 +7,20 @@
 
 import Foundation
 
-struct ScanHistory {
-    private static var currentScanNumber = 1
+struct ScanNumberGenerator {
+    private(set) var currentScanNumber: Int
 
+    mutating func generate() -> Int {
+        self.currentScanNumber += 1
+        return currentScanNumber
+    }
+
+    init() {
+        currentScanNumber = 0
+    }
+}
+
+struct ScanHistory {
     let barcode: String
     let scanKind: ScanKind
     let scanNumber: Int
@@ -18,14 +29,6 @@ struct ScanHistory {
         case success(description: String?)
         case warning(description: String)
         case error(description: String)
-    }
-
-    init(barcode: String, scanKind: ScanKind) {
-        self.barcode = barcode
-        self.scanKind = scanKind
-
-        self.scanNumber = ScanHistory.currentScanNumber
-        ScanHistory.currentScanNumber += 1
     }
 }
 

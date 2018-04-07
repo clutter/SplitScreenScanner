@@ -13,10 +13,13 @@ protocol BarcodeScannerViewModelDelegate: class {
 
 class BarcodeScannerViewModel {
     var barcodeScanner: ContinuousBarcodeScanner
+    private var scanNumberGenerator: ScanNumberGenerator
 
     weak var delegate: BarcodeScannerViewModelDelegate?
 
     init(view: UIView) throws {
+        scanNumberGenerator = ScanNumberGenerator()
+
         barcodeScanner = try ContinuousBarcodeScanner(previewView: view)
         barcodeScanner.delegate = self
     }

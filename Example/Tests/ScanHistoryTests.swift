@@ -10,11 +10,11 @@ import XCTest
 @testable import SplitScreenScanner
 
 class ScanHistoryTests: XCTestCase {
-    
-    func testCurrentScanNumber() {
-        let firstScan = ScanHistory(barcode: "0000000001", scanKind: .success(description: nil))
-        let secondScan = ScanHistory(barcode: "0000000002", scanKind: .error(description: "Invalid Scan"))
-        let thirdScan = ScanHistory(barcode: "0000000345", scanKind: .success(description: nil))
+    func testScanNumberGeneration() {
+        var scanNumberGenerator = ScanNumberGenerator()
+        let firstScan = ScanHistory(barcode: "0000000001", scanKind: .success(description: nil), scanNumber: scanNumberGenerator.generate())
+        let secondScan = ScanHistory(barcode: "0000000002", scanKind: .error(description: "Invalid Scan"), scanNumber: scanNumberGenerator.generate())
+        let thirdScan = ScanHistory(barcode: "0000000345", scanKind: .success(description: nil), scanNumber: scanNumberGenerator.generate())
 
         XCTAssertEqual(firstScan.scanNumber, 1)
         XCTAssertEqual(secondScan.scanNumber, 2)

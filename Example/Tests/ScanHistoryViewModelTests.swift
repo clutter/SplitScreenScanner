@@ -26,8 +26,8 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testWithScansIndexing() {
-        let firstScan = ScanHistory(barcode: "0000000001", scanKind: .success(description: nil))
-        let secondScan = ScanHistory(barcode: "0000000002", scanKind: .error(description: "We no longer store abstract concepts of thought"))
+        let firstScan = ScanHistory(barcode: "0000000001", scanKind: .success(description: nil), scanNumber: 1)
+        let secondScan = ScanHistory(barcode: "0000000002", scanKind: .error(description: "We no longer store abstract concepts of thought"), scanNumber: 2)
         let scans = [firstScan, secondScan]
 
         setupVM(scans: scans)
