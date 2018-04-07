@@ -12,8 +12,11 @@ class ScanHistoryViewModel {
     var scans: [ScanHistory]
 
     init(scans: [ScanHistory], tableViewHeader: String, noScanText: String) {
-        self.scans = scans
-        sections = TableModel.makeSectionBuilder([], tableViewHeader: tableViewHeader, noScanText: noScanText).sections
+        let sortedScans = scans.sorted(by: { leftScan, rightScan in
+            return leftScan.scanNumber > rightScan.scanNumber
+        })
+        self.scans = sortedScans
+        sections = TableModel.makeSectionBuilder(sortedScans, tableViewHeader: tableViewHeader, noScanText: noScanText).sections
     }
 
     enum TableModel {
@@ -44,4 +47,20 @@ class ScanHistoryViewModel {
     // MARK: - Table Rows
 
     fileprivate(set) var sections: Sections<TableModel> = []
+}
+
+// MARK: - TableModel Equatable
+extension ScanHistoryViewModel.TableModel: Equatable {
+    static func == (lhs: ScanHistoryViewModel.TableModel, rhs: ScanHistoryViewModel.TableModel) -> Bool {
+        switch (lhs, rhs) {
+        case let (.nothingScannedRow(lhsNoScanText), .nothingScannedRow(rhsNoScanText)):
+            return lhsNoScanText == rhsNoScanText
+        case let (.historyRow(lhsBarcode, lhsScanKind, lhsScanNumber), .historyRow(rhsBarcode, rhsScanKind, rhsScanNumber)):
+            return lhsBarcode == rhsBarcode
+                && lhsScanKind == rhsScanKind
+                && lhsScanNumber == rhsScanNumber
+        default:
+            return false
+        }
+    }
 }

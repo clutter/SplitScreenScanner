@@ -1,5 +1,5 @@
 //
-//  ScanHistoryUnitTests.swift
+//  ScanHistoryTests.swift
 //  SplitScreenScanner_Tests
 //
 //  Created by Sean Machen on 4/2/18.
@@ -9,7 +9,7 @@
 import XCTest
 @testable import SplitScreenScanner
 
-class ScanHistoryUnitTests: XCTestCase {
+class ScanHistoryTests: XCTestCase {
     
     func testCurrentScanNumber() {
         let firstScan = ScanHistory(barcode: "0000000001", scanKind: .success(description: nil))

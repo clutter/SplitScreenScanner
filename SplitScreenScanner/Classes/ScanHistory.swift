@@ -29,4 +29,18 @@ struct ScanHistory {
     }
 }
 
-
+// MARK: - ScanKind Equatable
+extension ScanHistory.ScanKind: Equatable {
+    static func == (lhs: ScanHistory.ScanKind, rhs: ScanHistory.ScanKind) -> Bool {
+        switch (lhs, rhs) {
+        case let (.success(lhsDescription), .success(rhsDescription)):
+            return lhsDescription == rhsDescription
+        case let (.warning(lhsDescription), .warning(rhsDescription)):
+            return lhsDescription == rhsDescription
+        case let (.error(lhsDescription), .error(rhsDescription)):
+            return lhsDescription == rhsDescription
+        default:
+            return false
+        }
+    }
+}
