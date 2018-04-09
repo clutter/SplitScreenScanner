@@ -13,11 +13,11 @@ class ScanHistoryCell: UITableViewCell, IdentifierViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var countLabel: UILabel!
 
-    func reset(barcode: String, kind: ScanHistory.ScanKind, scanNumber: Int) {
+    func reset(barcode: String, result: ScanResult, scanNumber: Int) {
         barcodeLabel.text = "#\(barcode)"
 
         let imageSize = iconImageView.bounds.size
-        switch kind {
+        switch result {
         case .success(let description):
             iconImageView.image = ScannerStyleKit.imageOfCheckMarkSymbol(imageSize: imageSize)
             descriptionLabel.text = description

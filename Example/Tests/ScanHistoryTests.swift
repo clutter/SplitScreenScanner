@@ -12,9 +12,9 @@ import XCTest
 class ScanHistoryTests: XCTestCase {
     func testScanNumberGeneration() {
         var scanNumberGenerator = ScanNumberGenerator()
-        let firstScan = ScanHistory(barcode: "0000000001", scanKind: .success(description: nil), scanNumber: scanNumberGenerator.generate())
-        let secondScan = ScanHistory(barcode: "0000000002", scanKind: .error(description: "Invalid Scan"), scanNumber: scanNumberGenerator.generate())
-        let thirdScan = ScanHistory(barcode: "0000000345", scanKind: .success(description: nil), scanNumber: scanNumberGenerator.generate())
+        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil), scanNumber: scanNumberGenerator.generate())
+        let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "Invalid Scan"), scanNumber: scanNumberGenerator.generate())
+        let thirdScan = ScanHistory(barcode: "0000000345", scanResult: .success(description: nil), scanNumber: scanNumberGenerator.generate())
 
         XCTAssertEqual(firstScan.scanNumber, 1)
         XCTAssertEqual(secondScan.scanNumber, 2)

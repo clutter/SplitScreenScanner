@@ -18,32 +18,20 @@ struct ScanNumberGenerator {
     init() {
         currentScanNumber = 0
     }
+
+    init(startIndex: Int) {
+        currentScanNumber = startIndex
+    }
+}
+
+public enum ScanResult: Equatable {
+    case success(description: String?)
+    case warning(description: String)
+    case error(description: String)
 }
 
 struct ScanHistory {
     let barcode: String
-    let scanKind: ScanKind
+    let scanResult: ScanResult
     let scanNumber: Int
-
-    enum ScanKind {
-        case success(description: String?)
-        case warning(description: String)
-        case error(description: String)
-    }
-}
-
-// MARK: - ScanKind Equatable
-extension ScanHistory.ScanKind: Equatable {
-    static func == (lhs: ScanHistory.ScanKind, rhs: ScanHistory.ScanKind) -> Bool {
-        switch (lhs, rhs) {
-        case let (.success(lhsDescription), .success(rhsDescription)):
-            return lhsDescription == rhsDescription
-        case let (.warning(lhsDescription), .warning(rhsDescription)):
-            return lhsDescription == rhsDescription
-        case let (.error(lhsDescription), .error(rhsDescription)):
-            return lhsDescription == rhsDescription
-        default:
-            return false
-        }
-    }
 }

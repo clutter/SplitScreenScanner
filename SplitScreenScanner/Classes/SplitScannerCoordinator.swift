@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
-    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String)
+    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
 
     func titleForScanner(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
     func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
@@ -23,6 +23,7 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     var identifier: UUID = UUID()
 
     var viewModel: SplitScannerViewModel
+    var scanHistoryViewModel: ScanHistoryViewModel?
 
     var barcodeScannerVC: BarcodeScannerViewController?
     var scanHistoryVC: ScanHistoryTableViewController?
@@ -69,7 +70,7 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
 
                 let tableViewHeader = delegate?.headerForScanHistoryTableView(self) ?? "Scan History"
                 let noScanText = delegate?.textForNothingScanned(self) ?? "Nothing yet scanned"
-                let scanHistoryViewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText)
+                scanHistoryViewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText)
                 scanHistoryVC.viewModel = scanHistoryViewModel
                 embed(childVC: scanHistoryVC, in: splitScannerParentVC.scanHistoryContainerView, withParent: splitScannerParentVC)
             }
@@ -108,6 +109,7 @@ extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
 // MARK: - BarcodeScannerViewModelDelegate
 extension SplitScannerCoordinator: BarcodeScannerViewModelDelegate {
     func didScanBarcode(_ barcodeScannerViewModel: BarcodeScannerViewModel, barcode: String) {
-        delegate?.didScanBarcode(self, barcode: barcode)
+        guard let scanResult = delegate?.didScanBarcode(self, barcode: barcode) else { return }
+        scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult)
     }
 }

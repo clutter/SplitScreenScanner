@@ -27,8 +27,16 @@ class StartScanningViewController: UIViewController {
 
 // MARK: - SplitScannerCoordinatorDelegate
 extension StartScanningViewController: SplitScannerCoordinatorDelegate {
-    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) {
+    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult {
         print("Scanned: " + barcode)
+        switch Int(arc4random_uniform(4)) {
+        case 0...1:
+            return .success(description: "Nice scan!")
+        case 2:
+            return .warning(description: "Poor scan!")
+        default:
+            return .error(description: "Bogus scan!")
+        }
     }
     
     func titleForScanner(_ splitScreenScannerViewModel: SplitScannerCoordinator) -> String? {

@@ -18,8 +18,6 @@ class SplitScannerViewModel {
 
     weak var delegate: SplitScannerViewModelDelegate?
 
-
-
     init(deviceProvider: DeviceProviding) {
         self.deviceProvider = deviceProvider
     }
