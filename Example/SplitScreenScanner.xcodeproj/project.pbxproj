@@ -12,9 +12,10 @@
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
+		C926E5B220783CAD00903887 /* ScanHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */; };
 		C96B76EB206C481F000D9F9D /* StartScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B76EA206C481F000D9F9D /* StartScanningViewController.swift */; };
 		C9928C04207550F9001B36DD /* SplitScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */; };
-		C9CE23C62072F9650072FA49 /* ScanHistoryUnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE23C52072F9650072FA49 /* ScanHistoryUnitTests.swift */; };
+		C9CE23C62072F9650072FA49 /* ScanHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE23C52072F9650072FA49 /* ScanHistoryTests.swift */; };
 		CA976644DAA20835F132E88C /* Pods_SplitScreenScanner_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B4845D2CF5235C87D70430C /* Pods_SplitScreenScanner_Tests.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,9 +45,10 @@
 		AE29BE6B60F7082741924CC9 /* SplitScreenScanner.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SplitScreenScanner.podspec; path = ../SplitScreenScanner.podspec; sourceTree = "<group>"; };
 		BCEB1CC3ED3DA6BDDD61881D /* Pods-SplitScreenScanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitScreenScanner_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C9071B6571684A1F6A93B1EF /* Pods-SplitScreenScanner_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitScreenScanner_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example.release.xcconfig"; sourceTree = "<group>"; };
+		C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryViewModelTests.swift; sourceTree = "<group>"; };
 		C96B76EA206C481F000D9F9D /* StartScanningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScanningViewController.swift; sourceTree = "<group>"; };
 		C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitScannerViewModelTests.swift; sourceTree = "<group>"; };
-		C9CE23C52072F9650072FA49 /* ScanHistoryUnitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryUnitTests.swift; sourceTree = "<group>"; };
+		C9CE23C52072F9650072FA49 /* ScanHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryTests.swift; sourceTree = "<group>"; };
 		FAF4C18524EE3578A980B1CC /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FDEADDF54B1F1515829B5EEB /* Pods-SplitScreenScanner_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitScreenScanner_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -127,7 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				607FACE91AFB9204008FA782 /* Supporting Files */,
-				C9CE23C52072F9650072FA49 /* ScanHistoryUnitTests.swift */,
+				C9CE23C52072F9650072FA49 /* ScanHistoryTests.swift */,
+				C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */,
 				C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */,
 			);
 			path = Tests;
@@ -276,10 +279,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Sections/Sections.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitScreenScanner/SplitScreenScanner.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitScreenScanner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -312,10 +317,12 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Sections/Sections.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitScreenScanner/SplitScreenScanner.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Sections.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SplitScreenScanner.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -387,8 +394,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C926E5B220783CAD00903887 /* ScanHistoryViewModelTests.swift in Sources */,
 				C9928C04207550F9001B36DD /* SplitScannerViewModelTests.swift in Sources */,
-				C9CE23C62072F9650072FA49 /* ScanHistoryUnitTests.swift in Sources */,
+				C9CE23C62072F9650072FA49 /* ScanHistoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

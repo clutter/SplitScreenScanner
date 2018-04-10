@@ -1,6 +1,0 @@
-framework module SplitScreenScanner {
-  umbrella header "SplitScreenScanner-umbrella.h"
-
-  export *
-  module * { export * }
-}

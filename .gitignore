@@ -19,6 +19,9 @@ DerivedData
 *.hmap
 *.ipa
 
+# Pods
+/Example/Pods/*
+
 # Bundler
 .bundle
 

@@ -36,7 +36,8 @@ TODO: Add long description of the pod here.
       'SplitScreenScanner' => ['SplitScreenScanner/Assets/**/*.{xib,storyboard}']
   }
 
+  s.dependency 'Sections'
+
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end

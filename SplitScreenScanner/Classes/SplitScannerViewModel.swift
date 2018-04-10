@@ -51,7 +51,8 @@ extension SplitScannerViewModel {
         do {
             try deviceProvider.lockForConfiguration()
 
-            deviceProvider.isTorchOn = !deviceProvider.isTorchOn
+            let toggledIsTorchOn = !deviceProvider.isTorchOn
+            deviceProvider.isTorchOn = toggledIsTorchOn
             deviceProvider.unlockForConfiguration()
 
             torchButtonImageBinding?(deviceProvider.isTorchOn)
