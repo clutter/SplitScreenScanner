@@ -18,8 +18,20 @@ class SplitScannerViewModel {
 
     weak var delegate: SplitScannerViewModelDelegate?
 
+    enum ScannerState {
+        case notStarted
+        case started
+        case expired
+    }
+    var scannerState: ScannerState
+
+    var scannerIsExpired: Bool {
+        return scannerState == .expired
+    }
+
     init(deviceProvider: DeviceProviding) {
         self.deviceProvider = deviceProvider
+        self.scannerState = .notStarted
     }
 
     // MARK: - Bindings, Observers, Getters

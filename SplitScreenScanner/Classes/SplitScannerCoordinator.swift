@@ -15,6 +15,8 @@ public protocol SplitScannerCoordinatorDelegate: class {
     func startingBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
     func scanToBeginTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
     func scanToBeginDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
+    func scanToContinueTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
+    func scanToContinueDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
     func wrongStartingBarcodeScannedMessage(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
 
     func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
@@ -28,6 +30,7 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     var identifier: UUID = UUID()
 
     var viewModel: SplitScannerViewModel
+    var barcodeScannerViewModel: BarcodeScannerViewModel?
     var scanHistoryViewModel: ScanHistoryViewModel?
     var scanToContinueViewModel: ScanToContinueViewModel?
 
@@ -72,8 +75,8 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
             if let barcodeScannerVC = storyboard.instantiateViewController(withIdentifier: "BarcodeScanner") as? BarcodeScannerViewController {
                 self.barcodeScannerVC = barcodeScannerVC
 
-                let barcodeScannerViewModel = try BarcodeScannerViewModel(view: barcodeScannerVC.view)
-                barcodeScannerViewModel.delegate = self
+                barcodeScannerViewModel = try BarcodeScannerViewModel(view: barcodeScannerVC.view)
+                barcodeScannerViewModel?.delegate = self
                 barcodeScannerVC.viewModel = barcodeScannerViewModel
                 embed(childVC: barcodeScannerVC, in: splitScannerParentVC.barcodeScannerContainerView)
 
@@ -99,6 +102,7 @@ private extension SplitScannerCoordinator {
             let tableViewHeader = delegate?.headerForScanHistoryTableView(self) ?? "Scan History"
             let noScanText = delegate?.textForNothingScanned(self) ?? "Nothing yet scanned"
             scanHistoryViewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText)
+            scanHistoryViewModel?.delegate = self
             scanHistoryVC.viewModel = scanHistoryViewModel
             switchInfoView(to: scanHistoryVC)
         }
@@ -115,8 +119,8 @@ private extension SplitScannerCoordinator {
             let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
             guard let scanToContinueVC = storyboard.instantiateViewController(withIdentifier: "ScanToContinue") as? ScanToContinueViewController else { return }
 
-            let scanToContinueTitle = delegate?.scanToBeginTitle(self)
-            let scanToContinueDescription = delegate?.scanToBeginDescription(self)
+            let scanToContinueTitle = viewModel.scannerIsExpired ? delegate?.scanToContinueTitle(self) : delegate?.scanToBeginTitle(self)
+            let scanToContinueDescription = viewModel.scannerIsExpired ? delegate?.scanToContinueDescription(self) : delegate?.scanToBeginDescription(self)
             scanToContinueViewModel = ScanToContinueViewModel(title: scanToContinueTitle, description: scanToContinueDescription)
             scanToContinueViewModel?.delegate = self
             scanToContinueVC.viewModel = scanToContinueViewModel
@@ -189,6 +193,16 @@ extension SplitScannerCoordinator: ScanToContinueViewModelDelegate {
     }
 
     func didScanStartingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) {
+        viewModel.scannerState = .started
         displayScanHistoryView()
+    }
+}
+
+// MARK: - ScanHistoryViewModelDelegate
+extension SplitScannerCoordinator: ScanHistoryViewModelDelegate {
+    func expireScanningSession(_ scanHistoryViewModel: ScanHistoryViewModel) {
+        viewModel.scannerState = .expired
+        displayScanToContinueView()
+        barcodeScannerViewModel?.resetLastScannedBarcode()
     }
 }

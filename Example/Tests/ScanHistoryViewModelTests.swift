@@ -13,8 +13,21 @@ class ScanHistoryViewModelTests: XCTestCase {
     let testTableViewHeader = "Test TableView Header"
     let testNoScanText = "Test no scan text"
 
-    var vm: ScanHistoryViewModel!
-    
+    private var sink: DelegateSink!
+    private var vm: ScanHistoryViewModel!
+
+    private final class DelegateSink: ScanHistoryViewModelDelegate {
+        var scanningSessionExpired = false
+
+        func expireScanningSession(_ scanHistoryViewModel: ScanHistoryViewModel) {
+            scanningSessionExpired = true
+        }
+    }
+
+    override func tearDown() {
+        vm.invalidateExpireSessionTimer()
+    }
+
     func testNoScansIndexing() {
         setUpVM(scans: [])
 
@@ -66,11 +79,37 @@ class ScanHistoryViewModelTests: XCTestCase {
         vm.didScan(barcode: "0000000003", with: .success(description: nil))
         XCTAssertEqual(rowInsertedIndexPath, IndexPath(row: 0, section: 0))
     }
+
+    func testCreateExpireSessionTimer() {
+        setUpVM(scans: [])
+
+        vm.createExpireSessionTimer()
+
+        XCTAssertNotNil(vm.expireSessionTimer)
+    }
+
+    func testInvalidateExpireSessionTimer() {
+        setUpVM(scans: [])
+
+        vm.createExpireSessionTimer()
+        vm.invalidateExpireSessionTimer()
+
+        XCTAssertNil(vm.expireSessionTimer)
+    }
+
+    func testExpireScanningSession() {
+        setUpVM(scans: [])
+
+        vm.expireScanningSession()
+        XCTAssertTrue(sink.scanningSessionExpired)
+    }
 }
 
 // MARK: - Private Methods
 private extension ScanHistoryViewModelTests {
     func setUpVM(scans: [ScanHistory]) {
+        sink = DelegateSink()
         vm = ScanHistoryViewModel(scans: scans, tableViewHeader: testTableViewHeader, noScanText: testNoScanText)
+        vm.delegate = sink
     }
 }
