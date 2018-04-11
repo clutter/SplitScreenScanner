@@ -13,6 +13,7 @@
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		C926E5B220783CAD00903887 /* ScanHistoryViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */; };
+		C95DD8E1207ED14A0069C5C0 /* ScanToContinueViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95DD8E0207ED14A0069C5C0 /* ScanToContinueViewModelTests.swift */; };
 		C96B76EB206C481F000D9F9D /* StartScanningViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96B76EA206C481F000D9F9D /* StartScanningViewController.swift */; };
 		C9928C04207550F9001B36DD /* SplitScannerViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */; };
 		C9CE23C62072F9650072FA49 /* ScanHistoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9CE23C52072F9650072FA49 /* ScanHistoryTests.swift */; };
@@ -46,6 +47,7 @@
 		BCEB1CC3ED3DA6BDDD61881D /* Pods-SplitScreenScanner_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitScreenScanner_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		C9071B6571684A1F6A93B1EF /* Pods-SplitScreenScanner_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SplitScreenScanner_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryViewModelTests.swift; sourceTree = "<group>"; };
+		C95DD8E0207ED14A0069C5C0 /* ScanToContinueViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanToContinueViewModelTests.swift; sourceTree = "<group>"; };
 		C96B76EA206C481F000D9F9D /* StartScanningViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartScanningViewController.swift; sourceTree = "<group>"; };
 		C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitScannerViewModelTests.swift; sourceTree = "<group>"; };
 		C9CE23C52072F9650072FA49 /* ScanHistoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanHistoryTests.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 				C9CE23C52072F9650072FA49 /* ScanHistoryTests.swift */,
 				C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */,
 				C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */,
+				C95DD8E0207ED14A0069C5C0 /* ScanToContinueViewModelTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -395,6 +398,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C926E5B220783CAD00903887 /* ScanHistoryViewModelTests.swift in Sources */,
+				C95DD8E1207ED14A0069C5C0 /* ScanToContinueViewModelTests.swift in Sources */,
 				C9928C04207550F9001B36DD /* SplitScannerViewModelTests.swift in Sources */,
 				C9CE23C62072F9650072FA49 /* ScanHistoryTests.swift in Sources */,
 			);

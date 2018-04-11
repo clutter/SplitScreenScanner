@@ -8,36 +8,73 @@
 import Foundation
 
 protocol ScanToContinueViewModelDelegate: class {
-    func startingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) -> String
-    func scanToBeginTitle(_ scanToContinueViewModel: ScanToContinueViewModel) -> String
-    func scanToBeginDescription(_ scanToContinueViewModel: ScanToContinueViewModel) -> String?
+    func startingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) -> String?
+    func wrongStartingBarcodeScannedMessage(_ scanToContinueViewModel: ScanToContinueViewModel) -> String?
+
+    func didScanStartingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel)
 }
 
 class ScanToContinueViewModel {
+    var removeScanWarningTimer: Timer?
+
+    let scanToContinueTitle: String
+    let scanToContinueDescription: String?
+
     weak var delegate: ScanToContinueViewModelDelegate?
+
+    enum ScanWarningState: Equatable {
+        case displayWarning(incorrectScanMessage: String)
+        case removeWarning(title: String, description: String?)
+    }
 
     // MARK: - Bindings, Observers, Getters
 
+    var scanWarningBinding: ((ScanWarningState) -> Void)?
+
     var scanToContinueTitleBinding: ((String) -> Void)? {
         didSet {
-            scanToContinueTitleBinding?(scanToContinueTitle())
+            scanToContinueTitleBinding?(scanToContinueTitle)
         }
     }
 
     var scanToContinueDescriptionBinding: ((String?) -> Void)? {
         didSet {
-            scanToContinueDescriptionBinding?(scanToContinueDescription())
+            scanToContinueDescriptionBinding?(scanToContinueDescription)
         }
+    }
+
+    init(title: String?, description: String?) {
+        scanToContinueTitle = title ?? "Scan QR code to continue"
+        scanToContinueDescription = description
     }
 }
 
-// MARK: - Private Methods
-private extension ScanToContinueViewModel {
-    func scanToContinueTitle() -> String {
-        return delegate?.scanToBeginTitle(self) ?? "Scan QR code to continue"
+// MARK: - Public Methods
+extension ScanToContinueViewModel {
+    func didScan(barcode: String) {
+        if barcode == delegate?.startingBarcode(self) {
+            delegate?.didScanStartingBarcode(self)
+        } else {
+            guard removeScanWarningTimer == nil else { return }
+
+            let wrongBarcodeScannedMessage = delegate?.wrongStartingBarcodeScannedMessage(self) ?? "Wrong QR code scanned"
+            scanWarningBinding?(.displayWarning(incorrectScanMessage: wrongBarcodeScannedMessage))
+        }
     }
 
-    func scanToContinueDescription() -> String? {
-        return delegate?.scanToBeginDescription(self)
+    func setRemoveScanWarningTimer() {
+        removeScanWarningTimer = Timer.scheduledTimer(withTimeInterval: 2.0, repeats: false, block: { [weak self] _ in
+            self?.removeScanWarning()
+        })
+    }
+
+    func invalidateRemoveScanWarningTimer() {
+        removeScanWarningTimer?.invalidate()
+        removeScanWarningTimer = nil
+    }
+
+    func removeScanWarning() {
+        scanWarningBinding?(.removeWarning(title: scanToContinueTitle, description: scanToContinueDescription))
+        invalidateRemoveScanWarningTimer()
     }
 }

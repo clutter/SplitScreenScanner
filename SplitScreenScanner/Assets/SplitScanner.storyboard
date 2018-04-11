@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VrF-uM-m7w">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -14,14 +17,14 @@
             <objects>
                 <viewController id="VrF-uM-m7w" customClass="SplitScannerViewController" customModule="SplitScreenScanner" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4TJ-b5-Zp4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIK-1o-Irv">
-                                <rect key="frame" x="0.0" y="20" width="600" height="60"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="60"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleAspectFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4T8-tK-tow">
-                                        <rect key="frame" x="16" y="4" width="568" height="52"/>
+                                        <rect key="frame" x="16" y="4" width="343" height="52"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scanner Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rar-8r-fDF">
                                                 <rect key="frame" x="0.0" y="0.0" width="126" height="52"/>
@@ -30,10 +33,10 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3G-jG-FMq">
-                                                <rect key="frame" x="311.5" y="0.0" width="30" height="52"/>
+                                                <rect key="frame" x="199" y="0.0" width="30" height="52"/>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nA3-sz-7m8">
-                                                <rect key="frame" x="527" y="0.0" width="41" height="52"/>
+                                                <rect key="frame" x="302" y="0.0" width="41" height="52"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <state key="normal" title="Done">
                                                     <color key="titleColor" red="0.0" green="0.59999999999999998" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
@@ -52,10 +55,10 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biA-b2-Qqq">
-                                <rect key="frame" x="0.0" y="80" width="600" height="234"/>
+                                <rect key="frame" x="0.0" y="80" width="375" height="267.5"/>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bl-Gg-sNm">
-                                <rect key="frame" x="0.0" y="314" width="600" height="286"/>
+                                <rect key="frame" x="0.0" y="347.5" width="375" height="319.5"/>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -91,11 +94,11 @@
             <objects>
                 <viewController storyboardIdentifier="BarcodeScanner" id="hUQ-W1-Sfk" customClass="BarcodeScannerViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJl-lC-Ea8">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNI-Us-qvf" userLabel="Rectangle View" customClass="ReticleView" customModule="SplitScreenScanner" customModuleProvider="target">
-                                <rect key="frame" x="60" y="130" width="480" height="360"/>
+                                <rect key="frame" x="37.5" y="231" width="300" height="225"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="QNI-Us-qvf" secondAttribute="height" multiplier="4:3" id="j8V-Rx-Efb"/>
@@ -120,7 +123,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="ScanHistory" id="7ZG-w0-eJq" customClass="ScanHistoryTableViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xKb-Bt-CIO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.039215686274509803" green="0.039215686274509803" blue="0.039215686274509803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -137,22 +140,29 @@
         <!--Scan To Continue View Controller-->
         <scene sceneID="csk-gp-qW3">
             <objects>
-                <viewController id="ROn-EW-mQ1" customClass="ScanToContinueViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanToContinue" id="ROn-EW-mQ1" customClass="ScanToContinueViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mSS-2C-P8m">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7fC-rE-YgX">
+                                <rect key="frame" x="157" y="212.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Qk0-hK-YK9"/>
+                                    <constraint firstAttribute="width" secondItem="7fC-rE-YgX" secondAttribute="height" multiplier="1:1" id="RVX-7C-vCb"/>
+                                </constraints>
+                            </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="LNg-Fp-5af">
-                                <rect key="frame" x="64" y="271" width="472" height="78"/>
+                                <rect key="frame" x="32" y="304.5" width="311" height="78"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR code to begin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTx-Pd-n4y">
-                                        <rect key="frame" x="0.0" y="0.0" width="472" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="311" height="25.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the start code to start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-gD-nFb">
-                                        <rect key="frame" x="0.0" y="57.5" width="472" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="57.5" width="311" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                         <nil key="highlightedColor"/>
@@ -162,14 +172,17 @@
                         </subviews>
                         <color key="backgroundColor" red="0.039215686270000001" green="0.039215686270000001" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="LNg-Fp-5af" firstAttribute="leading" secondItem="3NI-vv-bBR" secondAttribute="leading" constant="64" id="Ize-fw-A0i"/>
+                            <constraint firstItem="LNg-Fp-5af" firstAttribute="leading" secondItem="3NI-vv-bBR" secondAttribute="leading" constant="32" id="Ize-fw-A0i"/>
+                            <constraint firstItem="LNg-Fp-5af" firstAttribute="top" secondItem="7fC-rE-YgX" secondAttribute="bottom" constant="32" id="V0Q-bR-gZN"/>
                             <constraint firstItem="LNg-Fp-5af" firstAttribute="centerY" secondItem="3NI-vv-bBR" secondAttribute="centerY" id="cWA-bc-dHw"/>
-                            <constraint firstItem="3NI-vv-bBR" firstAttribute="trailing" secondItem="LNg-Fp-5af" secondAttribute="trailing" constant="64" id="qF2-Cn-yK9"/>
+                            <constraint firstItem="3NI-vv-bBR" firstAttribute="trailing" secondItem="LNg-Fp-5af" secondAttribute="trailing" constant="32" id="qF2-Cn-yK9"/>
+                            <constraint firstItem="7fC-rE-YgX" firstAttribute="centerX" secondItem="3NI-vv-bBR" secondAttribute="centerX" id="vkp-o3-RnE"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="3NI-vv-bBR"/>
                     </view>
                     <connections>
                         <outlet property="descriptionLabel" destination="Qeg-gD-nFb" id="GKB-7h-CMD"/>
+                        <outlet property="incorrectScanImageView" destination="7fC-rE-YgX" id="YQO-Rb-lYv"/>
                         <outlet property="titleLabel" destination="dTx-Pd-n4y" id="W97-mS-K8j"/>
                     </connections>
                 </viewController>

@@ -43,6 +43,22 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         return "Test Barcode Scanner"
     }
 
+    func startingBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
+        return "SO0000000001195"
+    }
+
+    func scanToBeginTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
+        return "Scan Barcode #SO0000000001195 to Begin"
+    }
+
+    func scanToBeginDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
+        return "Please scan my barcode"
+    }
+
+    func wrongStartingBarcodeScannedMessage(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
+        return "Wrong Barcode Scanned"
+    }
+
     func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
         return "Scanning Items to Truck"
     }
