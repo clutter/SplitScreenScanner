@@ -98,7 +98,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNI-Us-qvf" userLabel="Rectangle View" customClass="ReticleView" customModule="SplitScreenScanner" customModuleProvider="target">
-                                <rect key="frame" x="37" y="231" width="300" height="225"/>
+                                <rect key="frame" x="37.5" y="231" width="300" height="225"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="QNI-Us-qvf" secondAttribute="height" multiplier="4:3" id="j8V-Rx-Efb"/>
@@ -116,7 +116,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jY3-F5-gqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="-210"/>
+            <point key="canvasLocation" x="926" y="-558"/>
         </scene>
         <!--Scan History Table View Controller-->
         <scene sceneID="oyS-Fx-QdP">
@@ -135,7 +135,60 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DBG-8W-awe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="926" y="471"/>
+            <point key="canvasLocation" x="926" y="103"/>
+        </scene>
+        <!--Scan To Continue View Controller-->
+        <scene sceneID="csk-gp-qW3">
+            <objects>
+                <viewController storyboardIdentifier="ScanToContinue" id="ROn-EW-mQ1" customClass="ScanToContinueViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mSS-2C-P8m">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7fC-rE-YgX">
+                                <rect key="frame" x="157" y="212.5" width="60" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="Qk0-hK-YK9"/>
+                                    <constraint firstAttribute="width" secondItem="7fC-rE-YgX" secondAttribute="height" multiplier="1:1" id="RVX-7C-vCb"/>
+                                </constraints>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="LNg-Fp-5af">
+                                <rect key="frame" x="32" y="304.5" width="311" height="78"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR code to begin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTx-Pd-n4y">
+                                        <rect key="frame" x="0.0" y="0.0" width="311" height="25.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the start code to start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-gD-nFb">
+                                        <rect key="frame" x="0.0" y="57.5" width="311" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.039215686270000001" green="0.039215686270000001" blue="0.039215686270000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="LNg-Fp-5af" firstAttribute="leading" secondItem="3NI-vv-bBR" secondAttribute="leading" constant="32" id="Ize-fw-A0i"/>
+                            <constraint firstItem="LNg-Fp-5af" firstAttribute="top" secondItem="7fC-rE-YgX" secondAttribute="bottom" constant="32" id="V0Q-bR-gZN"/>
+                            <constraint firstItem="LNg-Fp-5af" firstAttribute="centerY" secondItem="3NI-vv-bBR" secondAttribute="centerY" id="cWA-bc-dHw"/>
+                            <constraint firstItem="3NI-vv-bBR" firstAttribute="trailing" secondItem="LNg-Fp-5af" secondAttribute="trailing" constant="32" id="qF2-Cn-yK9"/>
+                            <constraint firstItem="7fC-rE-YgX" firstAttribute="centerX" secondItem="3NI-vv-bBR" secondAttribute="centerX" id="vkp-o3-RnE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3NI-vv-bBR"/>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionLabel" destination="Qeg-gD-nFb" id="GKB-7h-CMD"/>
+                        <outlet property="incorrectScanImageView" destination="7fC-rE-YgX" id="YQO-Rb-lYv"/>
+                        <outlet property="titleLabel" destination="dTx-Pd-n4y" id="W97-mS-K8j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dfY-v7-RVv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="762"/>
         </scene>
     </scenes>
 </document>
