@@ -15,7 +15,7 @@ class ScanHistoryTableViewController: UITableViewController {
 
         viewModel.reloadRowBinding = { [weak self] indexPath in
             DispatchQueue.main.async {
-                self?.tableView.reloadRows(at: [indexPath], with: .left)
+                self?.tableView.reloadRows(at: [indexPath], with: .right)
             }
         }
 
