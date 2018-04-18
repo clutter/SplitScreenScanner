@@ -180,7 +180,6 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				5C2B49A2C0D95BEA42197303 /* [CP] Embed Pods Frameworks */,
-				96AFFD3D4553275CAAC15E1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -200,7 +199,6 @@
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
 				0F07677CF348BE71C38E56B5 /* [CP] Embed Pods Frameworks */,
-				678A334EA5F11DD5C19A60AB /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -331,36 +329,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		678A334EA5F11DD5C19A60AB /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		96AFFD3D4553275CAAC15E1B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		DA9D53D965B2C76521D4E1F1 /* [CP] Check Pods Manifest.lock */ = {
