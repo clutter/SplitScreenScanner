@@ -15,7 +15,13 @@ class StartScanningViewController: UIViewController {
     @IBAction func startScanningButtonPressed(_ sender: Any) {
         do {
             guard let navigation = navigationController else { return }
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation)
+            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scanStartingBarcode: { barcode in
+                if barcode == "SO0000000001195" {
+                    return .success(description: nil)
+                } else {
+                    return .error(description: "Wrong Barcode Scanned")
+                }
+            })
             splitScannerCoordinator?.delegate = self
 
             try splitScannerCoordinator?.start()
@@ -43,10 +49,6 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         return "Test Barcode Scanner"
     }
 
-    func startingBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
-        return "SO0000000001195"
-    }
-
     func scanToBeginTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
         return "Scan Barcode #SO0000000001195 to Begin"
     }
@@ -63,16 +65,16 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         return "Scan barcode #SO0000000001195"
     }
 
-    func wrongStartingBarcodeScannedMessage(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
-        return "Wrong Barcode Scanned"
-    }
-
     func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
         return "Scanning Items to Truck"
     }
 
     func textForNothingScanned(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
         return "Scan an Item to start loading"
+    }
+
+    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator) {
+        // NOOP
     }
 
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {

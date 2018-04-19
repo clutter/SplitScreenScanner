@@ -12,16 +12,15 @@ public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
 
     func titleForScanner(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
-    func startingBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
     func scanToBeginTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
     func scanToBeginDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
     func scanToContinueTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
     func scanToContinueDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
-    func wrongStartingBarcodeScannedMessage(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String
 
     func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
     func textForNothingScanned(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
 
+    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator)
     func didPressDoneButton(_ SplitScannerCoordinator: SplitScannerCoordinator)
 }
 
@@ -32,6 +31,7 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     var viewModel: SplitScannerViewModel
     var barcodeScannerViewModel: BarcodeScannerViewModel?
     var scanHistoryViewModel: ScanHistoryViewModel?
+
     var scanToContinueViewModel: ScanToContinueViewModel?
 
     var splitScannerParentVC: SplitScannerViewController?
@@ -40,18 +40,20 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     var scanToContinueVC: ScanToContinueViewController?
 
     private var currentlyDisplayedInfoVC: UIViewController?
+    let scanStartingBarcode: ((String) -> ScanResult)?
 
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
     weak var navigation: UINavigationController!
 
-    public init(navigation: UINavigationController) throws {
+    public init(navigation: UINavigationController, scanStartingBarcode: ((String) -> ScanResult)?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
         let deviceProvider = DeviceProvider(device: videoDevice)
         self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider)
 
+        self.scanStartingBarcode = scanStartingBarcode
         self.navigation = navigation
         self.rootCoordinator = self
     }
@@ -101,7 +103,8 @@ private extension SplitScannerCoordinator {
 
             let tableViewHeader = delegate?.headerForScanHistoryTableView(self) ?? "Scan History"
             let noScanText = delegate?.textForNothingScanned(self) ?? "Nothing yet scanned"
-            scanHistoryViewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText)
+            let isScanningSessionExpirable = scanStartingBarcode != nil
+            scanHistoryViewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText, isScanningSessionExpirable: isScanningSessionExpirable)
             scanHistoryViewModel?.delegate = self
             scanHistoryVC.viewModel = scanHistoryViewModel
             switchInfoView(to: scanHistoryVC)
@@ -109,6 +112,11 @@ private extension SplitScannerCoordinator {
     }
 
     func displayScanToContinueView() {
+        guard let scanStartingBarcode = scanStartingBarcode else {
+            displayScanHistoryView()
+            return
+        }
+
         if let scanToContinueVC = scanToContinueVC {
             switchInfoView(to: scanToContinueVC)
         } else {
@@ -121,7 +129,7 @@ private extension SplitScannerCoordinator {
 
             let scanToContinueTitle = viewModel.scannerIsExpired ? delegate?.scanToContinueTitle(self) : delegate?.scanToBeginTitle(self)
             let scanToContinueDescription = viewModel.scannerIsExpired ? delegate?.scanToContinueDescription(self) : delegate?.scanToBeginDescription(self)
-            scanToContinueViewModel = ScanToContinueViewModel(title: scanToContinueTitle, description: scanToContinueDescription)
+            scanToContinueViewModel = ScanToContinueViewModel(title: scanToContinueTitle, description: scanToContinueDescription, scanStartingBarcode: scanStartingBarcode)
             scanToContinueViewModel?.delegate = self
             scanToContinueVC.viewModel = scanToContinueViewModel
             switchInfoView(to: scanToContinueVC)
@@ -184,14 +192,6 @@ extension SplitScannerCoordinator: BarcodeScannerViewModelDelegate {
 
 // MARK: - ScanToContinueViewModelDelegate
 extension SplitScannerCoordinator: ScanToContinueViewModelDelegate {
-    func startingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) -> String? {
-        return delegate?.startingBarcode(self)
-    }
-
-    func wrongStartingBarcodeScannedMessage(_ scanToContinueViewModel: ScanToContinueViewModel) -> String? {
-        return delegate?.wrongStartingBarcodeScannedMessage(self)
-    }
-
     func didScanStartingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) {
         viewModel.scannerState = .started
         displayScanHistoryView()
@@ -204,5 +204,7 @@ extension SplitScannerCoordinator: ScanHistoryViewModelDelegate {
         viewModel.scannerState = .expired
         displayScanToContinueView()
         barcodeScannerViewModel?.resetLastScannedBarcode()
+
+        delegate?.didExpireScanningSession(self)
     }
 }

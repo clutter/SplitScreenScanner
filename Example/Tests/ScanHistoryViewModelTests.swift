@@ -103,13 +103,29 @@ class ScanHistoryViewModelTests: XCTestCase {
         vm.expireScanningSession()
         XCTAssertTrue(sink.scanningSessionExpired)
     }
+
+    func testUnexpirableScanningSessionTimer() {
+        setUpVM(scans: [], isScanningSessionExpirable: false)
+
+        vm.createExpireSessionTimer()
+
+        XCTAssertNil(vm.expireSessionTimer)
+    }
+
+    func testUnexpirableScanningSessionExpiration() {
+        setUpVM(scans: [], isScanningSessionExpirable: false)
+
+        vm.expireScanningSession()
+
+        XCTAssertFalse(sink.scanningSessionExpired)
+    }
 }
 
 // MARK: - Private Methods
 private extension ScanHistoryViewModelTests {
-    func setUpVM(scans: [ScanHistory]) {
+    func setUpVM(scans: [ScanHistory], isScanningSessionExpirable: Bool = true) {
         sink = DelegateSink()
-        vm = ScanHistoryViewModel(scans: scans, tableViewHeader: testTableViewHeader, noScanText: testNoScanText)
+        vm = ScanHistoryViewModel(scans: scans, tableViewHeader: testTableViewHeader, noScanText: testNoScanText, isScanningSessionExpirable: isScanningSessionExpirable)
         vm.delegate = sink
     }
 }

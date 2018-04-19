@@ -8,9 +8,6 @@
 import Foundation
 
 protocol ScanToContinueViewModelDelegate: class {
-    func startingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) -> String?
-    func wrongStartingBarcodeScannedMessage(_ scanToContinueViewModel: ScanToContinueViewModel) -> String?
-
     func didScanStartingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel)
 }
 
@@ -19,6 +16,7 @@ class ScanToContinueViewModel {
 
     let scanToContinueTitle: String
     let scanToContinueDescription: String?
+    let scanStartingBarcode: ((String) -> ScanResult)
 
     weak var delegate: ScanToContinueViewModelDelegate?
 
@@ -43,22 +41,24 @@ class ScanToContinueViewModel {
         }
     }
 
-    init(title: String?, description: String?) {
-        scanToContinueTitle = title ?? "Scan QR code to continue"
-        scanToContinueDescription = description
+    init(title: String?, description: String?, scanStartingBarcode: @escaping ((String) -> ScanResult)) {
+        self.scanToContinueTitle = title ?? "Scan QR code to continue"
+        self.scanToContinueDescription = description
+        self.scanStartingBarcode = scanStartingBarcode
     }
 }
 
 // MARK: - Public Methods
 extension ScanToContinueViewModel {
     func didScan(barcode: String) {
-        if barcode == delegate?.startingBarcode(self) {
+        let scanResult = scanStartingBarcode(barcode)
+        switch scanResult {
+        case .success:
             delegate?.didScanStartingBarcode(self)
-        } else {
-            guard removeScanWarningTimer == nil else { return }
-
-            let wrongBarcodeScannedMessage = delegate?.wrongStartingBarcodeScannedMessage(self) ?? "Wrong QR code scanned"
-            scanWarningBinding?(.displayWarning(incorrectScanMessage: wrongBarcodeScannedMessage))
+        case let .warning(description):
+            displayScanWarning(description)
+        case let .error(description):
+            displayScanWarning(description)
         }
     }
 
@@ -76,5 +76,15 @@ extension ScanToContinueViewModel {
     func removeScanWarning() {
         scanWarningBinding?(.removeWarning(title: scanToContinueTitle, description: scanToContinueDescription))
         invalidateRemoveScanWarningTimer()
+    }
+}
+
+// MARK: - Private Methods
+private extension ScanToContinueViewModel {
+    func displayScanWarning(_ description: String) {
+        guard removeScanWarningTimer == nil else { return }
+
+        let scanWarning: ScanWarningState = .displayWarning(incorrectScanMessage: description)
+        scanWarningBinding?(scanWarning)
     }
 }

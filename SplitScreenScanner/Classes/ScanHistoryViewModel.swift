@@ -14,12 +14,13 @@ protocol ScanHistoryViewModelDelegate: class {
 
 class ScanHistoryViewModel {
     var scans: [ScanHistory]
+    let isScanningSessionExpirable: Bool
     private(set) var expireSessionTimer: Timer?
     private var scanNumberGenerator: ScanNumberGenerator
 
     weak var delegate: ScanHistoryViewModelDelegate?
 
-    init(scans: [ScanHistory], tableViewHeader: String, noScanText: String) {
+    init(scans: [ScanHistory], tableViewHeader: String, noScanText: String, isScanningSessionExpirable: Bool) {
         let sortedScans = scans.sorted(by: { leftScan, rightScan in
             return leftScan.scanNumber > rightScan.scanNumber
         })
@@ -28,6 +29,8 @@ class ScanHistoryViewModel {
 
         self.scans = sortedScans
         sections = TableModel.makeSectionBuilder(sortedScans, tableViewHeader: tableViewHeader, noScanText: noScanText).sections
+
+        self.isScanningSessionExpirable = isScanningSessionExpirable
     }
 
     enum TableModel: Equatable {
@@ -70,6 +73,8 @@ extension ScanHistoryViewModel {
     }
 
     func createExpireSessionTimer() {
+        guard isScanningSessionExpirable else { return }
+
         expireSessionTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false, block: { [weak self] _ in
             self?.expireScanningSession()
         })
@@ -88,6 +93,8 @@ extension ScanHistoryViewModel {
     }
 
     func expireScanningSession() {
+        guard isScanningSessionExpirable else { return }
+
         delegate?.expireScanningSession(self)
     }
 }

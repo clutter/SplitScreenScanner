@@ -19,14 +19,6 @@ class ScanToContinueViewModelTests: XCTestCase {
     private final class DelegateSink: ScanToContinueViewModelDelegate {
         var startingBarcodeScanned = false
 
-        func startingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) -> String? {
-            return "0000000001"
-        }
-
-        func wrongStartingBarcodeScannedMessage(_ scanToContinueViewModel: ScanToContinueViewModel) -> String? {
-            return "Unit Test Wrong Barcode Scanned Message"
-        }
-
         func didScanStartingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel) {
             startingBarcodeScanned = true
         }
@@ -34,7 +26,13 @@ class ScanToContinueViewModelTests: XCTestCase {
     
     override func setUp() {
         sink = DelegateSink()
-        vm = ScanToContinueViewModel(title: scanToContinueTitle, description: scanToContinueDescription)
+        vm = ScanToContinueViewModel(title: scanToContinueTitle, description: scanToContinueDescription, scanStartingBarcode: { barcode in
+            if barcode == "0000000001" {
+                return .success(description: nil)
+            } else {
+                return .error(description: "Unit Test Wrong Barcode Scanned Message")
+            }
+        })
         vm.delegate = sink
     }
 
