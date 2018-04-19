@@ -55,6 +55,14 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         return "Please scan my barcode"
     }
 
+    func scanToContinueTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
+        return "Continue?"
+    }
+
+    func scanToContinueDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
+        return "Scan barcode #SO0000000001195"
+    }
+
     func wrongStartingBarcodeScannedMessage(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
         return "Wrong Barcode Scanned"
     }

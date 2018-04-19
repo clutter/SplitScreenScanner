@@ -36,6 +36,20 @@ class ScanHistoryTableViewController: UITableViewController {
         tableView.separatorInset = .zero
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+
+        viewModel.createExpireSessionTimer()
+    }
+
+    override func willMove(toParentViewController parent: UIViewController?) {
+        super.willMove(toParentViewController: parent)
+
+        if parent == nil {
+            viewModel.invalidateExpireSessionTimer()
+        }
+    }
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.sections.count
     }

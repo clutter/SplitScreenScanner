@@ -38,4 +38,8 @@ extension BarcodeScannerViewModel: ContinuousBarcodeScannerDelegate {
     func didScan(barcode: String) {
         delegate?.didScanBarcode(self, barcode: barcode)
     }
+
+    func resetLastScannedBarcode() {
+        barcodeScanner.resetLastScannedBarcode()
+    }
 }

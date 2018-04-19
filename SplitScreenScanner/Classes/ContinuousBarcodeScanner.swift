@@ -125,4 +125,8 @@ extension ContinuousBarcodeScanner {
         captureSession.stopRunning()
         previewLayer.removeFromSuperlayer()
     }
+
+    func resetLastScannedBarcode() {
+        metadataCapture.lastBarcodeScanned = nil
+    }
 }

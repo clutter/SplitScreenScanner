@@ -8,9 +8,16 @@
 import Foundation
 import Sections
 
+protocol ScanHistoryViewModelDelegate: class {
+    func expireScanningSession(_ scanHistoryViewModel: ScanHistoryViewModel)
+}
+
 class ScanHistoryViewModel {
     var scans: [ScanHistory]
+    private(set) var expireSessionTimer: Timer?
     private var scanNumberGenerator: ScanNumberGenerator
+
+    weak var delegate: ScanHistoryViewModelDelegate?
 
     init(scans: [ScanHistory], tableViewHeader: String, noScanText: String) {
         let sortedScans = scans.sorted(by: { leftScan, rightScan in
@@ -59,6 +66,29 @@ extension ScanHistoryViewModel {
         let scanNumber = scanNumberGenerator.generate()
         let scan = ScanHistory(barcode: barcode, scanResult: result, scanNumber: scanNumber)
         insert(newScan: scan)
+        resetExpireSessionTimer()
+    }
+
+    func createExpireSessionTimer() {
+        expireSessionTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false, block: { [weak self] _ in
+            self?.expireScanningSession()
+        })
+    }
+
+    func invalidateExpireSessionTimer() {
+        expireSessionTimer?.invalidate()
+        expireSessionTimer = nil
+    }
+
+    func resetExpireSessionTimer() {
+        DispatchQueue.main.async { [weak self] in
+            self?.invalidateExpireSessionTimer()
+            self?.createExpireSessionTimer()
+        }
+    }
+
+    func expireScanningSession() {
+        delegate?.expireScanningSession(self)
     }
 }
 
