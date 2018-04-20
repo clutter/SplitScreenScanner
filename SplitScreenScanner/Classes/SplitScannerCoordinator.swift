@@ -10,10 +10,6 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-
-    func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
-    func textForNothingScanned(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String?
-
     func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator)
     func didPressDoneButton(_ SplitScannerCoordinator: SplitScannerCoordinator)
 }
@@ -36,18 +32,20 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     private var currentlyDisplayedInfoVC: UIViewController?
 
     let scanToContinueDisplaying: ScanToContinueDisplaying?
+    let scanHistoryDisplaying: ScanHistoryDisplaying
 
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
     weak var navigation: UINavigationController!
 
-    public init(navigation: UINavigationController, scannerTitle: String, scanToContinueDisplaying: ScanToContinueDisplaying?) throws {
+    public init(navigation: UINavigationController, scannerTitle: String, scanHistoryDisplaying: ScanHistoryDisplaying, scanToContinueDisplaying: ScanToContinueDisplaying?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
         let deviceProvider = DeviceProvider(device: videoDevice)
         self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: scannerTitle)
 
+        self.scanHistoryDisplaying = scanHistoryDisplaying
         self.scanToContinueDisplaying = scanToContinueDisplaying
         self.navigation = navigation
         self.rootCoordinator = self
@@ -96,10 +94,8 @@ private extension SplitScannerCoordinator {
             let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
             guard let scanHistoryVC = storyboard.instantiateViewController(withIdentifier: "ScanHistory") as? ScanHistoryTableViewController else { return }
 
-            let tableViewHeader = delegate?.headerForScanHistoryTableView(self) ?? "Scan History"
-            let noScanText = delegate?.textForNothingScanned(self) ?? "Nothing yet scanned"
             let isScanningSessionExpirable = scanToContinueDisplaying != nil
-            scanHistoryViewModel = ScanHistoryViewModel(scans: [], tableViewHeader: tableViewHeader, noScanText: noScanText, isScanningSessionExpirable: isScanningSessionExpirable)
+            scanHistoryViewModel = ScanHistoryViewModel(scans: [], scanHistoryDisplaying: scanHistoryDisplaying, isScanningSessionExpirable: isScanningSessionExpirable)
             scanHistoryViewModel?.delegate = self
             scanHistoryVC.viewModel = scanHistoryViewModel
             switchInfoView(to: scanHistoryVC)

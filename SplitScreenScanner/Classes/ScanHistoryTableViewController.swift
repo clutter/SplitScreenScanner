@@ -34,6 +34,8 @@ class ScanHistoryTableViewController: UITableViewController {
 
         tableView.tableFooterView = UIView()
         tableView.separatorInset = .zero
+
+        viewModel.createSections()
     }
 
     override func viewWillAppear(_ animated: Bool) {

@@ -15,34 +15,37 @@ protocol ScanHistoryViewModelDelegate: class {
 class ScanHistoryViewModel {
     var scans: [ScanHistory]
     let isScanningSessionExpirable: Bool
+    let scanHistoryDisplaying: ScanHistoryDisplaying
+
     private(set) var expireSessionTimer: Timer?
     private var scanNumberGenerator: ScanNumberGenerator
 
     weak var delegate: ScanHistoryViewModelDelegate?
 
-    init(scans: [ScanHistory], tableViewHeader: String, noScanText: String, isScanningSessionExpirable: Bool) {
+    init(scans: [ScanHistory], scanHistoryDisplaying: ScanHistoryDisplaying, isScanningSessionExpirable: Bool) {
         let sortedScans = scans.sorted(by: { leftScan, rightScan in
             return leftScan.scanNumber > rightScan.scanNumber
         })
-        let lastScanIndex = sortedScans.first?.scanNumber ?? 0
-        scanNumberGenerator = ScanNumberGenerator(startIndex: lastScanIndex)
-
         self.scans = sortedScans
-        sections = TableModel.makeSectionBuilder(sortedScans, tableViewHeader: tableViewHeader, noScanText: noScanText).sections
 
+        let lastScanIndex = sortedScans.first?.scanNumber ?? 0
+        self.scanNumberGenerator = ScanNumberGenerator(startIndex: lastScanIndex)
+        self.scanHistoryDisplaying = scanHistoryDisplaying
         self.isScanningSessionExpirable = isScanningSessionExpirable
+
+        createSections()
     }
 
     enum TableModel: Equatable {
-        case nothingScannedRow(noScanText: String)
+        case nothingScannedRow(nothingScannedText: String)
         case historyRow(barcode: String, scanResult: ScanResult, scanNumber: Int)
 
-        static func makeSectionBuilder(_ scans: [ScanHistory], tableViewHeader: String, noScanText: String) -> SectionBuilder<TableModel> {
+        static func makeSectionBuilder(_ scans: [ScanHistory], tableViewHeader: String, nothingScannedText: String) -> SectionBuilder<TableModel> {
             return SectionBuilder<TableModel>(initialValues: [])
                 .addSections { _ in
                     let rows: [TableModel]
                     if scans.isEmpty {
-                        rows = [.nothingScannedRow(noScanText: noScanText)]
+                        rows = [.nothingScannedRow(nothingScannedText: nothingScannedText)]
                     } else {
                         rows = scans.map { .historyRow(barcode: $0.barcode, scanResult: $0.scanResult, scanNumber: $0.scanNumber) }
                     }
@@ -96,6 +99,10 @@ extension ScanHistoryViewModel {
         guard isScanningSessionExpirable else { return }
 
         delegate?.expireScanningSession(self)
+    }
+
+    func createSections() {
+        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDisplaying.tableViewHeader, nothingScannedText: scanHistoryDisplaying.nothingScannedText).sections
     }
 }
 
