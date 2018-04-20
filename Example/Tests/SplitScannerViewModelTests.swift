@@ -17,10 +17,6 @@ class SplitScannerViewModelTests: XCTestCase {
     private final class DelegateSink: SplitScannerViewModelDelegate {
         var doneButtonPressed = false
 
-        func titleForScanner(_ splitScreenScannerViewModel: SplitScannerViewModel) -> String? {
-            return "Unit Test Title"
-        }
-
         func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
             doneButtonPressed = true
         }
@@ -30,7 +26,7 @@ class SplitScannerViewModelTests: XCTestCase {
         deviceProvider = TestDeviceProvider()
         sink = DelegateSink()
 
-        vm = SplitScannerViewModel(deviceProvider: deviceProvider)
+        vm = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: "Unit Test Title")
         vm.delegate = sink
     }
     

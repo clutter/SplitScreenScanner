@@ -10,18 +10,16 @@ import UIKit
 import SplitScreenScanner
 
 class StartScanningViewController: UIViewController {
+    let startingBarcode = "SO0000000001195"
+
     var splitScannerCoordinator: SplitScannerCoordinator?
 
     @IBAction func startScanningButtonPressed(_ sender: Any) {
         do {
             guard let navigation = navigationController else { return }
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scanStartingBarcode: { barcode in
-                if barcode == "SO0000000001195" {
-                    return .success(description: nil)
-                } else {
-                    return .error(description: "Wrong Barcode Scanned")
-                }
-            })
+
+            let scannerTitle = "Test Barcode Scanner"
+            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanToContinueDisplaying: self)
             splitScannerCoordinator?.delegate = self
 
             try splitScannerCoordinator?.start()
@@ -44,26 +42,6 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
             return .error(description: "Bogus scan!")
         }
     }
-    
-    func titleForScanner(_ splitScreenScannerViewModel: SplitScannerCoordinator) -> String? {
-        return "Test Barcode Scanner"
-    }
-
-    func scanToBeginTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
-        return "Scan Barcode #SO0000000001195 to Begin"
-    }
-
-    func scanToBeginDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
-        return "Please scan my barcode"
-    }
-
-    func scanToContinueTitle(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String {
-        return "Continue?"
-    }
-
-    func scanToContinueDescription(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
-        return "Scan barcode #SO0000000001195"
-    }
 
     func headerForScanHistoryTableView(_ SplitScannerCoordinator: SplitScannerCoordinator) -> String? {
         return "Scanning Items to Truck"
@@ -79,5 +57,32 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
 
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
         // NOOP
+    }
+}
+
+// MARK: - ScanToContinueDisplaying
+extension StartScanningViewController: ScanToContinueDisplaying {
+    var startingTitle: String {
+        return "Scan Barcode #\(startingBarcode) to Begin"
+    }
+
+    var startingDescription: String? {
+        return "Please scan my barcode"
+    }
+
+    var continuingTitle: String {
+        return "Continue?"
+    }
+
+    var continuingDescription: String? {
+        return "Scan barcode #\(startingBarcode)"
+    }
+
+    func scan(startingBarcode: String) -> ScanResult {
+        if startingBarcode == self.startingBarcode {
+            return .success(description: nil)
+        } else {
+            return .error(description: "Wrong Barcode Scanned")
+        }
     }
 }

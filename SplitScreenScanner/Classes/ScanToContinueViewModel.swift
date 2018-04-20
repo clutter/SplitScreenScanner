@@ -8,17 +8,24 @@
 import Foundation
 
 protocol ScanToContinueViewModelDelegate: class {
-    func didScanStartingBarcode(_ scanToContinueViewModel: ScanToContinueViewModel)
+    func scanToContinueViewModel(_ scanToContinueViewModel: ScanToContinueViewModel, didScanStartingBarcode: String)
 }
 
 class ScanToContinueViewModel {
     var removeScanWarningTimer: Timer?
 
-    let scanToContinueTitle: String
-    let scanToContinueDescription: String?
-    let scanStartingBarcode: ((String) -> ScanResult)
+    let scanToContinueDisplaying: ScanToContinueDisplaying
+    let isScannerExpired: Bool
 
     weak var delegate: ScanToContinueViewModelDelegate?
+
+    var scanToContinueTitle: String {
+        return isScannerExpired ? scanToContinueDisplaying.continuingTitle : scanToContinueDisplaying.startingTitle
+    }
+
+    var scanToContinueDescription: String? {
+        return isScannerExpired ? scanToContinueDisplaying.continuingDescription : scanToContinueDisplaying.startingDescription
+    }
 
     enum ScanWarningState: Equatable {
         case displayWarning(incorrectScanMessage: String)
@@ -41,23 +48,20 @@ class ScanToContinueViewModel {
         }
     }
 
-    init(title: String?, description: String?, scanStartingBarcode: @escaping ((String) -> ScanResult)) {
-        self.scanToContinueTitle = title ?? "Scan QR code to continue"
-        self.scanToContinueDescription = description
-        self.scanStartingBarcode = scanStartingBarcode
+    init(scanToContinueDisplaying: ScanToContinueDisplaying, isScannerExpired: Bool) {
+        self.scanToContinueDisplaying = scanToContinueDisplaying
+        self.isScannerExpired = isScannerExpired
     }
 }
 
 // MARK: - Public Methods
 extension ScanToContinueViewModel {
     func didScan(barcode: String) {
-        let scanResult = scanStartingBarcode(barcode)
+        let scanResult = scanToContinueDisplaying.scan(startingBarcode: barcode)
         switch scanResult {
         case .success:
-            delegate?.didScanStartingBarcode(self)
-        case let .warning(description):
-            displayScanWarning(description)
-        case let .error(description):
+            delegate?.scanToContinueViewModel(self, didScanStartingBarcode: barcode)
+        case let .warning(description), let .error(description):
             displayScanWarning(description)
         }
     }
