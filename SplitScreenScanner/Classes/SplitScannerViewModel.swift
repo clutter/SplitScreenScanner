@@ -8,12 +8,11 @@
 import Foundation
 
 protocol SplitScannerViewModelDelegate: class {
-    func titleForScanner(_ splitScreenScannerViewModel: SplitScannerViewModel) -> String?
-
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
 }
 
 class SplitScannerViewModel {
+    let scannerTitle: String
     var deviceProvider: DeviceProviding
 
     weak var delegate: SplitScannerViewModelDelegate?
@@ -25,20 +24,17 @@ class SplitScannerViewModel {
     }
     var scannerState: ScannerState
 
-    var scannerIsExpired: Bool {
-        return scannerState == .expired
-    }
-
-    init(deviceProvider: DeviceProviding) {
+    init(deviceProvider: DeviceProviding, scannerTitle: String) {
         self.deviceProvider = deviceProvider
         self.scannerState = .notStarted
+        self.scannerTitle = scannerTitle
     }
 
     // MARK: - Bindings, Observers, Getters
 
     var scannerTitleBinding: ((String?) -> Void)? {
         didSet {
-            scannerTitleBinding?(scannerTitle())
+            scannerTitleBinding?(scannerTitle)
         }
     }
 
@@ -75,12 +71,5 @@ extension SplitScannerViewModel {
 
             presentAlertBinding?(alertVC)
         }
-    }
-}
-
-// MARK: - Private Methods
-private extension SplitScannerViewModel {
-    func scannerTitle() -> String? {
-        return delegate?.titleForScanner(self)
     }
 }

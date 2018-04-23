@@ -10,17 +10,26 @@ import XCTest
 @testable import SplitScreenScanner
 
 class ScanHistoryViewModelTests: XCTestCase {
-    let testTableViewHeader = "Test TableView Header"
-    let testNoScanText = "Test no scan text"
-
     private var sink: DelegateSink!
     private var vm: ScanHistoryViewModel!
+
+    private let testScanHistoryDisplayer = TestScanHistoryDisplayer()
 
     private final class DelegateSink: ScanHistoryViewModelDelegate {
         var scanningSessionExpired = false
 
         func expireScanningSession(_ scanHistoryViewModel: ScanHistoryViewModel) {
             scanningSessionExpired = true
+        }
+    }
+
+    private struct TestScanHistoryDisplayer: ScanHistoryDisplaying {
+        let tableViewHeader: String
+        let nothingScannedText: String
+
+        init() {
+            tableViewHeader = "Test TableView Header"
+            nothingScannedText = "Test no scan text"
         }
     }
 
@@ -32,9 +41,9 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [])
 
         XCTAssertEqual(vm.sections.count, 1)
-        XCTAssertEqual(vm.sections[0].name, testTableViewHeader)
+        XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
 
-        XCTAssertEqual(vm.sections[0].rows, [.nothingScannedRow(noScanText: testNoScanText)])
+        XCTAssertEqual(vm.sections[0].rows, [.nothingScannedRow(nothingScannedText: testScanHistoryDisplayer.nothingScannedText)])
     }
 
     func testWithScansIndexing() {
@@ -45,7 +54,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: scans)
 
         XCTAssertEqual(vm.sections.count, 1)
-        XCTAssertEqual(vm.sections[0].name, testTableViewHeader)
+        XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
 
         XCTAssertEqual(vm.sections[0].rows.count, 2)
         XCTAssertEqual(vm.sections[0].rows[0], .historyRow(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"), scanNumber: 2))
@@ -103,13 +112,29 @@ class ScanHistoryViewModelTests: XCTestCase {
         vm.expireScanningSession()
         XCTAssertTrue(sink.scanningSessionExpired)
     }
+
+    func testUnexpirableScanningSessionTimer() {
+        setUpVM(scans: [], isScanningSessionExpirable: false)
+
+        vm.createExpireSessionTimer()
+
+        XCTAssertNil(vm.expireSessionTimer)
+    }
+
+    func testUnexpirableScanningSessionExpiration() {
+        setUpVM(scans: [], isScanningSessionExpirable: false)
+
+        vm.expireScanningSession()
+
+        XCTAssertFalse(sink.scanningSessionExpired)
+    }
 }
 
 // MARK: - Private Methods
 private extension ScanHistoryViewModelTests {
-    func setUpVM(scans: [ScanHistory]) {
+    func setUpVM(scans: [ScanHistory], isScanningSessionExpirable: Bool = true) {
         sink = DelegateSink()
-        vm = ScanHistoryViewModel(scans: scans, tableViewHeader: testTableViewHeader, noScanText: testNoScanText)
+        vm = ScanHistoryViewModel(scans: scans, scanHistoryDisplaying: testScanHistoryDisplayer, isScanningSessionExpirable: isScanningSessionExpirable)
         vm.delegate = sink
     }
 }
