@@ -42,6 +42,7 @@ class ScanHistoryTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         viewModel.createExpireSessionTimer()
+        NotificationCenter.default.addObserver(self, selector: #selector(expire), name: .UIApplicationDidEnterBackground, object: nil)
     }
 
     override func willMove(toParentViewController parent: UIViewController?) {
@@ -50,6 +51,12 @@ class ScanHistoryTableViewController: UITableViewController {
         if parent == nil {
             viewModel.invalidateExpireSessionTimer()
         }
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -92,5 +99,12 @@ class ScanHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 80
+    }
+}
+
+private extension ScanHistoryTableViewController {
+    @objc func expire() {
+        viewModel.invalidateExpireSessionTimer()
+        viewModel.expireScanningSession()
     }
 }
