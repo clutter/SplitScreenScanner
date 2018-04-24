@@ -21,7 +21,8 @@ public class ScannerStyleKit : NSObject {
         static let clutterTeal: UIColor = UIColor(red: 0.000, green: 0.631, blue: 0.604, alpha: 1.000)
         static let clutterYellow: UIColor = UIColor(red: 1.000, green: 0.722, blue: 0.098, alpha: 1.000)
         static let clutterRed: UIColor = UIColor(red: 1.000, green: 0.275, blue: 0.071, alpha: 1.000)
-        static let historyCellBackgroundGrey: UIColor = UIColor(red: 0.082, green: 0.082, blue: 0.082, alpha: 1.000)
+        static let historyCellBackgroundGrey: UIColor = UIColor(red: 0.082, green: 0.082, blue: 0.086, alpha: 1.000)
+        static let clutterLightGrey: UIColor = UIColor(red: 0.608, green: 0.620, blue: 0.620, alpha: 1.000)
     }
 
     //// Colors
@@ -30,10 +31,11 @@ public class ScannerStyleKit : NSObject {
     @objc dynamic public class var clutterYellow: UIColor { return Cache.clutterYellow }
     @objc dynamic public class var clutterRed: UIColor { return Cache.clutterRed }
     @objc dynamic public class var historyCellBackgroundGrey: UIColor { return Cache.historyCellBackgroundGrey }
+    @objc dynamic public class var clutterLightGrey: UIColor { return Cache.clutterLightGrey }
 
     //// Drawing Methods
 
-    @objc dynamic public class func drawTorchSymbol(frame: CGRect = CGRect(x: 0, y: 0, width: 15, height: 24), isTorchOn: Bool = true) {
+    @objc dynamic public class func drawTorchSymbol(frame: CGRect = CGRect(x: 0, y: 0, width: 15, height: 24), isTorchOn: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
 
@@ -75,7 +77,7 @@ public class ScannerStyleKit : NSObject {
         context.restoreGState()
     }
 
-    @objc dynamic public class func drawTorchGlyph(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 320, height: 512), resizing: ResizingBehavior = .aspectFit, isTorchOn: Bool = true) {
+    @objc dynamic public class func drawTorchGlyph(frame targetFrame: CGRect = CGRect(x: 0, y: 0, width: 320, height: 512), resizing: ResizingBehavior = .aspectFit, isTorchOn: Bool = false) {
         //// General Declarations
         let context = UIGraphicsGetCurrentContext()!
         
@@ -197,7 +199,7 @@ public class ScannerStyleKit : NSObject {
 
     //// Generated Images
 
-    @objc dynamic public class func imageOfTorchSymbol(imageSize: CGSize = CGSize(width: 15, height: 24), isTorchOn: Bool = true) -> UIImage {
+    @objc dynamic public class func imageOfTorchSymbol(imageSize: CGSize = CGSize(width: 15, height: 24), isTorchOn: Bool = false) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(imageSize, false, 0)
             ScannerStyleKit.drawTorchSymbol(frame: CGRect(x: 0, y: 0, width: imageSize.width, height: imageSize.height), isTorchOn: isTorchOn)
 

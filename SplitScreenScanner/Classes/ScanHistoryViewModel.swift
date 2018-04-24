@@ -18,18 +18,11 @@ class ScanHistoryViewModel {
     let scanHistoryDisplaying: ScanHistoryDisplaying
 
     private(set) var expireSessionTimer: Timer?
-    private var scanNumberGenerator: ScanNumberGenerator
 
     weak var delegate: ScanHistoryViewModelDelegate?
 
     init(scans: [ScanHistory], scanHistoryDisplaying: ScanHistoryDisplaying, isScanningSessionExpirable: Bool) {
-        let sortedScans = scans.sorted(by: { leftScan, rightScan in
-            return leftScan.scanNumber > rightScan.scanNumber
-        })
-        self.scans = sortedScans
-
-        let lastScanIndex = sortedScans.first?.scanNumber ?? 0
-        self.scanNumberGenerator = ScanNumberGenerator(startIndex: lastScanIndex)
+        self.scans = scans
         self.scanHistoryDisplaying = scanHistoryDisplaying
         self.isScanningSessionExpirable = isScanningSessionExpirable
 
@@ -38,7 +31,7 @@ class ScanHistoryViewModel {
 
     enum TableModel: Equatable {
         case nothingScannedRow(nothingScannedText: String)
-        case historyRow(barcode: String, scanResult: ScanResult, scanNumber: Int)
+        case historyRow(barcode: String, scanResult: ScanResult)
 
         static func makeSectionBuilder(_ scans: [ScanHistory], tableViewHeader: String, nothingScannedText: String) -> SectionBuilder<TableModel> {
             return SectionBuilder<TableModel>(initialValues: [])
@@ -47,7 +40,7 @@ class ScanHistoryViewModel {
                     if scans.isEmpty {
                         rows = [.nothingScannedRow(nothingScannedText: nothingScannedText)]
                     } else {
-                        rows = scans.map { .historyRow(barcode: $0.barcode, scanResult: $0.scanResult, scanNumber: $0.scanNumber) }
+                        rows = scans.map { .historyRow(barcode: $0.barcode, scanResult: $0.scanResult) }
                     }
 
                     return [Section(name: tableViewHeader, rows: rows)]
@@ -69,8 +62,7 @@ class ScanHistoryViewModel {
 // MARK: - Public Methods
 extension ScanHistoryViewModel {
     func didScan(barcode: String, with result: ScanResult) {
-        let scanNumber = scanNumberGenerator.generate()
-        let scan = ScanHistory(barcode: barcode, scanResult: result, scanNumber: scanNumber)
+        let scan = ScanHistory(barcode: barcode, scanResult: result)
         insert(newScan: scan)
         resetExpireSessionTimer()
     }
@@ -112,7 +104,7 @@ private extension ScanHistoryViewModel {
         scans.insert(newScan, at: 0)
 
         let firstRowIndexPath = IndexPath(row: 0, section: 0)
-        let historyRow: TableModel = .historyRow(barcode: newScan.barcode, scanResult: newScan.scanResult, scanNumber: newScan.scanNumber)
+        let historyRow: TableModel = .historyRow(barcode: newScan.barcode, scanResult: newScan.scanResult)
 
         // replace nothingScannedRow with historyRow if this is the first scan
         if scans.count == 1 {

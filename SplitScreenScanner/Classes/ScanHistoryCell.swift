@@ -11,9 +11,8 @@ class ScanHistoryCell: UITableViewCell, IdentifierViewCell {
     @IBOutlet weak var iconImageView: UIImageView!
     @IBOutlet weak var barcodeLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
-    @IBOutlet weak var countLabel: UILabel!
 
-    func reset(barcode: String, result: ScanResult, scanNumber: Int) {
+    func reset(barcode: String, result: ScanResult) {
         barcodeLabel.text = "#\(barcode)"
 
         let imageSize = iconImageView.bounds.size
@@ -28,7 +27,5 @@ class ScanHistoryCell: UITableViewCell, IdentifierViewCell {
             iconImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: imageSize, isError: true)
             descriptionLabel.text = description
         }
-
-        countLabel.text = String(scanNumber)
     }
 }
