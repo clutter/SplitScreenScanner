@@ -29,7 +29,7 @@ class ScanToContinueViewModel {
 
     enum ScanWarningState: Equatable {
         case displayWarning(incorrectScanMessage: String)
-        case removeWarning(title: String, description: String?)
+        case removeWarning
     }
 
     // MARK: - Bindings, Observers, Getters
@@ -78,7 +78,7 @@ extension ScanToContinueViewModel {
     }
 
     func removeScanWarning() {
-        scanWarningBinding?(.removeWarning(title: scanToContinueTitle, description: scanToContinueDescription))
+        scanWarningBinding?(.removeWarning)
         invalidateRemoveScanWarningTimer()
     }
 }

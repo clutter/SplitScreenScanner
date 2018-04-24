@@ -122,7 +122,7 @@ class ScanToContinueViewModelTests: XCTestCase {
 
         vm.removeScanWarning()
 
-        XCTAssertEqual(scanWarningState, ScanToContinueViewModel.ScanWarningState.removeWarning(title: testScanToContinueDisplayer.startingTitle, description: testScanToContinueDisplayer.startingDescription))
+        XCTAssertEqual(scanWarningState, ScanToContinueViewModel.ScanWarningState.removeWarning)
     }
 }
 
