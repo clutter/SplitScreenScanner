@@ -7,11 +7,130 @@
 
 ## Example
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+SplitScreenScanner lets you quickly and easily add a fully functioning barcode scanner, with scan history, to any part of your app. Here's a simple example of how it looks:
+
+```swift
+class StartScanningViewController: UIViewController {
+    let startingBarcode = "SO0000000001195"
+
+    var splitScannerCoordinator: SplitScannerCoordinator?
+
+    @IBAction func startScanningButtonPressed(_ sender: Any) {
+        do {
+            guard let navigation = navigationController else { return }
+
+            let scannerTitle = "Split Screen Scanner" // Used as the main navigation title for the scanner
+
+            // The scanHistoryDisplaying parameter is used to populate the scan history TableView with some needed text values (e.g. the TableView's header)
+            // The scanToContinueDisplaying parameter is used to provide the scan to begin and scan to continue views with necessary functionality and text values (e.g. function for scanning the starting barcode, title for scan to begin view, ect...)
+            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDisplaying: self, scanToContinueDisplaying: self)
+            splitScannerCoordinator?.delegate = self
+
+            try splitScannerCoordinator?.start()
+        } catch {
+            print(error)
+        }
+    }
+}
+
+// MARK: - SplitScannerCoordinatorDelegate
+extension StartScanningViewController: SplitScannerCoordinatorDelegate {
+
+    // Called just after every scan during an unexpired scan session.
+    // The ScanResult that is returned by this function is used by the scanner to populate the values of the scan history cells
+    // The description on the scan result is used to populate the descrition on the cell, but the value of the ScanResult itself is used to determine which image is used on the cell:
+    // .success -> green checkmark image
+    // .warning -> yellow exclamation triangle
+    // .error -> red exclamation triangle
+    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult {
+        print("Scanned: " + barcode)
+        switch Int(arc4random_uniform(4)) {
+        case 0...1:
+            return .success(description: "Nice scan!")
+        case 2:
+            return .warning(description: "Poor scan!")
+        default:
+            return .error(description: "Bogus scan!")
+        }
+    }
+
+    // Called just after the scanning session expires
+    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator) {
+        print("Scanning session expired")
+    }
+
+    // Called when the done button is pressed, the actual closing of the scanner is handled automatically
+    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
+        print("Closing SplitScreenScanner")
+    }
+}
+
+// MARK: - ScanHistoryDisplaying
+extension StartScanningViewController: ScanHistoryDisplaying {
+
+    // Header for the scan history table view
+    var tableViewHeader: String {
+        return "Scanning Items to Truck"
+    }
+
+    // Text displayed when no scans have been made during the current scanning session
+    var nothingScannedText: String {
+        return "Scan an item to start loading"
+    }
+}
+
+// MARK: - ScanToContinueDisplaying
+extension StartScanningViewController: ScanToContinueDisplaying {
+
+    // Used for the title of the scan to begin view (starting a scanning session for the first time)
+    var startingTitle: String {
+        return "Scan Barcode #\(startingBarcode) to Begin"
+    }
+
+    // Used for the description of the scan to begin view
+    var startingDescription: String? {
+        return "Please scan my barcode"
+    }
+
+    // Used for the title of the scan to continue view (starting a scanning session after the first one has expired)
+    var continuingTitle: String {
+        return "Continue?"
+    }
+
+    // Used for the description of the scan to continue view
+    var continuingDescription: String? {
+        return "Scan barcode #\(startingBarcode)"
+    }
+
+    // Used to start and unexpire scanning session (A scanning session will not start until this function returns .success)
+    func scan(startingBarcode: String) -> ScanResult {
+        if startingBarcode == self.startingBarcode {
+            return .success(description: nil)
+        } else {
+            return .error(description: "Wrong Barcode Scanned")
+        }
+    }
+}
+```
+
+Please note that when initializing splitScannerCoordinator the `scanToContinueDisplaying: ScanToContinueDisplaying?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after 30 seconds without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
+
+<img src="Screenshots/scan_to_begin.PNG" height="50%" width="50%">
+(Scan to begin view)
+
+If you want your users to jump straight into an unexpirable scanning session, then simply just use nil for the `scanToContinueDisplaying` parameter:
+
+```swift
+splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDisplaying: self, scanToContinueDisplaying: nil)
+```
+
+<img src="Screenshots/scan_history_no_scans.PNG" height="50%" width="50%">
+(Empty scan history view)
 
 ## Requirements
 
-- iOS 11 or greater
+- iOS 11.0+
+- Swift 4.1+
 
 ## Installation
 
