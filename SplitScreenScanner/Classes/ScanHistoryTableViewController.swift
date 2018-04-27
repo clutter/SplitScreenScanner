@@ -72,33 +72,40 @@ class ScanHistoryTableViewController: UITableViewController {
         case let .nothingScannedRow(noScanText):
             let cell = tableView.dequeueReusableCell(withIdentifier: "NothingScannedCell") ?? UITableViewCell(style: .default, reuseIdentifier: "NothingScannedCell")
             cell.textLabel?.textAlignment = .center
-            cell.textLabel?.textColor = UIColor.darkGray
+            cell.textLabel?.textColor = ScannerStyleKit.clutterLightGrey
             cell.backgroundColor = ScannerStyleKit.historyCellBackgroundGrey
             cell.selectionStyle = .none
             cell.textLabel?.text = noScanText
             return cell
-        case let .historyRow(barcode, scanResult, scanNumber):
+        case let .historyRow(barcode, scanResult):
             let cell = tableView.dequeueReusableCell(withIdentifier: ScanHistoryCell.identifier, for: indexPath)
             guard let scanHistoryCell = cell as? ScanHistoryCell else { return cell }
-            scanHistoryCell.reset(barcode: barcode, result: scanResult, scanNumber: scanNumber)
+            scanHistoryCell.reset(barcode: barcode, result: scanResult)
             scanHistoryCell.selectionStyle = .none
             return scanHistoryCell
         }
     }
 
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.sections[section].name
+        return viewModel.sections[section].name.uppercased()
     }
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
             headerView.tintColor = .black
             headerView.textLabel?.textColor = .lightText
+            headerView.textLabel?.font = UIFont.systemFont(ofSize: 13.0)
+
+            if let textLabelBounds = headerView.textLabel?.bounds {
+                let insets = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 4.0, right: 16.0)
+                let insetsRect = UIEdgeInsetsInsetRect(textLabelBounds, insets)
+                headerView.bounds = insetsRect
+            }
         }
     }
 
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 72
     }
 }
 

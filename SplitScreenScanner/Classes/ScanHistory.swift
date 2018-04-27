@@ -7,23 +7,6 @@
 
 import Foundation
 
-struct ScanNumberGenerator {
-    private(set) var currentScanNumber: Int
-
-    mutating func generate() -> Int {
-        self.currentScanNumber += 1
-        return currentScanNumber
-    }
-
-    init() {
-        currentScanNumber = 0
-    }
-
-    init(startIndex: Int) {
-        currentScanNumber = startIndex
-    }
-}
-
 public enum ScanResult: Equatable {
     case success(description: String?)
     case warning(description: String)
@@ -33,5 +16,4 @@ public enum ScanResult: Equatable {
 struct ScanHistory {
     let barcode: String
     let scanResult: ScanResult
-    let scanNumber: Int
 }

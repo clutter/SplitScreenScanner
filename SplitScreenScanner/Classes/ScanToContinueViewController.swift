@@ -10,7 +10,8 @@ import UIKit
 class ScanToContinueViewController: UIViewController {
     var viewModel: ScanToContinueViewModel!
 
-    @IBOutlet weak var incorrectScanImageView: UIImageView!
+    private var scanToContinueErrorVC: ScanToContinueErrorViewController?
+
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var descriptionLabel: UILabel!
 
@@ -23,26 +24,21 @@ class ScanToContinueViewController: UIViewController {
 
                 switch scanWarningState {
                 case let .displayWarning(incorrectScanMessage):
-                    let imageSize = sSelf.incorrectScanImageView.bounds.size
                     UIView.transition(with: sSelf.view,
                                       duration: 0.25,
                                       options: .transitionCrossDissolve,
                                       animations: { [weak self] in
-                                        self?.incorrectScanImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: imageSize, isError: false)
-                                        self?.titleLabel.text = incorrectScanMessage
-                                        self?.descriptionLabel.text = nil
+                                        self?.displayWarningView(withWarningMessage: incorrectScanMessage)
                                       },
                                       completion: { [weak self] _ in
                                         self?.viewModel.setRemoveScanWarningTimer()
                     })
-                case let .removeWarning(title, description):
+                case .removeWarning:
                     UIView.transition(with: sSelf.view,
                                       duration: 0.75,
                                       options: .transitionCrossDissolve,
                                       animations: { [weak self] in
-                                        self?.incorrectScanImageView.image = nil
-                                        self?.titleLabel.text = title
-                                        self?.descriptionLabel.text = description
+                                        self?.removeWarningView()
                                       },
                                       completion: nil)
                 }
@@ -64,5 +60,31 @@ class ScanToContinueViewController: UIViewController {
         if parent == nil {
             viewModel.invalidateRemoveScanWarningTimer()
         }
+    }
+}
+
+// MARK: - Private Methods
+private extension ScanToContinueViewController {
+    func displayWarningView(withWarningMessage warningMessage: String) {
+        let bundle = Bundle(for: ScanToContinueViewController.self)
+        guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
+            let resourceBundle = Bundle(url: resourceBundleURL) else { return }
+
+        let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+        guard let scanToContinueErrorVC = storyboard.instantiateViewController(withIdentifier: "ScanToContinueError") as? ScanToContinueErrorViewController else { return }
+
+        addChildViewController(scanToContinueErrorVC)
+        view.addSubview(scanToContinueErrorVC.view)
+        scanToContinueErrorVC.didMove(toParentViewController: self)
+        scanToContinueErrorVC.display(warningMessage: warningMessage)
+
+        self.scanToContinueErrorVC = scanToContinueErrorVC
+    }
+
+    func removeWarningView() {
+        scanToContinueErrorVC?.willMove(toParentViewController: nil)
+        scanToContinueErrorVC?.removeFromParentViewController()
+        scanToContinueErrorVC?.view.removeFromSuperview()
+        scanToContinueErrorVC = nil
     }
 }

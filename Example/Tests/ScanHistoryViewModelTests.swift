@@ -47,9 +47,9 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testWithScansIndexing() {
-        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil), scanNumber: 1)
-        let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"), scanNumber: 2)
-        let scans = [firstScan, secondScan]
+        let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"))
+        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil))
+        let scans = [secondScan, firstScan]
 
         setUpVM(scans: scans)
 
@@ -57,8 +57,8 @@ class ScanHistoryViewModelTests: XCTestCase {
         XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
 
         XCTAssertEqual(vm.sections[0].rows.count, 2)
-        XCTAssertEqual(vm.sections[0].rows[0], .historyRow(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"), scanNumber: 2))
-        XCTAssertEqual(vm.sections[0].rows[1], .historyRow(barcode: "0000000001", scanResult: .success(description: nil), scanNumber: 1))
+        XCTAssertEqual(vm.sections[0].rows[0], .historyRow(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought")))
+        XCTAssertEqual(vm.sections[0].rows[1], .historyRow(barcode: "0000000001", scanResult: .success(description: nil)))
     }
 
     func testFirstScan() {
@@ -74,8 +74,8 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testSubsequentScan() {
-        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil), scanNumber: 1)
-        let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"), scanNumber: 2)
+        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil))
+        let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"))
         let scans = [firstScan, secondScan]
 
         setUpVM(scans: scans)
