@@ -124,6 +124,17 @@ class ScanToContinueViewModelTests: XCTestCase {
 
         XCTAssertEqual(scanWarningState, ScanToContinueViewModel.ScanWarningState.removeWarning)
     }
+
+    func testeHapticFeedback() {
+        setupVM(isScannerExpired: false)
+        XCTAssertNil(vm.hapticFeedbackManager)
+
+        vm.isHapticFeedbackEnabled = true
+        XCTAssertNotNil(vm.hapticFeedbackManager)
+
+        vm.isHapticFeedbackEnabled = false
+        XCTAssertNil(vm.hapticFeedbackManager)
+    }
 }
 
 // MARK: - Private Methods

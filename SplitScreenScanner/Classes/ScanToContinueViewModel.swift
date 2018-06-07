@@ -17,6 +17,8 @@ class ScanToContinueViewModel {
     let scanToContinueDisplaying: ScanToContinueDisplaying
     let isScannerExpired: Bool
 
+    private(set) var hapticFeedbackManager: ScannerHapticFeedbackManager?
+
     weak var delegate: ScanToContinueViewModelDelegate?
 
     var scanToContinueTitle: String {
@@ -48,6 +50,19 @@ class ScanToContinueViewModel {
         }
     }
 
+    var isHapticFeedbackEnabled: Bool {
+        get {
+            return hapticFeedbackManager != nil
+        }
+        set {
+            if newValue {
+                hapticFeedbackManager = ScannerHapticFeedbackManager()
+            } else {
+                hapticFeedbackManager = nil
+            }
+        }
+    }
+
     init(scanToContinueDisplaying: ScanToContinueDisplaying, isScannerExpired: Bool) {
         self.scanToContinueDisplaying = scanToContinueDisplaying
         self.isScannerExpired = isScannerExpired
@@ -58,6 +73,8 @@ class ScanToContinueViewModel {
 extension ScanToContinueViewModel {
     func didScan(barcode: String) {
         let scanResult = scanToContinueDisplaying.scan(startingBarcode: barcode)
+        hapticFeedbackManager?.didScan(with: scanResult)
+
         switch scanResult {
         case .success:
             delegate?.scanToContinueViewModel(self, didScanStartingBarcode: barcode)

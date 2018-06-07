@@ -38,7 +38,7 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testNoScansIndexing() {
-        setUpVM(scans: [])
+        setUpVM(scans: [], isScanningSessionExpirable: true)
 
         XCTAssertEqual(vm.sections.count, 1)
         XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
@@ -51,7 +51,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil))
         let scans = [secondScan, firstScan]
 
-        setUpVM(scans: scans)
+        setUpVM(scans: scans, isScanningSessionExpirable: true)
 
         XCTAssertEqual(vm.sections.count, 1)
         XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
@@ -62,7 +62,7 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testFirstScan() {
-        setUpVM(scans: [])
+        setUpVM(scans: [], isScanningSessionExpirable: true)
 
         var rowReloadedIndexPath: IndexPath?
         vm.reloadRowBinding = { indexPath in
@@ -78,7 +78,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"))
         let scans = [firstScan, secondScan]
 
-        setUpVM(scans: scans)
+        setUpVM(scans: scans, isScanningSessionExpirable: true)
 
         var rowInsertedIndexPath: IndexPath?
         vm.insertRowBinding = { indexPath in
@@ -90,15 +90,14 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testCreateExpireSessionTimer() {
-        setUpVM(scans: [])
+        setUpVM(scans: [], isScanningSessionExpirable: true)
 
         vm.createExpireSessionTimer()
-
         XCTAssertNotNil(vm.expireSessionTimer)
     }
 
     func testInvalidateExpireSessionTimer() {
-        setUpVM(scans: [])
+        setUpVM(scans: [], isScanningSessionExpirable: true)
 
         vm.createExpireSessionTimer()
         vm.invalidateExpireSessionTimer()
@@ -107,7 +106,7 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     func testExpireScanningSession() {
-        setUpVM(scans: [])
+        setUpVM(scans: [], isScanningSessionExpirable: true)
 
         vm.expireScanningSession()
         XCTAssertTrue(sink.scanningSessionExpired)
@@ -117,7 +116,6 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [], isScanningSessionExpirable: false)
 
         vm.createExpireSessionTimer()
-
         XCTAssertNil(vm.expireSessionTimer)
     }
 
@@ -125,14 +123,24 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [], isScanningSessionExpirable: false)
 
         vm.expireScanningSession()
-
         XCTAssertFalse(sink.scanningSessionExpired)
+    }
+
+    func testHapticFeedback() {
+        setUpVM(scans: [], isScanningSessionExpirable: true)
+        XCTAssertNil(vm.hapticFeedbackManager)
+
+        vm.isHapticFeedbackEnabled = true
+        XCTAssertNotNil(vm.hapticFeedbackManager)
+
+        vm.isHapticFeedbackEnabled = false
+        XCTAssertNil(vm.hapticFeedbackManager)
     }
 }
 
 // MARK: - Private Methods
 private extension ScanHistoryViewModelTests {
-    func setUpVM(scans: [ScanHistory], isScanningSessionExpirable: Bool = true) {
+    func setUpVM(scans: [ScanHistory], isScanningSessionExpirable: Bool) {
         sink = DelegateSink()
         vm = ScanHistoryViewModel(scans: scans, scanHistoryDisplaying: testScanHistoryDisplayer, isScanningSessionExpirable: isScanningSessionExpirable)
         vm.delegate = sink

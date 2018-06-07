@@ -17,6 +17,7 @@ class ScanHistoryViewModel {
     let isScanningSessionExpirable: Bool
     let scanHistoryDisplaying: ScanHistoryDisplaying
 
+    private(set) var hapticFeedbackManager: ScannerHapticFeedbackManager?
     private(set) var expireSessionTimer: Timer?
 
     weak var delegate: ScanHistoryViewModelDelegate?
@@ -54,6 +55,19 @@ class ScanHistoryViewModel {
 
     var insertRowBinding: ((IndexPath) -> Void)?
 
+    var isHapticFeedbackEnabled: Bool {
+        get {
+            return hapticFeedbackManager != nil
+        }
+        set {
+            if newValue {
+                hapticFeedbackManager = ScannerHapticFeedbackManager()
+            } else {
+                hapticFeedbackManager = nil
+            }
+        }
+    }
+
     // MARK: - Table Rows
 
     private(set) var sections: Sections<TableModel> = []
@@ -64,6 +78,7 @@ extension ScanHistoryViewModel {
     func didScan(barcode: String, with result: ScanResult) {
         let scan = ScanHistory(barcode: barcode, scanResult: result)
         insert(newScan: scan)
+        hapticFeedbackManager?.didScan(with: result)
         resetExpireSessionTimer()
     }
 
