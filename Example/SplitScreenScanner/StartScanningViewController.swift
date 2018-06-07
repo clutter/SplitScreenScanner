@@ -19,7 +19,7 @@ class StartScanningViewController: UIViewController {
             guard let navigation = navigationController else { return }
 
             let scannerTitle = "Test Barcode Scanner"
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDisplaying: self, scanToContinueDisplaying: self)
+            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
             splitScannerCoordinator?.delegate = self
 
             try splitScannerCoordinator?.start()
@@ -52,8 +52,8 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
     }
 }
 
-// MARK: - ScanHistoryDisplaying
-extension StartScanningViewController: ScanHistoryDisplaying {
+// MARK: - ScanHistoryDataSource
+extension StartScanningViewController: ScanHistoryDataSource {
     var tableViewHeader: String {
         return "Scanning Items to Truck"
     }
@@ -63,8 +63,8 @@ extension StartScanningViewController: ScanHistoryDisplaying {
     }
 }
 
-// MARK: - ScanToContinueDisplaying
-extension StartScanningViewController: ScanToContinueDisplaying {
+// MARK: - ScanToContinueDataSource
+extension StartScanningViewController: ScanToContinueDataSource {
     var startingTitle: String {
         return "Scan Barcode #\(startingBarcode) to Begin"
     }

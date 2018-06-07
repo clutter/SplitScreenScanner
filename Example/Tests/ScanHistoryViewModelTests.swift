@@ -13,7 +13,7 @@ class ScanHistoryViewModelTests: XCTestCase {
     private var sink: DelegateSink!
     private var vm: ScanHistoryViewModel!
 
-    private let testScanHistoryDisplayer = TestScanHistoryDisplayer()
+    private let testScanHistoryDataSource = TestScanHistoryDataSource()
 
     private final class DelegateSink: ScanHistoryViewModelDelegate {
         var scanningSessionExpired = false
@@ -23,7 +23,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         }
     }
 
-    private struct TestScanHistoryDisplayer: ScanHistoryDisplaying {
+    private struct TestScanHistoryDataSource: ScanHistoryDataSource {
         let tableViewHeader: String
         let nothingScannedText: String
 
@@ -41,9 +41,9 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [], isScanningSessionExpirable: true)
 
         XCTAssertEqual(vm.sections.count, 1)
-        XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
+        XCTAssertEqual(vm.sections[0].name, testScanHistoryDataSource.tableViewHeader)
 
-        XCTAssertEqual(vm.sections[0].rows, [.nothingScannedRow(nothingScannedText: testScanHistoryDisplayer.nothingScannedText)])
+        XCTAssertEqual(vm.sections[0].rows, [.nothingScannedRow(nothingScannedText: testScanHistoryDataSource.nothingScannedText)])
     }
 
     func testWithScansIndexing() {
@@ -54,7 +54,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: scans, isScanningSessionExpirable: true)
 
         XCTAssertEqual(vm.sections.count, 1)
-        XCTAssertEqual(vm.sections[0].name, testScanHistoryDisplayer.tableViewHeader)
+        XCTAssertEqual(vm.sections[0].name, testScanHistoryDataSource.tableViewHeader)
 
         XCTAssertEqual(vm.sections[0].rows.count, 2)
         XCTAssertEqual(vm.sections[0].rows[0], .historyRow(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought")))
@@ -142,7 +142,7 @@ class ScanHistoryViewModelTests: XCTestCase {
 private extension ScanHistoryViewModelTests {
     func setUpVM(scans: [ScanHistory], isScanningSessionExpirable: Bool) {
         sink = DelegateSink()
-        vm = ScanHistoryViewModel(scans: scans, scanHistoryDisplaying: testScanHistoryDisplayer, isScanningSessionExpirable: isScanningSessionExpirable)
+        vm = ScanHistoryViewModel(scans: scans, scanHistoryDataSource: testScanHistoryDataSource, isScanningSessionExpirable: isScanningSessionExpirable)
         vm.delegate = sink
     }
 }

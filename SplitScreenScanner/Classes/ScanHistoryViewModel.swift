@@ -15,16 +15,16 @@ protocol ScanHistoryViewModelDelegate: class {
 class ScanHistoryViewModel {
     var scans: [ScanHistory]
     let isScanningSessionExpirable: Bool
-    let scanHistoryDisplaying: ScanHistoryDisplaying
+    let scanHistoryDataSource: ScanHistoryDataSource
 
     private(set) var hapticFeedbackManager: ScannerHapticFeedbackManager?
     private(set) var expireSessionTimer: Timer?
 
     weak var delegate: ScanHistoryViewModelDelegate?
 
-    init(scans: [ScanHistory], scanHistoryDisplaying: ScanHistoryDisplaying, isScanningSessionExpirable: Bool) {
+    init(scans: [ScanHistory], scanHistoryDataSource: ScanHistoryDataSource, isScanningSessionExpirable: Bool) {
         self.scans = scans
-        self.scanHistoryDisplaying = scanHistoryDisplaying
+        self.scanHistoryDataSource = scanHistoryDataSource
         self.isScanningSessionExpirable = isScanningSessionExpirable
 
         createSections()
@@ -109,7 +109,7 @@ extension ScanHistoryViewModel {
     }
 
     func createSections() {
-        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDisplaying.tableViewHeader, nothingScannedText: scanHistoryDisplaying.nothingScannedText).sections
+        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDataSource.tableViewHeader, nothingScannedText: scanHistoryDataSource.nothingScannedText).sections
     }
 }
 

@@ -14,7 +14,7 @@ protocol ScanToContinueViewModelDelegate: class {
 class ScanToContinueViewModel {
     var removeScanWarningTimer: Timer?
 
-    let scanToContinueDisplaying: ScanToContinueDisplaying
+    let scanToContinueDataSource: ScanToContinueDataSource
     let isScannerExpired: Bool
 
     private(set) var hapticFeedbackManager: ScannerHapticFeedbackManager?
@@ -22,11 +22,11 @@ class ScanToContinueViewModel {
     weak var delegate: ScanToContinueViewModelDelegate?
 
     var scanToContinueTitle: String {
-        return isScannerExpired ? scanToContinueDisplaying.continuingTitle : scanToContinueDisplaying.startingTitle
+        return isScannerExpired ? scanToContinueDataSource.continuingTitle : scanToContinueDataSource.startingTitle
     }
 
     var scanToContinueDescription: String? {
-        return isScannerExpired ? scanToContinueDisplaying.continuingDescription : scanToContinueDisplaying.startingDescription
+        return isScannerExpired ? scanToContinueDataSource.continuingDescription : scanToContinueDataSource.startingDescription
     }
 
     enum ScanWarningState: Equatable {
@@ -63,8 +63,8 @@ class ScanToContinueViewModel {
         }
     }
 
-    init(scanToContinueDisplaying: ScanToContinueDisplaying, isScannerExpired: Bool) {
-        self.scanToContinueDisplaying = scanToContinueDisplaying
+    init(scanToContinueDataSource: ScanToContinueDataSource, isScannerExpired: Bool) {
+        self.scanToContinueDataSource = scanToContinueDataSource
         self.isScannerExpired = isScannerExpired
     }
 }
@@ -72,7 +72,7 @@ class ScanToContinueViewModel {
 // MARK: - Public Methods
 extension ScanToContinueViewModel {
     func didScan(barcode: String) {
-        let scanResult = scanToContinueDisplaying.scan(startingBarcode: barcode)
+        let scanResult = scanToContinueDataSource.scan(startingBarcode: barcode)
         hapticFeedbackManager?.didScan(with: scanResult)
 
         switch scanResult {
