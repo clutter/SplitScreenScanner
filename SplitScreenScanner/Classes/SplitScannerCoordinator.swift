@@ -10,7 +10,6 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator)
     func didPressDoneButton(_ SplitScannerCoordinator: SplitScannerCoordinator)
 }
 
@@ -188,7 +187,6 @@ extension SplitScannerCoordinator: ScanHistoryViewModelDelegate {
         viewModel.scannerState = .expired
         displayScanToContinueView()
         barcodeScannerViewModel?.resetLastScannedBarcode()
-
-        delegate?.didExpireScanningSession(self)
+        scanToContinueProvider?.didExpireScanningSession()
     }
 }

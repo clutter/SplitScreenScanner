@@ -14,4 +14,5 @@ public protocol ScanToContinueDataSource {
     var continuingDescription: String? { get }
 
     func scan(startingBarcode: String) -> ScanResult
+    func didExpireScanningSession()
 }

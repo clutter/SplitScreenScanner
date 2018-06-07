@@ -43,6 +43,10 @@ class ScanToContinueViewModelTests: XCTestCase {
                 return .error(description: "Unit Test Wrong Barcode Scanned Message")
             }
         }
+
+        func didExpireScanningSession() {
+            // NOOP
+        }
     }
 
     func testStartingTitle() {

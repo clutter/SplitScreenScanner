@@ -43,10 +43,6 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator) {
-        // NOOP
-    }
-
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
         // NOOP
     }
@@ -87,5 +83,9 @@ extension StartScanningViewController: ScanToContinueDataSource {
         } else {
             return .error(description: "Wrong Barcode Scanned")
         }
+    }
+
+    func didExpireScanningSession() {
+        // NOOP
     }
 }
