@@ -79,6 +79,7 @@ extension ScanHistoryViewModel {
         let scan = ScanHistory(barcode: barcode, scanResult: result)
         insert(newScan: scan)
         hapticFeedbackManager?.didScan(with: result)
+        scanHistoryDataSource.playBarcodeScanSound(for: result)
         resetExpireSessionTimer()
     }
 

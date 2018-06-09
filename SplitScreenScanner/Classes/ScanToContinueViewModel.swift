@@ -72,10 +72,11 @@ class ScanToContinueViewModel {
 // MARK: - Public Methods
 extension ScanToContinueViewModel {
     func didScan(barcode: String) {
-        let scanResult = scanToContinueDataSource.scan(startingBarcode: barcode)
-        hapticFeedbackManager?.didScan(with: scanResult)
+        let result = scanToContinueDataSource.scan(startingBarcode: barcode)
+        hapticFeedbackManager?.didScan(with: result)
+        scanToContinueDataSource.playScanToContinueSound(for: result)
 
-        switch scanResult {
+        switch result {
         case .success:
             delegate?.scanToContinueViewModel(self, didScanStartingBarcode: barcode)
         case let .warning(description), let .error(description):

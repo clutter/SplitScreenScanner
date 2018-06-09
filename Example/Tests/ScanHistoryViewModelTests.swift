@@ -31,6 +31,10 @@ class ScanHistoryViewModelTests: XCTestCase {
             tableViewHeader = "Test TableView Header"
             nothingScannedText = "Test no scan text"
         }
+
+        func playBarcodeScanSound(for result: ScanResult) {
+            // NOOP
+        }
     }
 
     override func tearDown() {

@@ -44,6 +44,10 @@ class ScanToContinueViewModelTests: XCTestCase {
             }
         }
 
+        func playScanToContinueSound(for result: ScanResult) {
+            // NOOP
+        }
+
         func didExpireScanningSession() {
             // NOOP
         }

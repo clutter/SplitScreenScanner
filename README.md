@@ -54,11 +54,6 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    // Called just after the scanning session expires
-    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator) {
-        print("Scanning session expired")
-    }
-
     // Called when the done button is pressed, the actual closing of the scanner is handled automatically
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
         print("Closing SplitScreenScanner")
@@ -76,6 +71,11 @@ extension StartScanningViewController: scanHistoryDataSource {
     // Text displayed when no scans have been made during the current scanning session
     var nothingScannedText: String {
         return "Scan an item to start loading"
+    }
+    
+    // Used for playing sounds just after a barcode scan is made
+    func playBarcodeScanSound(for result: ScanResult) {
+        // Play scanning sound
     }
 }
 
@@ -109,6 +109,16 @@ extension StartScanningViewController: ScanToContinueDataSource {
         } else {
             return .error(description: "Wrong Barcode Scanned")
         }
+    }
+    
+    // Used for playing sounds just after a starting or continuing scan is made
+    func playScanToContinueSound(for result: ScanResult) {
+        // Play scanning sound
+    }
+    
+    // Called just after the scanning session expires
+    func didExpireScanningSession() {
+        print("Scanning session expired")
     }
 }
 ```

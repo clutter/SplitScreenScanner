@@ -187,6 +187,6 @@ extension SplitScannerCoordinator: ScanHistoryViewModelDelegate {
         viewModel.scannerState = .expired
         displayScanToContinueView()
         barcodeScannerViewModel?.resetLastScannedBarcode()
-        scanToContinueProvider?.didExpireScanningSession()
+        scanToContinueDataSource?.didExpireScanningSession()
     }
 }

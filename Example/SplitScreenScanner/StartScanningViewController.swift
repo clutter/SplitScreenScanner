@@ -6,6 +6,7 @@
 //  Copyright © 2018 Clutter. All rights reserved.
 //
 
+import AVFoundation
 import UIKit
 import SplitScreenScanner
 
@@ -57,6 +58,10 @@ extension StartScanningViewController: ScanHistoryDataSource {
     var nothingScannedText: String {
         return "Scan an item to start loading"
     }
+
+    func playBarcodeScanSound(for result: ScanResult) {
+        // NOOP
+    }
 }
 
 // MARK: - ScanToContinueDataSource
@@ -83,6 +88,10 @@ extension StartScanningViewController: ScanToContinueDataSource {
         } else {
             return .error(description: "Wrong Barcode Scanned")
         }
+    }
+
+    func playScanToContinueSound(for result: ScanResult) {
+        // NOOP
     }
 
     func didExpireScanningSession() {
