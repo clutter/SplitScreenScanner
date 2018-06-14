@@ -15,15 +15,16 @@ protocol ScanHistoryViewModelDelegate: class {
 class ScanHistoryViewModel {
     var scans: [ScanHistory]
     let isScanningSessionExpirable: Bool
-    let scanHistoryDisplaying: ScanHistoryDisplaying
+    let scanHistoryDataSource: ScanHistoryDataSource
 
+    private(set) var hapticFeedbackManager: ScannerHapticFeedbackManager?
     private(set) var expireSessionTimer: Timer?
 
     weak var delegate: ScanHistoryViewModelDelegate?
 
-    init(scans: [ScanHistory], scanHistoryDisplaying: ScanHistoryDisplaying, isScanningSessionExpirable: Bool) {
+    init(scans: [ScanHistory], scanHistoryDataSource: ScanHistoryDataSource, isScanningSessionExpirable: Bool) {
         self.scans = scans
-        self.scanHistoryDisplaying = scanHistoryDisplaying
+        self.scanHistoryDataSource = scanHistoryDataSource
         self.isScanningSessionExpirable = isScanningSessionExpirable
 
         createSections()
@@ -54,6 +55,19 @@ class ScanHistoryViewModel {
 
     var insertRowBinding: ((IndexPath) -> Void)?
 
+    var isHapticFeedbackEnabled: Bool {
+        get {
+            return hapticFeedbackManager != nil
+        }
+        set {
+            if newValue {
+                hapticFeedbackManager = ScannerHapticFeedbackManager()
+            } else {
+                hapticFeedbackManager = nil
+            }
+        }
+    }
+
     // MARK: - Table Rows
 
     private(set) var sections: Sections<TableModel> = []
@@ -64,6 +78,8 @@ extension ScanHistoryViewModel {
     func didScan(barcode: String, with result: ScanResult) {
         let scan = ScanHistory(barcode: barcode, scanResult: result)
         insert(newScan: scan)
+        hapticFeedbackManager?.didScan(with: result)
+        scanHistoryDataSource.playBarcodeScanSound(for: result)
         resetExpireSessionTimer()
     }
 
@@ -94,7 +110,7 @@ extension ScanHistoryViewModel {
     }
 
     func createSections() {
-        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDisplaying.tableViewHeader, nothingScannedText: scanHistoryDisplaying.nothingScannedText).sections
+        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDataSource.tableViewHeader, nothingScannedText: scanHistoryDataSource.nothingScannedText).sections
     }
 }
 

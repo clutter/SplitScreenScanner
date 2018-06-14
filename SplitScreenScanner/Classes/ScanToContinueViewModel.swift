@@ -14,17 +14,19 @@ protocol ScanToContinueViewModelDelegate: class {
 class ScanToContinueViewModel {
     var removeScanWarningTimer: Timer?
 
-    let scanToContinueDisplaying: ScanToContinueDisplaying
+    let scanToContinueDataSource: ScanToContinueDataSource
     let isScannerExpired: Bool
+
+    private(set) var hapticFeedbackManager: ScannerHapticFeedbackManager?
 
     weak var delegate: ScanToContinueViewModelDelegate?
 
     var scanToContinueTitle: String {
-        return isScannerExpired ? scanToContinueDisplaying.continuingTitle : scanToContinueDisplaying.startingTitle
+        return isScannerExpired ? scanToContinueDataSource.continuingTitle : scanToContinueDataSource.startingTitle
     }
 
     var scanToContinueDescription: String? {
-        return isScannerExpired ? scanToContinueDisplaying.continuingDescription : scanToContinueDisplaying.startingDescription
+        return isScannerExpired ? scanToContinueDataSource.continuingDescription : scanToContinueDataSource.startingDescription
     }
 
     enum ScanWarningState: Equatable {
@@ -48,8 +50,21 @@ class ScanToContinueViewModel {
         }
     }
 
-    init(scanToContinueDisplaying: ScanToContinueDisplaying, isScannerExpired: Bool) {
-        self.scanToContinueDisplaying = scanToContinueDisplaying
+    var isHapticFeedbackEnabled: Bool {
+        get {
+            return hapticFeedbackManager != nil
+        }
+        set {
+            if newValue {
+                hapticFeedbackManager = ScannerHapticFeedbackManager()
+            } else {
+                hapticFeedbackManager = nil
+            }
+        }
+    }
+
+    init(scanToContinueDataSource: ScanToContinueDataSource, isScannerExpired: Bool) {
+        self.scanToContinueDataSource = scanToContinueDataSource
         self.isScannerExpired = isScannerExpired
     }
 }
@@ -57,8 +72,11 @@ class ScanToContinueViewModel {
 // MARK: - Public Methods
 extension ScanToContinueViewModel {
     func didScan(barcode: String) {
-        let scanResult = scanToContinueDisplaying.scan(startingBarcode: barcode)
-        switch scanResult {
+        let result = scanToContinueDataSource.scan(startingBarcode: barcode)
+        hapticFeedbackManager?.didScan(with: result)
+        scanToContinueDataSource.playScanToContinueSound(for: result)
+
+        switch result {
         case .success:
             delegate?.scanToContinueViewModel(self, didScanStartingBarcode: barcode)
         case let .warning(description), let .error(description):

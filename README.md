@@ -21,9 +21,9 @@ class StartScanningViewController: UIViewController {
 
             let scannerTitle = "Split Screen Scanner" // Used as the main navigation title for the scanner
 
-            // The scanHistoryDisplaying parameter is used to populate the scan history TableView with some needed text values (e.g. the TableView's header)
-            // The scanToContinueDisplaying parameter is used to provide the scan to begin and scan to continue views with necessary functionality and text values (e.g. function for scanning the starting barcode, title for scan to begin view, ect...)
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDisplaying: self, scanToContinueDisplaying: self)
+            // The scanHistoryDataSource parameter is used to populate the scan history TableView with some needed text values (e.g. the TableView's header)
+            // The scanToContinueDataSource parameter is used to provide the scan to begin and scan to continue views with necessary functionality and text values (e.g. function for scanning the starting barcode, title for scan to begin view, ect...)
+            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
             splitScannerCoordinator?.delegate = self
 
             try splitScannerCoordinator?.start()
@@ -54,19 +54,14 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    // Called just after the scanning session expires
-    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator) {
-        print("Scanning session expired")
-    }
-
     // Called when the done button is pressed, the actual closing of the scanner is handled automatically
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
         print("Closing SplitScreenScanner")
     }
 }
 
-// MARK: - ScanHistoryDisplaying
-extension StartScanningViewController: ScanHistoryDisplaying {
+// MARK: - ScanHistoryDataSource
+extension StartScanningViewController: scanHistoryDataSource {
 
     // Header for the scan history table view
     var tableViewHeader: String {
@@ -77,10 +72,15 @@ extension StartScanningViewController: ScanHistoryDisplaying {
     var nothingScannedText: String {
         return "Scan an item to start loading"
     }
+    
+    // Used for playing sounds just after a barcode scan is made
+    func playBarcodeScanSound(for result: ScanResult) {
+        // Play scanning sound
+    }
 }
 
-// MARK: - ScanToContinueDisplaying
-extension StartScanningViewController: ScanToContinueDisplaying {
+// MARK: - ScanToContinueDataSource
+extension StartScanningViewController: ScanToContinueDataSource {
 
     // Used for the title of the scan to begin view (starting a scanning session for the first time)
     var startingTitle: String {
@@ -110,18 +110,28 @@ extension StartScanningViewController: ScanToContinueDisplaying {
             return .error(description: "Wrong Barcode Scanned")
         }
     }
+    
+    // Used for playing sounds just after a starting or continuing scan is made
+    func playScanToContinueSound(for result: ScanResult) {
+        // Play scanning sound
+    }
+    
+    // Called just after the scanning session expires
+    func didExpireScanningSession() {
+        print("Scanning session expired")
+    }
 }
 ```
 
-Please note that when initializing splitScannerCoordinator the `scanToContinueDisplaying: ScanToContinueDisplaying?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after 30 seconds without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
+Please note that when initializing splitScannerCoordinator the `scanToContinueDataSource: ScanToContinueDataSource?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after 30 seconds without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
 
 <img src="Screenshots/scan_to_begin.PNG" height="50%" width="50%">
 (Scan to begin view)
 
-If you want your users to jump straight into an unexpirable scanning session, then simply just use nil for the `scanToContinueDisplaying` parameter:
+If you want your users to jump straight into an unexpirable scanning session, then simply just use nil for the `scanToContinueDataSource` parameter:
 
 ```swift
-splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDisplaying: self, scanToContinueDisplaying: nil)
+splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: nil)
 ```
 
 <img src="Screenshots/scan_history_no_scans.PNG" height="50%" width="50%">

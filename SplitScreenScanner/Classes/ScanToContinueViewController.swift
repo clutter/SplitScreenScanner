@@ -54,6 +54,18 @@ class ScanToContinueViewController: UIViewController {
         }
     }
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
+        viewModel.isHapticFeedbackEnabled = true
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+
+        viewModel.isHapticFeedbackEnabled = false
+    }
+
     override func willMove(toParentViewController parent: UIViewController?) {
         super.willMove(toParentViewController: parent)
 

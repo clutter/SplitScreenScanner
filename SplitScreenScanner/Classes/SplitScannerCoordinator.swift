@@ -10,7 +10,6 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator)
     func didPressDoneButton(_ SplitScannerCoordinator: SplitScannerCoordinator)
 }
 
@@ -31,22 +30,22 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
 
     private var currentlyDisplayedInfoVC: UIViewController?
 
-    let scanToContinueDisplaying: ScanToContinueDisplaying?
-    let scanHistoryDisplaying: ScanHistoryDisplaying
+    let scanToContinueDataSource: ScanToContinueDataSource?
+    let scanHistoryDataSource: ScanHistoryDataSource
 
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
     weak var navigation: UINavigationController!
 
-    public init(navigation: UINavigationController, scannerTitle: String, scanHistoryDisplaying: ScanHistoryDisplaying, scanToContinueDisplaying: ScanToContinueDisplaying?) throws {
+    public init(navigation: UINavigationController, scannerTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
         let deviceProvider = DeviceProvider(device: videoDevice)
         self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: scannerTitle)
 
-        self.scanHistoryDisplaying = scanHistoryDisplaying
-        self.scanToContinueDisplaying = scanToContinueDisplaying
+        self.scanHistoryDataSource = scanHistoryDataSource
+        self.scanToContinueDataSource = scanToContinueDataSource
         self.navigation = navigation
         self.rootCoordinator = self
     }
@@ -94,8 +93,8 @@ private extension SplitScannerCoordinator {
             let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
             guard let scanHistoryVC = storyboard.instantiateViewController(withIdentifier: "ScanHistory") as? ScanHistoryTableViewController else { return }
 
-            let isScanningSessionExpirable = scanToContinueDisplaying != nil
-            scanHistoryViewModel = ScanHistoryViewModel(scans: [], scanHistoryDisplaying: scanHistoryDisplaying, isScanningSessionExpirable: isScanningSessionExpirable)
+            let isScanningSessionExpirable = scanToContinueDataSource != nil
+            scanHistoryViewModel = ScanHistoryViewModel(scans: [], scanHistoryDataSource: scanHistoryDataSource, isScanningSessionExpirable: isScanningSessionExpirable)
             scanHistoryViewModel?.delegate = self
             scanHistoryVC.viewModel = scanHistoryViewModel
             switchInfoView(to: scanHistoryVC)
@@ -103,7 +102,7 @@ private extension SplitScannerCoordinator {
     }
 
     func displayScanToContinueView() {
-        guard let scanToContinueDisplaying = scanToContinueDisplaying else {
+        guard let scanToContinueDataSource = scanToContinueDataSource else {
             displayScanHistoryView()
             return
         }
@@ -117,7 +116,7 @@ private extension SplitScannerCoordinator {
 
             let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
             guard let scanToContinueVC = storyboard.instantiateViewController(withIdentifier: "ScanToContinue") as? ScanToContinueViewController else { return }
-            scanToContinueViewModel = ScanToContinueViewModel(scanToContinueDisplaying: scanToContinueDisplaying, isScannerExpired: viewModel.scannerState == .expired)
+            scanToContinueViewModel = ScanToContinueViewModel(scanToContinueDataSource: scanToContinueDataSource, isScannerExpired: viewModel.scannerState == .expired)
             scanToContinueViewModel?.delegate = self
             scanToContinueVC.viewModel = scanToContinueViewModel
             switchInfoView(to: scanToContinueVC)
@@ -188,7 +187,6 @@ extension SplitScannerCoordinator: ScanHistoryViewModelDelegate {
         viewModel.scannerState = .expired
         displayScanToContinueView()
         barcodeScannerViewModel?.resetLastScannedBarcode()
-
-        delegate?.didExpireScanningSession(self)
+        scanToContinueDataSource?.didExpireScanningSession()
     }
 }

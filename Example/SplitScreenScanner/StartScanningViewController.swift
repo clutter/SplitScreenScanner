@@ -6,6 +6,7 @@
 //  Copyright © 2018 Clutter. All rights reserved.
 //
 
+import AVFoundation
 import UIKit
 import SplitScreenScanner
 
@@ -19,7 +20,7 @@ class StartScanningViewController: UIViewController {
             guard let navigation = navigationController else { return }
 
             let scannerTitle = "Test Barcode Scanner"
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDisplaying: self, scanToContinueDisplaying: self)
+            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
             splitScannerCoordinator?.delegate = self
 
             try splitScannerCoordinator?.start()
@@ -43,17 +44,13 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    func didExpireScanningSession(_ SplitScannerCoordinator: SplitScannerCoordinator) {
-        // NOOP
-    }
-
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
         // NOOP
     }
 }
 
-// MARK: - ScanHistoryDisplaying
-extension StartScanningViewController: ScanHistoryDisplaying {
+// MARK: - ScanHistoryDataSource
+extension StartScanningViewController: ScanHistoryDataSource {
     var tableViewHeader: String {
         return "Scanning Items to Truck"
     }
@@ -61,10 +58,14 @@ extension StartScanningViewController: ScanHistoryDisplaying {
     var nothingScannedText: String {
         return "Scan an item to start loading"
     }
+
+    func playBarcodeScanSound(for result: ScanResult) {
+        // NOOP
+    }
 }
 
-// MARK: - ScanToContinueDisplaying
-extension StartScanningViewController: ScanToContinueDisplaying {
+// MARK: - ScanToContinueDataSource
+extension StartScanningViewController: ScanToContinueDataSource {
     var startingTitle: String {
         return "Scan Barcode #\(startingBarcode) to Begin"
     }
@@ -87,5 +88,13 @@ extension StartScanningViewController: ScanToContinueDisplaying {
         } else {
             return .error(description: "Wrong Barcode Scanned")
         }
+    }
+
+    func playScanToContinueSound(for result: ScanResult) {
+        // NOOP
+    }
+
+    func didExpireScanningSession() {
+        // NOOP
     }
 }

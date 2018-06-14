@@ -10,7 +10,7 @@ import XCTest
 @testable import SplitScreenScanner
 
 class ScanToContinueViewModelTests: XCTestCase {
-    private let testScanToContinueDisplayer = TestScanToContinueDisplayer()
+    private let testScanToContinueDataSource = TestScanToContinueDataSource()
 
     private var sink: DelegateSink!
     private var vm: ScanToContinueViewModel!
@@ -23,7 +23,7 @@ class ScanToContinueViewModelTests: XCTestCase {
         }
     }
 
-    private struct TestScanToContinueDisplayer: ScanToContinueDisplaying {
+    private struct TestScanToContinueDataSource: ScanToContinueDataSource {
         let startingTitle: String
         let startingDescription: String?
         let continuingTitle: String
@@ -43,6 +43,14 @@ class ScanToContinueViewModelTests: XCTestCase {
                 return .error(description: "Unit Test Wrong Barcode Scanned Message")
             }
         }
+
+        func playScanToContinueSound(for result: ScanResult) {
+            // NOOP
+        }
+
+        func didExpireScanningSession() {
+            // NOOP
+        }
     }
 
     func testStartingTitle() {
@@ -53,7 +61,7 @@ class ScanToContinueViewModelTests: XCTestCase {
             startingTitle = title
         }
 
-        XCTAssertEqual(startingTitle, testScanToContinueDisplayer.startingTitle)
+        XCTAssertEqual(startingTitle, testScanToContinueDataSource.startingTitle)
     }
 
     func testContinuingTitle() {
@@ -64,7 +72,7 @@ class ScanToContinueViewModelTests: XCTestCase {
             continuingTitle = title
         }
 
-        XCTAssertEqual(continuingTitle, testScanToContinueDisplayer.continuingTitle)
+        XCTAssertEqual(continuingTitle, testScanToContinueDataSource.continuingTitle)
     }
 
     func testStartingDescription() {
@@ -75,7 +83,7 @@ class ScanToContinueViewModelTests: XCTestCase {
             starrtingDescription = description
         }
 
-        XCTAssertEqual(starrtingDescription, testScanToContinueDisplayer.startingDescription)
+        XCTAssertEqual(starrtingDescription, testScanToContinueDataSource.startingDescription)
     }
 
     func testContinuingDescription() {
@@ -86,7 +94,7 @@ class ScanToContinueViewModelTests: XCTestCase {
             continuingDescription = description
         }
 
-        XCTAssertEqual(continuingDescription, testScanToContinueDisplayer.continuingDescription)
+        XCTAssertEqual(continuingDescription, testScanToContinueDataSource.continuingDescription)
     }
     
     func testDidScanCorrectStartingBarcode() {
@@ -124,13 +132,24 @@ class ScanToContinueViewModelTests: XCTestCase {
 
         XCTAssertEqual(scanWarningState, ScanToContinueViewModel.ScanWarningState.removeWarning)
     }
+
+    func testeHapticFeedback() {
+        setupVM(isScannerExpired: false)
+        XCTAssertNil(vm.hapticFeedbackManager)
+
+        vm.isHapticFeedbackEnabled = true
+        XCTAssertNotNil(vm.hapticFeedbackManager)
+
+        vm.isHapticFeedbackEnabled = false
+        XCTAssertNil(vm.hapticFeedbackManager)
+    }
 }
 
 // MARK: - Private Methods
 private extension ScanToContinueViewModelTests {
     func setupVM(isScannerExpired: Bool) {
         sink = DelegateSink()
-        vm = ScanToContinueViewModel(scanToContinueDisplaying: testScanToContinueDisplayer, isScannerExpired: isScannerExpired)
+        vm = ScanToContinueViewModel(scanToContinueDataSource: testScanToContinueDataSource, isScannerExpired: isScannerExpired)
         vm.delegate = sink
     }
 }
