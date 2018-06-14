@@ -85,7 +85,7 @@ class ScanHistoryTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NothingScannedCell") ?? UITableViewCell(style: .default, reuseIdentifier: "NothingScannedCell")
             cell.textLabel?.textAlignment = .center
             cell.textLabel?.textColor = ScannerStyleKit.clutterLightGrey
-            cell.backgroundColor = ScannerStyleKit.historyCellBackgroundGrey
+            cell.backgroundColor = .white
             cell.selectionStyle = .none
             cell.textLabel?.text = noScanText
             return cell
@@ -104,8 +104,8 @@ class ScanHistoryTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         if let headerView = view as? UITableViewHeaderFooterView {
-            headerView.tintColor = .black
-            headerView.textLabel?.textColor = .lightText
+            headerView.tintColor = ScannerStyleKit.clutterMoon
+            headerView.textLabel?.textColor = ScannerStyleKit.clutterMidGrey
             headerView.textLabel?.font = UIFont.systemFont(ofSize: 13.0)
 
             if let textLabelBounds = headerView.textLabel?.bounds {
