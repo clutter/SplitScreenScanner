@@ -67,40 +67,37 @@ final class ContinuousBarcodeScanner {
 
         do {
             try videoDevice.lockForConfiguration()
-            videoDevice.focusMode = .continuousAutoFocus
-            videoDevice.exposureMode = .continuousAutoExposure
-            videoDevice.whiteBalanceMode = .continuousAutoWhiteBalance
-            if videoDevice.isAutoFocusRangeRestrictionSupported {
-                videoDevice.autoFocusRangeRestriction = .near
-            }
-            videoDevice.unlockForConfiguration()
         } catch {
             throw ContinuousBarcodeScannerError.couldNotInitCamera
         }
+        videoDevice.focusMode = .continuousAutoFocus
+        videoDevice.exposureMode = .continuousAutoExposure
+        videoDevice.whiteBalanceMode = .continuousAutoWhiteBalance
+        if videoDevice.isAutoFocusRangeRestrictionSupported {
+            videoDevice.autoFocusRangeRestriction = .near
+        }
+        videoDevice.unlockForConfiguration()
 
-        do {
-            let videoInput = try AVCaptureDeviceInput(device: videoDevice)
-            captureSession = AVCaptureSession()
-            captureSession.sessionPreset = .high
-            if captureSession.canAddInput(videoInput) {
-                captureSession.addInput(videoInput)
-            } else {
-                throw ContinuousBarcodeScannerError.couldNotAddVideoInput
-            }
-        } catch {
+        captureSession = AVCaptureSession()
+        captureSession.sessionPreset = .high
+
+        guard let videoInput = try? AVCaptureDeviceInput(device: videoDevice) else {
             throw ContinuousBarcodeScannerError.couldNotInitCamera
         }
+        guard captureSession.canAddInput(videoInput) else {
+            throw ContinuousBarcodeScannerError.couldNotAddVideoInput
+        }
+        captureSession.addInput(videoInput)
 
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = previewView.bounds
         previewLayer.videoGravity = .resizeAspectFill
 
         metadataCapture = MetadataContinousCapture()
-        if captureSession.canAddOutput(metadataCapture.metadataOutput) {
-            captureSession.addOutput(metadataCapture.metadataOutput)
-        } else {
+        guard captureSession.canAddOutput(metadataCapture.metadataOutput) else {
             throw ContinuousBarcodeScannerError.couldNotAddMetadataOutput
         }
+        captureSession.addOutput(metadataCapture.metadataOutput)
     }
 }
 
