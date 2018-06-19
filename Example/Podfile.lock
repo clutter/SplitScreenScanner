@@ -7,7 +7,7 @@ DEPENDENCIES:
   - SplitScreenScanner (from `../`)
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  https://github.com/cocoapods/specs.git:
     - Sections
 
 EXTERNAL SOURCES:
@@ -20,4 +20,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e4af04dcb155459854179c216fae935f244844f2
 
-COCOAPODS: 1.5.0
+COCOAPODS: 1.5.3
