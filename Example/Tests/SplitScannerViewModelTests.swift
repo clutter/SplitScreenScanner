@@ -3,7 +3,7 @@
 //  SplitScreenScanner_Tests
 //
 //  Created by Sean Machen on 4/4/18.
-//  Copyright © 2018 CocoaPods. All rights reserved.
+//  Copyright © 2018 Clutter Inc. All rights reserved.
 //
 
 import XCTest

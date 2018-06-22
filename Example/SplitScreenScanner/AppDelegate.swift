@@ -2,8 +2,8 @@
 //  AppDelegate.swift
 //  SplitScreenScanner
 //
-//  Created by 10d656fb252a6769bbb7c085a1a2012bc5a98ebe on 03/28/2018.
-//  Copyright (c) 2018 10d656fb252a6769bbb7c085a1a2012bc5a98ebe. All rights reserved.
+//  Created by Sean Machen on 03/28/2018.
+//  Copyright (c) 2018 Clutter Inc. All rights reserved.
 //
 
 import UIKit

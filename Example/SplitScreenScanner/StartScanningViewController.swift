@@ -3,7 +3,7 @@
 //  SplitScreenScannerTest
 //
 //  Created by Sean Machen on 3/27/18.
-//  Copyright © 2018 Clutter. All rights reserved.
+//  Copyright © 2018 Clutter Inc. All rights reserved.
 //
 
 import AVFoundation
