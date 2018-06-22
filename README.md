@@ -150,7 +150,7 @@ SplitScreenScanner is available through [CocoaPods](http://cocoapods.org). To in
 it, simply add the following line to your Podfile:
 
 ```ruby
-pod 'SplitScreenScanner', :git => 'https://github.com/clutter/SplitScreenScanner'
+pod 'SplitScreenScanner', git: 'https://github.com/clutter/SplitScreenScanner'
 ```
 
 ## Author
