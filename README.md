@@ -22,11 +22,12 @@ class StartScanningViewController: UIViewController {
             let scannerTitle = "Split Screen Scanner" // Used as the main navigation title for the scanner
 
             // The scanHistoryDataSource parameter is used to populate the scan history TableView with some needed text values (e.g. the TableView's header)
-            // The scanToContinueDataSource parameter is used to provide the scan to begin and scan to continue views with necessary functionality and text values (e.g. function for scanning the starting barcode, title for scan to begin view, ect...)
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
-            splitScannerCoordinator?.delegate = self
+            // The scanToContinueDataSource parameter is used to provide the scan to begin and scan to continue views with necessary functionality and text values (e.g. function for scanning the starting barcode, title for scan to begin view, etc...)
+            let splitScannerCoordinator = try SplitScannerCoordinator(scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
+            splitScannerCoordinator.delegate = self
 
-            try splitScannerCoordinator?.start()
+            let scannerViewController = try splitScannerCoordinator.makeRootViewController()
+            navigation.present(scannerViewController, animated: true)
         } catch {
             print(error)
         }
@@ -54,9 +55,10 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    // Called when the done button is pressed, the actual closing of the scanner is handled automatically
-    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
+    // Called when the done button is pressed. Dismiss the scanner as appropriate.
+    func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator) {
         print("Closing SplitScreenScanner")
+        dismiss(animated: true)
     }
 }
 

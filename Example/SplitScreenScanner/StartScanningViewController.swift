@@ -13,17 +13,16 @@ import SplitScreenScanner
 class StartScanningViewController: UIViewController {
     let startingBarcode = "SO0000000001195"
 
-    var splitScannerCoordinator: SplitScannerCoordinator?
-
     @IBAction func startScanningButtonPressed(_ sender: Any) {
         do {
             guard let navigation = navigationController else { return }
 
             let scannerTitle = "Test Barcode Scanner"
-            splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
-            splitScannerCoordinator?.delegate = self
+            let splitScannerCoordinator = try SplitScannerCoordinator(scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
+            splitScannerCoordinator.delegate = self
 
-            try splitScannerCoordinator?.start()
+            let scannerViewController = try splitScannerCoordinator.makeRootViewController()
+            navigation.present(scannerViewController, animated: true)
         } catch {
             print(error)
         }
@@ -44,8 +43,8 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerCoordinator) {
-        // NOOP
+    func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator) {
+        dismiss(animated: true)
     }
 }
 

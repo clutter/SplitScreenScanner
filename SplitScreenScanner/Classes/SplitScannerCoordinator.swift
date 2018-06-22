@@ -9,8 +9,14 @@ import UIKit
 import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
-    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-    func didPressDoneButton(_ SplitScannerCoordinator: SplitScannerCoordinator)
+    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
+    func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator)
+}
+
+enum SplitScannerError: Error {
+    case missingBundle(name: String)
+    case couldNotInstantiateInitialViewController
+    case couldNotInstantiateViewController(identifier: String)
 }
 
 public class SplitScannerCoordinator: RootCoordinator, Coordinator {
@@ -35,9 +41,8 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
 
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
-    weak var navigation: UINavigationController!
 
-    public init(navigation: UINavigationController, scannerTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
+    public init(scannerTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
@@ -46,37 +51,40 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
 
         self.scanHistoryDataSource = scanHistoryDataSource
         self.scanToContinueDataSource = scanToContinueDataSource
-        self.navigation = navigation
         self.rootCoordinator = self
     }
 
-    public func start() throws {
+    public func makeRootViewController() throws -> UIViewController {
         let bundle = Bundle(for: SplitScannerCoordinator.self)
         guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) else { return }
-
-        rootCoordinator?.pushCoordinator(self)
+            let resourceBundle = Bundle(url: resourceBundleURL) else {
+                throw SplitScannerError.missingBundle(name: "SplitScreenScanner")
+        }
 
         let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
-        if let splitScannerParentVC = storyboard.instantiateInitialViewController() as? SplitScannerViewController {
-
-            self.splitScannerParentVC = splitScannerParentVC
-            viewModel.delegate = self
-            splitScannerParentVC.viewModel = viewModel
-
-            navigation.present(splitScannerParentVC, animated: true)
-
-            if let barcodeScannerVC = storyboard.instantiateViewController(withIdentifier: "BarcodeScanner") as? BarcodeScannerViewController {
-                self.barcodeScannerVC = barcodeScannerVC
-
-                barcodeScannerViewModel = try BarcodeScannerViewModel(view: barcodeScannerVC.view)
-                barcodeScannerViewModel?.delegate = self
-                barcodeScannerVC.viewModel = barcodeScannerViewModel
-                embed(childVC: barcodeScannerVC, in: splitScannerParentVC.barcodeScannerContainerView)
-
-                displayScanToContinueView()
-            }
+        guard let splitScannerParentVC = storyboard.instantiateInitialViewController() as? SplitScannerViewController else {
+            throw SplitScannerError.couldNotInstantiateInitialViewController
         }
+        guard let barcodeScannerVC = storyboard.instantiateViewController(withIdentifier: "BarcodeScanner") as? BarcodeScannerViewController else {
+            throw SplitScannerError.couldNotInstantiateViewController(identifier: "BarcodeScanner")
+        }
+
+        rootCoordinator?.pushCoordinator(self)
+        self.splitScannerParentVC = splitScannerParentVC
+        self.barcodeScannerVC = barcodeScannerVC
+
+        viewModel.delegate = self
+        splitScannerParentVC.viewModel = viewModel
+
+        barcodeScannerViewModel = try BarcodeScannerViewModel(view: barcodeScannerVC.view)
+        barcodeScannerViewModel?.delegate = self
+        barcodeScannerVC.viewModel = barcodeScannerViewModel
+
+        splitScannerParentVC.loadViewIfNeeded()
+        embed(childVC: barcodeScannerVC, in: splitScannerParentVC.barcodeScannerContainerView)
+        displayScanToContinueView()
+
+        return splitScannerParentVC
     }
 }
 
@@ -152,12 +160,7 @@ private extension SplitScannerCoordinator {
 extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
         rootCoordinator?.popCoordinator(self)
-
-        navigation?.dismiss(animated: true) { [weak self] in
-            guard let sSelf = self else { return }
-
-            sSelf.delegate?.didPressDoneButton(sSelf)
-        }
+        delegate?.didPressDoneButton(self)
     }
 }
 
