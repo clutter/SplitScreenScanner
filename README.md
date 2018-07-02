@@ -43,15 +43,18 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
     // .success -> green checkmark image
     // .warning -> yellow exclamation triangle
     // .error -> red exclamation triangle
-    func didScanBarcode(_ SplitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult {
+    // The "blocking" value that is returned by this function decides if this scan should block the scanner.
+    // When the scanner is blocked, a grey background and smaller white overlay with the last scanned barcode's value inside will be displayed in place of the scanner.
+    // To unblock the scanner, call splitScannerCoordinator.unblockScanner()
+    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> (result: ScanResult, blocking: Bool) {
         print("Scanned: " + barcode)
         switch Int(arc4random_uniform(4)) {
         case 0...1:
-            return .success(description: "Nice scan!")
+            return (result: .success(description: "Nice scan!"), blocking: false)
         case 2:
-            return .warning(description: "Poor scan!")
+            return (result: .warning(description: "Poor scan!"), blocking: false)
         default:
-            return .error(description: "Bogus scan!")
+            return (result: .error(description: "Bogus scan!"), blocking: false)
         }
     }
 
@@ -127,7 +130,7 @@ extension StartScanningViewController: ScanToContinueDataSource {
 
 Please note that when initializing splitScannerCoordinator the `scanToContinueDataSource: ScanToContinueDataSource?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after 30 seconds without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
 
-<img src="Screenshots/scan_to_begin.PNG" height="50%" width="50%">
+<img src="Screenshots/scan_to_begin.png" height="50%" width="50%">
 (Scan to begin view)
 
 If you want your users to jump straight into an unexpirable scanning session, then simply just use nil for the `scanToContinueDataSource` parameter:
@@ -136,8 +139,13 @@ If you want your users to jump straight into an unexpirable scanning session, th
 splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: nil)
 ```
 
-<img src="Screenshots/scan_history_no_scans.PNG" height="50%" width="50%">
+<img src="Screenshots/scan_history_no_scans.png" height="50%" width="50%">
 (Empty scan history view)
+
+If a scan has blocking set to true, then the scanner will be blocked and remain blocked until `splitScannerCoordinator.unblockScanner()` is called.
+
+<img src="Screenshots/blocked_scanner.png" height="50%" width="50%">
+(Blocked scanner view)
 
 ## Requirements
 

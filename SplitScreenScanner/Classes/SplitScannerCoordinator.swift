@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
-    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
+    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> (result: ScanResult, blocking: Bool)
     func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator)
 }
 
@@ -85,6 +85,13 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
         displayScanToContinueView()
 
         return splitScannerParentVC
+    }
+}
+
+// MARK: - Public Methods
+extension SplitScannerCoordinator {
+    public func unblockScanner() {
+        barcodeScannerViewModel?.unblockScanner()
     }
 }
 
@@ -168,8 +175,12 @@ extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
 extension SplitScannerCoordinator: BarcodeScannerViewModelDelegate {
     func didScanBarcode(_ barcodeScannerViewModel: BarcodeScannerViewModel, barcode: String) {
         if currentlyDisplayedInfoVC is ScanHistoryTableViewController {
-            guard let scanResult = delegate?.didScanBarcode(self, barcode: barcode) else { return }
+            guard let (scanResult, blocking) = delegate?.didScanBarcode(self, barcode: barcode) else { return }
             scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult)
+
+            if blocking {
+                barcodeScannerViewModel.blockScanner(withMessage: barcode)
+            }
         } else {
             scanToContinueViewModel?.didScan(barcode: barcode)
         }
