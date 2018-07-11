@@ -97,6 +97,10 @@ extension SplitScannerCoordinator {
     public func unblockScanner() {
         barcodeScannerViewModel?.unblockScanner()
     }
+
+    public func resetLastScannedBarcode() {
+        barcodeScannerViewModel?.resetLastScannedBarcode()
+    }
 }
 
 // MARK: - Private Methods
