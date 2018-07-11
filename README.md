@@ -43,18 +43,15 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
     // .success -> green checkmark image
     // .warning -> yellow exclamation triangle
     // .error -> red exclamation triangle
-    // The "blocking" value that is returned by this function decides if this scan should block the scanner.
-    // When the scanner is blocked, a grey background and smaller white overlay with the last scanned barcode's value inside will be displayed in place of the scanner.
-    // To unblock the scanner, call splitScannerCoordinator.unblockScanner()
-    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> (result: ScanResult, blocking: Bool) {
+    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult {
         print("Scanned: " + barcode)
         switch Int(arc4random_uniform(4)) {
         case 0...1:
-            return (result: .success(description: "Nice scan!"), blocking: false)
+            return .success(description: "Nice scan!")
         case 2:
-            return (result: .warning(description: "Poor scan!"), blocking: false)
+            return .warning(description: "Poor scan!")
         default:
-            return (result: .error(description: "Bogus scan!"), blocking: false)
+            return .error(description: "Bogus scan!")
         }
     }
 
@@ -142,7 +139,7 @@ splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, sc
 <img src="Screenshots/scan_history_no_scans.png" height="50%" width="50%">
 (Empty scan history view)
 
-If a scan has blocking set to true, then the scanner will be blocked and remain blocked until `splitScannerCoordinator.unblockScanner()` is called.
+To temporarily disable the scanner, call `splitScannerCoordinator.blockScanner(withMessage: barcode)`. While the scanner is disabled, it will display the message passed to `blockScanner(withMessage:)` (in this case, `barcode`) instead of the camera. To re-enable the scanner, call `splitScannerCoordinator.unblockScanner()`.
 
 <img src="Screenshots/blocked_scanner.png" height="50%" width="50%">
 (Blocked scanner view)

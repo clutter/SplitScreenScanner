@@ -31,15 +31,15 @@ class StartScanningViewController: UIViewController {
 
 // MARK: - SplitScannerCoordinatorDelegate
 extension StartScanningViewController: SplitScannerCoordinatorDelegate {
-    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> (result: ScanResult, blocking: Bool) {
+    func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult {
         print("Scanned: " + barcode)
         switch Int(arc4random_uniform(4)) {
         case 0...1:
-            return (result: .success(description: "Nice scan!"), blocking: false)
+            return .success(description: "Nice scan!")
         case 2:
-            return (result: .warning(description: "Poor scan!"), blocking: false)
+            return .warning(description: "Poor scan!")
         default:
-            return (result: .error(description: "Bogus scan!"), blocking: false)
+            return .error(description: "Bogus scan!")
         }
     }
 
