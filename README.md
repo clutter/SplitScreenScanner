@@ -147,6 +147,8 @@ If a scan has blocking set to true, then the scanner will be blocked and remain 
 <img src="Screenshots/blocked_scanner.png" height="50%" width="50%">
 (Blocked scanner view)
 
+To avoid duplicate scans, the scanner will not scan the same barcode twice in a row. If you want to allow your users to undo the last scan, or want to allow rescanning the last barcode for any other reason, call `splitScannerCoordinator.resetLastScannedBarcode()`.
+
 ## Requirements
 
 - iOS 11.0+
