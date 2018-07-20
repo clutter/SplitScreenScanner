@@ -125,7 +125,7 @@ extension StartScanningViewController: ScanToContinueDataSource {
 }
 ```
 
-Please note that when initializing splitScannerCoordinator the `scanToContinueDataSource: ScanToContinueDataSource?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after 30 seconds without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
+Please note that when initializing splitScannerCoordinator the `scanToContinueDataSource: ScanToContinueDataSource?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after a short period of time without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
 
 <img src="Screenshots/scan_to_begin.png" height="50%" width="50%">
 (Scan to begin view)

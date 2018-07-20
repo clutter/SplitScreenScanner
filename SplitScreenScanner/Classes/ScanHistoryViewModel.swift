@@ -86,7 +86,7 @@ extension ScanHistoryViewModel {
     func createExpireSessionTimer() {
         guard isScanningSessionExpirable else { return }
 
-        expireSessionTimer = Timer.scheduledTimer(withTimeInterval: 30.0, repeats: false, block: { [weak self] _ in
+        expireSessionTimer = Timer.scheduledTimer(withTimeInterval: 45.0, repeats: false, block: { [weak self] _ in
             self?.expireScanningSession()
         })
     }
