@@ -69,6 +69,13 @@ extension StartScanningViewController: scanHistoryDataSource {
     var tableViewHeader: String {
         return "Scanning Items to Truck"
     }
+    
+    // Subtitle for the scan history table view, displayed on the right side of the header
+    // If this is nil, then the subtitle will not be displayed
+    var tableViewHeaderSubtitle: String? {
+        let uncompletedItemCount = arc4random_uniform(10)
+        return "\(uncompletedItemCount) / 10"
+    }
 
     // Text displayed when no scans have been made during the current scanning session
     var nothingScannedText: String {

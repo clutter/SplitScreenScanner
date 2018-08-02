@@ -11,7 +11,7 @@ class SubtitleHeaderView: UIView {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var subtitleLabel: UILabel!
 
-    func reset(forTitle title: String, subtitle: String?) {
+    func reset(title: String, subtitle: String?) {
         titleLabel.text = title
         subtitleLabel.text = subtitle
     }
@@ -19,7 +19,7 @@ class SubtitleHeaderView: UIView {
 
 // MARK: - Static Methods
 extension SubtitleHeaderView {
-    static func instantiateNIB() -> SubtitleHeaderView? {
+    static func instantiateFromNib() -> SubtitleHeaderView? {
         let bundle = Bundle(for: SplitScannerCoordinator.self)
         guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
             let resourceBundle = Bundle(url: resourceBundleURL) else { return nil }

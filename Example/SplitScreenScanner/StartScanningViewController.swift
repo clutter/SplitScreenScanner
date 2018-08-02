@@ -54,6 +54,11 @@ extension StartScanningViewController: ScanHistoryDataSource {
         return "Scanning Items to Truck"
     }
 
+    var tableViewHeaderSubtitle: String? {
+        let uncompletedItemCount = arc4random_uniform(10)
+        return "\(uncompletedItemCount) / 10"
+    }
+
     var nothingScannedText: String {
         return "Scan an item to start loading"
     }

@@ -13,15 +13,25 @@ class ScanHistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.reloadRowBinding = { [weak self] indexPath in
+        viewModel.reloadRowObserver = { [weak self] indexPath in
             DispatchQueue.main.async {
                 self?.tableView.reloadRows(at: [indexPath], with: .right)
             }
         }
 
-        viewModel.insertRowBinding = { [weak self] indexPath in
+        viewModel.insertRowObserver = { [weak self] indexPath in
             DispatchQueue.main.async {
                 self?.tableView.insertRows(at: [indexPath], with: .left)
+            }
+        }
+
+        viewModel.reloadSectionHeaderObserver = { [weak self] sectionIndex in
+            DispatchQueue.main.async {
+                guard let sSelf = self else { return }
+                guard let sectionHeaderView = sSelf.tableView.headerView(forSection: sectionIndex)?.contentView.subviews.compactMap({ $0 as? SubtitleHeaderView }).first else { return }
+
+                let headerTitle = sSelf.viewModel.sections[sectionIndex].name.uppercased()
+                sectionHeaderView.reset(title: headerTitle, subtitle: sSelf.viewModel.scanHistoryDataSource.tableViewHeaderSubtitle)
             }
         }
 
@@ -98,8 +108,15 @@ class ScanHistoryTableViewController: UITableViewController {
         }
     }
 
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return viewModel.sections[section].name.uppercased()
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let headerView = SubtitleHeaderView.instantiateFromNib() else { return nil }
+
+        let headerTitle = viewModel.sections[section].name.uppercased()
+        headerView.reset(title: headerTitle, subtitle: viewModel.scanHistoryDataSource.tableViewHeaderSubtitle)
+
+        let header = UITableViewHeaderFooterView(frame: headerView.frame)
+        header.contentView.addSubview(headerView)
+        return header
     }
 
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
