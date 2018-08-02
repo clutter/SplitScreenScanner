@@ -24,12 +24,12 @@ class ScanHistoryViewModelTests: XCTestCase {
     }
 
     private struct TestScanHistoryDataSource: ScanHistoryDataSource {
-        let tableViewHeader: String
+        let tableViewHeaderTitle: String
         let tableViewHeaderSubtitle: String?
         let nothingScannedText: String
 
         init() {
-            tableViewHeader = "Test TableView Header"
+            tableViewHeaderTitle = "Test TableView Header"
             tableViewHeaderSubtitle = "1 / 10"
             nothingScannedText = "Test no scan text"
         }
@@ -47,7 +47,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [], isScanningSessionExpirable: true)
 
         XCTAssertEqual(vm.sections.count, 1)
-        XCTAssertEqual(vm.sections[0].name, testScanHistoryDataSource.tableViewHeader)
+        XCTAssertEqual(vm.sections[0].name, testScanHistoryDataSource.tableViewHeaderTitle)
 
         XCTAssertEqual(vm.sections[0].rows, [.nothingScannedRow(nothingScannedText: testScanHistoryDataSource.nothingScannedText)])
     }
@@ -60,7 +60,7 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: scans, isScanningSessionExpirable: true)
 
         XCTAssertEqual(vm.sections.count, 1)
-        XCTAssertEqual(vm.sections[0].name, testScanHistoryDataSource.tableViewHeader)
+        XCTAssertEqual(vm.sections[0].name, testScanHistoryDataSource.tableViewHeaderTitle)
 
         XCTAssertEqual(vm.sections[0].rows.count, 2)
         XCTAssertEqual(vm.sections[0].rows[0], .historyRow(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought")))

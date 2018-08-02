@@ -65,8 +65,8 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
 // MARK: - ScanHistoryDataSource
 extension StartScanningViewController: scanHistoryDataSource {
 
-    // Header for the scan history table view
-    var tableViewHeader: String {
+    // Title for the scan history table view
+    var tableViewHeaderTitle: String {
         return "Scanning Items to Truck"
     }
     

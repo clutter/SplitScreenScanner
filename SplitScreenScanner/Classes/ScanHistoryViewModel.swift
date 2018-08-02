@@ -113,7 +113,7 @@ extension ScanHistoryViewModel {
     }
 
     func createSections() {
-        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDataSource.tableViewHeader, nothingScannedText: scanHistoryDataSource.nothingScannedText).sections
+        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDataSource.tableViewHeaderTitle, nothingScannedText: scanHistoryDataSource.nothingScannedText).sections
     }
 }
 
