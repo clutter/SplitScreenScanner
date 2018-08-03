@@ -1,6 +1,6 @@
 PODS:
   - Sections (0.7.0)
-  - SplitScreenScanner (4.1.0):
+  - SplitScreenScanner (5.0.0):
     - Sections
 
 DEPENDENCIES:
@@ -16,7 +16,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Sections: 2fe69a9d2ff1aeca8060cb1b0342beb969f06378
-  SplitScreenScanner: 56eaa1e169bcee51d2e69f3eae86167864311c7e
+  SplitScreenScanner: 935bc49020b1fb70ef59aebf28eb686f723ce7db
 
 PODFILE CHECKSUM: e4af04dcb155459854179c216fae935f244844f2
 
