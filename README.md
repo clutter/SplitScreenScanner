@@ -65,9 +65,16 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
 // MARK: - ScanHistoryDataSource
 extension StartScanningViewController: scanHistoryDataSource {
 
-    // Header for the scan history table view
-    var tableViewHeader: String {
+    // Title for the scan history table view
+    var tableViewHeaderTitle: String {
         return "Scanning Items to Truck"
+    }
+    
+    // Subtitle for the scan history table view, displayed on the right side of the header
+    // If this is nil, then the subtitle will not be displayed
+    var tableViewHeaderSubtitle: String? {
+        let uncompletedItemCount = arc4random_uniform(10)
+        return "\(uncompletedItemCount) / 10"
     }
 
     // Text displayed when no scans have been made during the current scanning session

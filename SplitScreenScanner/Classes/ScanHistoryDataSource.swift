@@ -8,7 +8,8 @@
 import Foundation
 
 public protocol ScanHistoryDataSource {
-    var tableViewHeader: String { get }
+    var tableViewHeaderTitle: String { get }
+    var tableViewHeaderSubtitle: String? { get }
     var nothingScannedText: String { get }
 
     func playBarcodeScanSound(for result: ScanResult)

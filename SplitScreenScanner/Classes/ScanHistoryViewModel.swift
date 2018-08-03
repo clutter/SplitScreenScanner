@@ -51,9 +51,11 @@ class ScanHistoryViewModel {
 
     // MARK: - Bindings, Observers, Getters
 
-    var reloadRowBinding: ((IndexPath) -> Void)?
+    var reloadRowObserver: ((IndexPath) -> Void)?
 
-    var insertRowBinding: ((IndexPath) -> Void)?
+    var insertRowObserver: ((IndexPath) -> Void)?
+
+    var reloadSectionHeaderObserver: ((_ sectionIndex: Int) -> Void)?
 
     var isHapticFeedbackEnabled: Bool {
         get {
@@ -81,6 +83,7 @@ extension ScanHistoryViewModel {
         hapticFeedbackManager?.didScan(with: result)
         scanHistoryDataSource.playBarcodeScanSound(for: result)
         resetExpireSessionTimer()
+        reloadSectionHeaderObserver?(0)
     }
 
     func createExpireSessionTimer() {
@@ -110,7 +113,7 @@ extension ScanHistoryViewModel {
     }
 
     func createSections() {
-        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDataSource.tableViewHeader, nothingScannedText: scanHistoryDataSource.nothingScannedText).sections
+        sections = TableModel.makeSectionBuilder(scans, tableViewHeader: scanHistoryDataSource.tableViewHeaderTitle, nothingScannedText: scanHistoryDataSource.nothingScannedText).sections
     }
 }
 
@@ -125,10 +128,10 @@ private extension ScanHistoryViewModel {
         // replace nothingScannedRow with historyRow if this is the first scan
         if scans.count == 1 {
             sections[firstRowIndexPath.section].rows[firstRowIndexPath.row] = historyRow
-            reloadRowBinding?(firstRowIndexPath)
+            reloadRowObserver?(firstRowIndexPath)
         } else {
             sections[firstRowIndexPath.section].rows.insert(historyRow, at: firstRowIndexPath.row)
-            insertRowBinding?(firstRowIndexPath)
+            insertRowObserver?(firstRowIndexPath)
         }
     }
 }
