@@ -13,7 +13,7 @@ class ScanToContinueViewModelTests: XCTestCase {
     private let testScanToContinueDataSource = TestScanToContinueDataSource()
 
     private var sink: DelegateSink!
-    private var vm: ScanToContinueViewModel!
+    private var viewModel: ScanToContinueViewModel!
 
     private final class DelegateSink: ScanToContinueViewModelDelegate {
         var startingBarcodeScanned = false
@@ -57,7 +57,7 @@ class ScanToContinueViewModelTests: XCTestCase {
         setupVM(isScannerExpired: false)
 
         var startingTitle: String?
-        vm.scanToContinueTitleBinding = { title in
+        viewModel.scanToContinueTitleBinding = { title in
             startingTitle = title
         }
 
@@ -68,7 +68,7 @@ class ScanToContinueViewModelTests: XCTestCase {
         setupVM(isScannerExpired: true)
 
         var continuingTitle: String?
-        vm.scanToContinueTitleBinding = { title in
+        viewModel.scanToContinueTitleBinding = { title in
             continuingTitle = title
         }
 
@@ -79,7 +79,7 @@ class ScanToContinueViewModelTests: XCTestCase {
         setupVM(isScannerExpired: false)
 
         var starrtingDescription: String?
-        vm.scanToContinueDescriptionBinding = { description in
+        viewModel.scanToContinueDescriptionBinding = { description in
             starrtingDescription = description
         }
 
@@ -90,19 +90,19 @@ class ScanToContinueViewModelTests: XCTestCase {
         setupVM(isScannerExpired: true)
 
         var continuingDescription: String?
-        vm.scanToContinueDescriptionBinding = { description in
+        viewModel.scanToContinueDescriptionBinding = { description in
             continuingDescription = description
         }
 
         XCTAssertEqual(continuingDescription, testScanToContinueDataSource.continuingDescription)
     }
-    
+
     func testDidScanCorrectStartingBarcode() {
         setupVM(isScannerExpired: false)
 
         XCTAssertFalse(sink.startingBarcodeScanned)
 
-        vm.didScan(barcode: "0000000001")
+        viewModel.didScan(barcode: "0000000001")
         XCTAssertTrue(sink.startingBarcodeScanned)
     }
 
@@ -110,11 +110,11 @@ class ScanToContinueViewModelTests: XCTestCase {
         setupVM(isScannerExpired: false)
 
         var scanWarningState: ScanToContinueViewModel.ScanWarningState?
-        vm.scanWarningBinding = { state in
+        viewModel.scanWarningBinding = { state in
             scanWarningState = state
         }
 
-        vm.didScan(barcode: "0000000002")
+        viewModel.didScan(barcode: "0000000002")
 
         let wrongStartingBarcodeScannedMessage = "Unit Test Wrong Barcode Scanned Message"
         XCTAssertEqual(scanWarningState, ScanToContinueViewModel.ScanWarningState.displayWarning(incorrectScanMessage: wrongStartingBarcodeScannedMessage))
@@ -124,24 +124,24 @@ class ScanToContinueViewModelTests: XCTestCase {
         setupVM(isScannerExpired: false)
 
         var scanWarningState: ScanToContinueViewModel.ScanWarningState?
-        vm.scanWarningBinding = { state in
+        viewModel.scanWarningBinding = { state in
             scanWarningState = state
         }
 
-        vm.removeScanWarning()
+        viewModel.removeScanWarning()
 
         XCTAssertEqual(scanWarningState, ScanToContinueViewModel.ScanWarningState.removeWarning)
     }
 
     func testeHapticFeedback() {
         setupVM(isScannerExpired: false)
-        XCTAssertNil(vm.hapticFeedbackManager)
+        XCTAssertNil(viewModel.hapticFeedbackManager)
 
-        vm.isHapticFeedbackEnabled = true
-        XCTAssertNotNil(vm.hapticFeedbackManager)
+        viewModel.isHapticFeedbackEnabled = true
+        XCTAssertNotNil(viewModel.hapticFeedbackManager)
 
-        vm.isHapticFeedbackEnabled = false
-        XCTAssertNil(vm.hapticFeedbackManager)
+        viewModel.isHapticFeedbackEnabled = false
+        XCTAssertNil(viewModel.hapticFeedbackManager)
     }
 }
 
@@ -149,7 +149,7 @@ class ScanToContinueViewModelTests: XCTestCase {
 private extension ScanToContinueViewModelTests {
     func setupVM(isScannerExpired: Bool) {
         sink = DelegateSink()
-        vm = ScanToContinueViewModel(scanToContinueDataSource: testScanToContinueDataSource, isScannerExpired: isScannerExpired)
-        vm.delegate = sink
+        viewModel = ScanToContinueViewModel(scanToContinueDataSource: testScanToContinueDataSource, isScannerExpired: isScannerExpired)
+        viewModel.delegate = sink
     }
 }
