@@ -1,6 +1,3 @@
-## Pivotal Tickets
-_(insert all relevant Pivotal tickets here)_
-
 ## Feature Description
 _(please provide a description of the feature as well as a few screenshots, when needed, displaying the changes that have been made)_
 
