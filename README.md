@@ -11,7 +11,7 @@ SplitScreenScanner lets you quickly and easily add a fully functioning barcode s
 
 ```swift
 class StartScanningViewController: UIViewController {
-    let startingBarcode = "SO0000000001195"
+    let startingBarcode = "START"
 
     var splitScannerCoordinator: SplitScannerCoordinator?
 
@@ -67,7 +67,7 @@ extension StartScanningViewController: scanHistoryDataSource {
 
     // Title for the scan history table view
     var tableViewHeaderTitle: String {
-        return "Scanning Items to Truck"
+        return "Scanning Barcodes"
     }
     
     // Subtitle for the scan history table view, displayed on the right side of the header
@@ -79,7 +79,7 @@ extension StartScanningViewController: scanHistoryDataSource {
 
     // Text displayed when no scans have been made during the current scanning session
     var nothingScannedText: String {
-        return "Scan an item to start loading"
+        return "Start scanning"
     }
     
     // Used for playing sounds just after a barcode scan is made
@@ -132,7 +132,7 @@ extension StartScanningViewController: ScanToContinueDataSource {
 }
 ```
 
-Please note that when initializing splitScannerCoordinator the `scanToContinueDataSource: ScanToContinueDataSource?` parameter is optional. Only populate this parameter with a value if you want your scanning session to require an initial scan, using the `scan(startingBarcode:)` method, to start the main barcode scanner (e.g. need to scan truck before scanning items) and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after a short period of time without a scan, or when the app is backgrounded. If a scanning session expires then it will need to be started again. This means the scanner will now be calling the `scan(startingBarcode:)` method again until it receives a .success ScanResult.
+Please note that when initializing splitScannerCoordinator, the `scanToContinueDataSource: ScanToContinueDataSource?` parameter is optional. Only populate this parameter if you want your scanning session to require an initial scan to start the main barcode scanner (which will call `scan(startingBarcode:)`), and if you want your scanning session to be expirable. Being expirable means that your scanning session will expire after a short period of time without a scan, or when the app is backgrounded. If a scanning session expires, it will need to be started again. This means the scanner will call `scan(startingBarcode:)` again until it returns `ScanResult.success`.
 
 <img src="Screenshots/scan_to_begin.png" height="50%" width="50%">
 (Scan to begin view)

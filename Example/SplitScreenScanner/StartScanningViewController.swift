@@ -11,7 +11,7 @@ import UIKit
 import SplitScreenScanner
 
 class StartScanningViewController: UIViewController {
-    let startingBarcode = "SO0000000001195"
+    let startingBarcode = "START"
 
     @IBAction func startScanningButtonPressed(_ sender: Any) {
         do {
@@ -51,7 +51,7 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
 // MARK: - ScanHistoryDataSource
 extension StartScanningViewController: ScanHistoryDataSource {
     var tableViewHeaderTitle: String {
-        return "Scanning Items to Truck"
+        return "Scanning Barcodes"
     }
 
     var tableViewHeaderSubtitle: String? {
@@ -60,7 +60,7 @@ extension StartScanningViewController: ScanHistoryDataSource {
     }
 
     var nothingScannedText: String {
-        return "Scan an item to start loading"
+        return "Start scanning"
     }
 
     func playBarcodeScanSound(for result: ScanResult) {
