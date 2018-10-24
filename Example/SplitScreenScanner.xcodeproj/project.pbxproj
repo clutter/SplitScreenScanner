@@ -177,6 +177,7 @@
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
 				5C2B49A2C0D95BEA42197303 /* [CP] Embed Pods Frameworks */,
+				AF336ECA2164438A00B84B60 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -327,6 +328,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		AF336ECA2164438A00B84B60 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which ${PODS_ROOT}/SwiftLint/swiftlint >/dev/null; then\n    ${PODS_ROOT}/SwiftLint/swiftlint\nelse\n    echo \"SwiftLint does not exist\"\n    exit 1\nfi\n";
 		};
 		DA9D53D965B2C76521D4E1F1 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

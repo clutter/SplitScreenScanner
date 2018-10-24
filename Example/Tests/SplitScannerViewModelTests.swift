@@ -12,7 +12,7 @@ import XCTest
 class SplitScannerViewModelTests: XCTestCase {
     private var deviceProvider: TestDeviceProvider!
     private var sink: DelegateSink!
-    private var vm: SplitScannerViewModel!
+    private var viewModel: SplitScannerViewModel!
 
     private final class DelegateSink: SplitScannerViewModelDelegate {
         var doneButtonPressed = false
@@ -21,18 +21,18 @@ class SplitScannerViewModelTests: XCTestCase {
             doneButtonPressed = true
         }
     }
-    
+
     override func setUp() {
         deviceProvider = TestDeviceProvider()
         sink = DelegateSink()
 
-        vm = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: "Unit Test Title")
-        vm.delegate = sink
+        viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: "Unit Test Title")
+        viewModel.delegate = sink
     }
-    
+
     func testScannerTitle() {
         var scannerTitle: String?
-        vm.scannerTitleBinding = { title in
+        viewModel.scannerTitleBinding = { title in
             scannerTitle = title
         }
 
@@ -42,17 +42,17 @@ class SplitScannerViewModelTests: XCTestCase {
     func testTorchButtonImage() {
         XCTAssertFalse(deviceProvider.isTorchOn)
 
-        vm.toggleTorch()
+        viewModel.toggleTorch()
         XCTAssertTrue(deviceProvider.isTorchOn)
 
-        vm.toggleTorch()
+        viewModel.toggleTorch()
         XCTAssertFalse(deviceProvider.isTorchOn)
     }
 
     func testDoneButtonPressed() {
         XCTAssertFalse(sink.doneButtonPressed)
 
-        vm.doneButtonPressed()
+        viewModel.doneButtonPressed()
         XCTAssertTrue(sink.doneButtonPressed)
     }
 }
