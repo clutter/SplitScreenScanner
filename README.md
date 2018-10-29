@@ -1,9 +1,7 @@
 # SplitScreenScanner
 
-[![CI Status](http://img.shields.io/travis/10d656fb252a6769bbb7c085a1a2012bc5a98ebe/SplitScreenScanner.svg?style=flat)](https://travis-ci.org/10d656fb252a6769bbb7c085a1a2012bc5a98ebe/SplitScreenScanner)
-[![Version](https://img.shields.io/cocoapods/v/SplitScreenScanner.svg?style=flat)](http://cocoapods.org/pods/SplitScreenScanner)
-[![License](https://img.shields.io/cocoapods/l/SplitScreenScanner.svg?style=flat)](http://cocoapods.org/pods/SplitScreenScanner)
-[![Platform](https://img.shields.io/cocoapods/p/SplitScreenScanner.svg?style=flat)](http://cocoapods.org/pods/SplitScreenScanner)
+[![CircleCI](https://circleci.com/gh/clutter/SplitScreenScanner.svg?style=shield)](https://circleci.com/gh/clutter/SplitScreenScanner)
+[![GitHub release](https://img.shields.io/github/release/clutter/SplitScreenScanner.svg)](https://github.com/clutter/SplitScreenScanner/releases)
 
 ## Example
 
