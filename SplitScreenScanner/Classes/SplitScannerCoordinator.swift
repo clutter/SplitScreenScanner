@@ -148,9 +148,9 @@ private extension SplitScannerCoordinator {
 
     func switchInfoView(to viewController: UIViewController) {
         DispatchQueue.main.async { [weak self] in
-            self?.currentlyDisplayedInfoVC?.willMove(toParentViewController: nil)
+            self?.currentlyDisplayedInfoVC?.willMove(toParent: nil)
             self?.currentlyDisplayedInfoVC?.view.removeFromSuperview()
-            self?.currentlyDisplayedInfoVC?.removeFromParentViewController()
+            self?.currentlyDisplayedInfoVC?.removeFromParent()
 
             self?.currentlyDisplayedInfoVC = viewController
 
@@ -163,11 +163,11 @@ private extension SplitScannerCoordinator {
     func embed(childVC: UIViewController, in containerView: UIView) {
         guard let splitScannerParentVC = splitScannerParentVC else { return }
 
-        childVC.willMove(toParentViewController: splitScannerParentVC)
+        childVC.willMove(toParent: splitScannerParentVC)
         containerView.addSubview(childVC.view)
-        splitScannerParentVC.addChildViewController(childVC)
+        splitScannerParentVC.addChild(childVC)
         childVC.view.frame = containerView.bounds
-        childVC.didMove(toParentViewController: splitScannerParentVC)
+        childVC.didMove(toParent: splitScannerParentVC)
     }
 }
 
