@@ -4,8 +4,7 @@ use_frameworks!
 pod 'SplitScreenScanner', :path => '../'
 
 target 'SplitScreenScanner_Example' do
-    pod 'SwiftLint'
+  pod 'SwiftLint'
 end
 
-target 'SplitScreenScanner_Tests' do
-end
+target 'SplitScreenScanner_Tests'

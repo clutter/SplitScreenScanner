@@ -52,7 +52,7 @@ class ScanHistoryTableViewController: UITableViewController {
         super.viewWillAppear(animated)
 
         viewModel.createExpireSessionTimer()
-        NotificationCenter.default.addObserver(self, selector: #selector(expire), name: .UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(expire), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -61,8 +61,8 @@ class ScanHistoryTableViewController: UITableViewController {
         viewModel.isHapticFeedbackEnabled = true
     }
 
-    override func willMove(toParentViewController parent: UIViewController?) {
-        super.willMove(toParentViewController: parent)
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
 
         if parent == nil {
             viewModel.invalidateExpireSessionTimer()
@@ -127,7 +127,7 @@ class ScanHistoryTableViewController: UITableViewController {
 
             if let textLabelBounds = headerView.textLabel?.bounds {
                 let insets = UIEdgeInsets(top: 8.0, left: 16.0, bottom: 4.0, right: 16.0)
-                let insetsRect = UIEdgeInsetsInsetRect(textLabelBounds, insets)
+                let insetsRect = textLabelBounds.inset(by: insets)
                 headerView.bounds = insetsRect
             }
         }

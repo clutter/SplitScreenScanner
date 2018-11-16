@@ -66,8 +66,8 @@ class ScanToContinueViewController: UIViewController {
         viewModel.isHapticFeedbackEnabled = false
     }
 
-    override func willMove(toParentViewController parent: UIViewController?) {
-        super.willMove(toParentViewController: parent)
+    override func willMove(toParent parent: UIViewController?) {
+        super.willMove(toParent: parent)
 
         if parent == nil {
             viewModel.invalidateRemoveScanWarningTimer()
@@ -85,17 +85,17 @@ private extension ScanToContinueViewController {
         let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
         guard let scanToContinueErrorVC = storyboard.instantiateViewController(withIdentifier: "ScanToContinueError") as? ScanToContinueErrorViewController else { return }
 
-        addChildViewController(scanToContinueErrorVC)
+        addChild(scanToContinueErrorVC)
         view.addSubview(scanToContinueErrorVC.view)
-        scanToContinueErrorVC.didMove(toParentViewController: self)
+        scanToContinueErrorVC.didMove(toParent: self)
         scanToContinueErrorVC.display(warningMessage: warningMessage)
 
         self.scanToContinueErrorVC = scanToContinueErrorVC
     }
 
     func removeWarningView() {
-        scanToContinueErrorVC?.willMove(toParentViewController: nil)
-        scanToContinueErrorVC?.removeFromParentViewController()
+        scanToContinueErrorVC?.willMove(toParent: nil)
+        scanToContinueErrorVC?.removeFromParent()
         scanToContinueErrorVC?.view.removeFromSuperview()
         scanToContinueErrorVC = nil
     }
