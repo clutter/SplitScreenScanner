@@ -58,6 +58,23 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         print("Closing SplitScreenScanner")
         dismiss(animated: true)
     }
+
+    // Optional method that determines whether `didTriggerDismissal(_:with:)` should be called after a scan.
+    // By default, this method always returns false.
+    func shouldDismiss(after scanResult: ScanResult) -> Bool {
+        switch scanResult {
+        case .success:
+            return true
+        case .error, .warning:
+            return false
+        }
+    }
+
+    // Optional method that is called after a scan if `shouldDismiss(after:)` returns `true`.
+    func didTriggerDismissal(_ splitScannerCoordinator: SplitScannerCoordinator, with scanResult: ScanResult) {
+        print("Closing SplitScreenScanner after successful scan")
+        dismiss(animated: true)
+    }
 }
 
 // MARK: - ScanHistoryDataSource

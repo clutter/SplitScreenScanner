@@ -11,6 +11,18 @@ import AVFoundation
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
     func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator)
+
+    // Optional
+    func shouldDismiss(after scanResult: ScanResult) -> Bool
+    func didTriggerDismissal(_ splitScannerCoordinator: SplitScannerCoordinator, with scanResult: ScanResult)
+}
+
+public extension SplitScannerCoordinatorDelegate {
+    func shouldDismiss(after scanResult: ScanResult) -> Bool {
+        return false
+    }
+
+    func didTriggerDismissal(_ splitScannerCoordinator: SplitScannerCoordinator, with scanResult: ScanResult) {}
 }
 
 enum SplitScannerError: Error {
@@ -183,8 +195,17 @@ extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
 extension SplitScannerCoordinator: BarcodeScannerViewModelDelegate {
     func didScanBarcode(_ barcodeScannerViewModel: BarcodeScannerViewModel, barcode: String) {
         if currentlyDisplayedInfoVC is ScanHistoryTableViewController {
-            guard let scanResult = delegate?.didScanBarcode(self, barcode: barcode) else { return }
+            guard let delegate = delegate else { return }
+
+            let scanResult = delegate.didScanBarcode(self, barcode: barcode)
             scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult)
+
+            if delegate.shouldDismiss(after: scanResult) {
+                DispatchQueue.main.async {
+                    self.rootCoordinator?.popCoordinator(self)
+                    delegate.didTriggerDismissal(self, with: scanResult)
+                }
+            }
         } else {
             scanToContinueViewModel?.didScan(barcode: barcode)
         }
