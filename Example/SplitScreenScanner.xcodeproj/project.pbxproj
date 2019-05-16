@@ -277,7 +277,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Sections/Sections.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitScreenScanner/SplitScreenScanner.framework",
 			);
@@ -288,7 +288,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SplitScreenScanner_Tests/Pods-SplitScreenScanner_Tests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		5A254B5827612DFA736B8C83 /* [CP] Check Pods Manifest.lock */ = {
@@ -315,7 +315,7 @@
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Sections/Sections.framework",
 				"${BUILT_PRODUCTS_DIR}/SplitScreenScanner/SplitScreenScanner.framework",
 			);
@@ -326,7 +326,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SplitScreenScanner_Example/Pods-SplitScreenScanner_Example-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		AF336ECA2164438A00B84B60 /* ShellScript */ = {
