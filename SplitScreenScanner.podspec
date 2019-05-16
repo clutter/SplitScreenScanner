@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SplitScreenScanner'
-  s.version          = '6.0.0'
+  s.version          = '6.1.0'
   s.summary          = 'Swift library for scanning barcodes with half the screen devoted to scan history'
 
 # This description is used to generate tags and improve search results.
