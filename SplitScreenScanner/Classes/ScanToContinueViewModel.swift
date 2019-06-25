@@ -81,6 +81,8 @@ extension ScanToContinueViewModel {
             delegate?.scanToContinueViewModel(self, didScanStartingBarcode: barcode)
         case let .warning(description), let .error(description):
             displayScanWarning(description)
+        case .pending:
+            break
         }
     }
 

@@ -130,8 +130,8 @@
 			children = (
 				607FACE91AFB9204008FA782 /* Supporting Files */,
 				C926E5B120783CAD00903887 /* ScanHistoryViewModelTests.swift */,
-				C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */,
 				C95DD8E0207ED14A0069C5C0 /* ScanToContinueViewModelTests.swift */,
+				C9928C03207550F9001B36DD /* SplitScannerViewModelTests.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";

@@ -26,6 +26,9 @@ class ScanHistoryCell: UITableViewCell, IdentifierViewCell {
         case .error(let description):
             iconImageView.image = ScannerStyleKit.imageOfExclamationTriangleSymbol(imageSize: imageSize, isError: true)
             descriptionLabel.text = description
+        case .pending:
+            iconImageView.image = nil
+            descriptionLabel.text = nil
         }
     }
 }
