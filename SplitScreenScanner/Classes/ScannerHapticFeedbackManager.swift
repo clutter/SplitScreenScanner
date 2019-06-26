@@ -21,7 +21,7 @@ extension ScannerHapticFeedbackManager {
     func didScan(with result: ScanResult) {
         DispatchQueue.main.async { [weak self] in
             switch result {
-            case .success:
+            case .success, .pending:
                 self?.feedbackGenerator.notificationOccurred(.success)
             case .warning:
                 self?.feedbackGenerator.notificationOccurred(.warning)

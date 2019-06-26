@@ -107,6 +107,24 @@ class ScanHistoryViewModelTests: XCTestCase {
         XCTAssertTrue(reloadedSectionHeader)
     }
 
+    func testPendingScan() {
+        setUpVM(scans: [], isScanningSessionExpirable: true)
+
+        var rowReloadedIndexPath: IndexPath?
+        viewModel.reloadRowObserver = { indexPath in
+            rowReloadedIndexPath = indexPath
+        }
+
+        var reloadedSectionHeader = false
+        viewModel.reloadSectionHeaderObserver = { _ in
+            reloadedSectionHeader = true
+        }
+
+        viewModel.didScan(barcode: "0000000001", with: .pending)
+        XCTAssertNil(rowReloadedIndexPath)
+        XCTAssertFalse(reloadedSectionHeader)
+    }
+
     func testCreateExpireSessionTimer() {
         setUpVM(scans: [], isScanningSessionExpirable: true)
 

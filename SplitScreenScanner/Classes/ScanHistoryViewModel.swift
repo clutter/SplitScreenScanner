@@ -77,13 +77,25 @@ class ScanHistoryViewModel {
 
 // MARK: - Public Methods
 extension ScanHistoryViewModel {
-    func didScan(barcode: String, with result: ScanResult) {
-        let scan = ScanHistory(barcode: barcode, scanResult: result)
-        insert(newScan: scan)
-        hapticFeedbackManager?.didScan(with: result)
-        scanHistoryDataSource.playBarcodeScanSound(for: result)
+    func didScan(barcode: String, with result: ScanResult, hapticFeedbackEnabled: Bool = true, soundEnabled: Bool = true) {
         resetExpireSessionTimer()
-        reloadSectionHeaderObserver?(0)
+
+        if hapticFeedbackEnabled {
+            hapticFeedbackManager?.didScan(with: result)
+        }
+
+        if soundEnabled {
+            scanHistoryDataSource.playBarcodeScanSound(for: result)
+        }
+
+        switch result {
+        case .success, .error, .warning:
+            let scan = ScanHistory(barcode: barcode, scanResult: result)
+            insert(newScan: scan)
+            reloadSectionHeaderObserver?(0)
+        case .pending:
+            break
+        }
     }
 
     func createExpireSessionTimer() {

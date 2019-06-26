@@ -11,6 +11,7 @@ public enum ScanResult: Equatable {
     case success(description: String?)
     case warning(description: String)
     case error(description: String)
+    case pending
 }
 
 struct ScanHistory {

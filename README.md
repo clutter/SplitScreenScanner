@@ -30,6 +30,13 @@ class StartScanningViewController: UIViewController {
             print(error)
         }
     }
+
+    // A `SplitScannerCoordinatorDelegate` can return a `pending` result from its `didScanBarcode` method. This is useful when an asynchronous task needs to be performed to determine if the scan was successful. Pending scans will not be displayed in the scan history.
+    //
+    // While the task is ongoing, it is recommended to block the scanner with `blockScanner`. When the task is completed, unblock the scanner with `unblockScanner` and manually add the appropriate `success`, `warning`, or `error` result to the scan history by calling `addScanResult`.
+    func addScanResult(_ scanResult: ScanResult, barcode: String) {
+        splitScannerCoordinator.addScanResult(scanResult, barcode: barcode)
+    }
 }
 
 // MARK: - SplitScannerCoordinatorDelegate

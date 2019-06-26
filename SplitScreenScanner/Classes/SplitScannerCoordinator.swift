@@ -113,6 +113,10 @@ extension SplitScannerCoordinator {
     public func resetLastScannedBarcode() {
         barcodeScannerViewModel?.resetLastScannedBarcode()
     }
+
+    public func addScanResult(_ scanResult: ScanResult, barcode: String, hapticFeedbackEnabled: Bool = false, soundEnabled: Bool = false) {
+        scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult, hapticFeedbackEnabled: hapticFeedbackEnabled, soundEnabled: soundEnabled)
+    }
 }
 
 // MARK: - Private Methods
