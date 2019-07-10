@@ -116,6 +116,7 @@ extension SplitScannerCoordinator {
 
     public func addScanResult(_ scanResult: ScanResult, barcode: String, hapticFeedbackEnabled: Bool = false, soundEnabled: Bool = false) {
         scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult, hapticFeedbackEnabled: hapticFeedbackEnabled, soundEnabled: soundEnabled)
+        dismissIfNecessary(for: scanResult)
     }
 }
 
@@ -185,6 +186,15 @@ private extension SplitScannerCoordinator {
         childVC.view.frame = containerView.bounds
         childVC.didMove(toParent: splitScannerParentVC)
     }
+
+    func dismissIfNecessary(for scanResult: ScanResult) {
+        if delegate?.shouldDismiss(after: scanResult) == true {
+            DispatchQueue.main.async {
+                self.rootCoordinator?.popCoordinator(self)
+                self.delegate?.didTriggerDismissal(self, with: scanResult)
+            }
+        }
+    }
 }
 
 // MARK: - SplitScannerViewModelDelegate
@@ -203,13 +213,7 @@ extension SplitScannerCoordinator: BarcodeScannerViewModelDelegate {
 
             let scanResult = delegate.didScanBarcode(self, barcode: barcode)
             scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult)
-
-            if delegate.shouldDismiss(after: scanResult) {
-                DispatchQueue.main.async {
-                    self.rootCoordinator?.popCoordinator(self)
-                    delegate.didTriggerDismissal(self, with: scanResult)
-                }
-            }
+            dismissIfNecessary(for: scanResult)
         } else {
             scanToContinueViewModel?.didScan(barcode: barcode)
         }
