@@ -45,6 +45,9 @@ class ScanHistoryTableViewController: UITableViewController {
         tableView.tableFooterView = UIView()
         tableView.separatorInset = .zero
 
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.estimatedRowHeight = 72
+
         viewModel.createSections()
     }
 
@@ -131,10 +134,6 @@ class ScanHistoryTableViewController: UITableViewController {
                 headerView.bounds = insetsRect
             }
         }
-    }
-
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 72
     }
 }
 
