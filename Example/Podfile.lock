@@ -1,8 +1,8 @@
 PODS:
   - Sections (0.8.0)
-  - SplitScreenScanner (7.0.1):
+  - SplitScreenScanner (7.0.2):
     - Sections
-  - SwiftLint (0.28.0)
+  - SwiftLint (0.33.1)
 
 DEPENDENCIES:
   - SplitScreenScanner (from `../`)
@@ -19,8 +19,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Sections: efc268a207d0e7afba82d2a0efd6cdf61872b5d4
-  SplitScreenScanner: 6f933805460e0e08d2de6d3ae92059e9ee526234
-  SwiftLint: 088cfacb75b45970017e62b7524d506776d60148
+  SplitScreenScanner: 9965d9eb926f6e1ea31043079e389c153f8ea0f6
+  SwiftLint: 9fc1143bbacec37f94994a7d0d2a85b2154b6294
 
 PODFILE CHECKSUM: 662fda703b72b77c2ece8658c02a5b890176b006
 
