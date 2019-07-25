@@ -118,6 +118,10 @@ extension SplitScannerCoordinator {
         scanHistoryViewModel?.didScan(barcode: barcode, with: scanResult, hapticFeedbackEnabled: hapticFeedbackEnabled, soundEnabled: soundEnabled)
         dismissIfNecessary(for: scanResult)
     }
+
+    public func popCoordinators() {
+        rootCoordinator?.popCoordinator(self)
+    }
 }
 
 // MARK: - Private Methods
