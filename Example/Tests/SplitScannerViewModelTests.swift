@@ -15,10 +15,9 @@ class SplitScannerViewModelTests: XCTestCase {
     private var viewModel: SplitScannerViewModel!
 
     private final class DelegateSink: SplitScannerViewModelDelegate {
-        var doneButtonPressed = false
-
-        func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
-            doneButtonPressed = true
+        var dismissButtonPressed = false
+        func didPressDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
+            dismissButtonPressed = true
         }
     }
 
@@ -49,11 +48,11 @@ class SplitScannerViewModelTests: XCTestCase {
         XCTAssertFalse(deviceProvider.isTorchOn)
     }
 
-    func testDoneButtonPressed() {
-        XCTAssertFalse(sink.doneButtonPressed)
+    func testDismissButtonPressed() {
+        XCTAssertFalse(sink.dismissButtonPressed)
 
-        viewModel.doneButtonPressed()
-        XCTAssertTrue(sink.doneButtonPressed)
+        viewModel.dismissButtonPressed()
+        XCTAssertTrue(sink.dismissButtonPressed)
     }
 }
 
