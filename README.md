@@ -63,6 +63,7 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
     // Called when the done button is pressed. Dismiss the scanner as appropriate.
     func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator) {
         print("Closing SplitScreenScanner")
+        splitScannerCoordinator.popCoordinators()
         dismiss(animated: true)
     }
 
