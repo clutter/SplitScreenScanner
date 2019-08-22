@@ -10,7 +10,7 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-    func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator)
+    func didPressDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator)
 
     // Optional
     func shouldDismiss(after scanResult: ScanResult) -> Bool
@@ -203,8 +203,8 @@ private extension SplitScannerCoordinator {
 
 // MARK: - SplitScannerViewModelDelegate
 extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
-    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
-        delegate?.didPressDoneButton(self)
+    func didPressDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
+        delegate?.didPressDismissButton(self)
     }
 }
 

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SplitScannerViewModelDelegate: class {
-    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
+    func didPressDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
 }
 
 class SplitScannerViewModel {
@@ -49,8 +49,8 @@ class SplitScannerViewModel {
 
 // MARK: - Public Methods
 extension SplitScannerViewModel {
-    func doneButtonPressed() {
-        delegate?.didPressDoneButton(self)
+    func dismissButtonPressed() {
+        delegate?.didPressDismissButton(self)
     }
 
     func toggleTorch() {
