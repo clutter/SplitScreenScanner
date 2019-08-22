@@ -44,6 +44,7 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
     }
 
     func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator) {
+        splitScannerCoordinator.popCoordinators()
         dismiss(animated: true)
     }
 }

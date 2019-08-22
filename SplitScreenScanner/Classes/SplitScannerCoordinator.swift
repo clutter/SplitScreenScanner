@@ -204,7 +204,6 @@ private extension SplitScannerCoordinator {
 // MARK: - SplitScannerViewModelDelegate
 extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
     func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
-        rootCoordinator?.popCoordinator(self)
         delegate?.didPressDoneButton(self)
     }
 }
