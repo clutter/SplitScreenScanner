@@ -18,7 +18,8 @@ class StartScanningViewController: UIViewController {
             guard let navigation = navigationController else { return }
 
             let scannerTitle = "Test Barcode Scanner"
-            let splitScannerCoordinator = try SplitScannerCoordinator(scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
+            let scannerDismissTitle = "Done"
+            let splitScannerCoordinator = try SplitScannerCoordinator(scannerTitle: scannerTitle, scannerDismissTitle: scannerDismissTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
             splitScannerCoordinator.delegate = self
 
             let scannerViewController = try splitScannerCoordinator.makeRootViewController()

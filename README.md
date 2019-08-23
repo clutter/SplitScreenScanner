@@ -21,7 +21,7 @@ class StartScanningViewController: UIViewController {
 
             // The scanHistoryDataSource parameter is used to populate the scan history TableView with some needed text values (e.g. the TableView's header)
             // The scanToContinueDataSource parameter is used to provide the scan to begin and scan to continue views with necessary functionality and text values (e.g. function for scanning the starting barcode, title for scan to begin view, etc...)
-            let splitScannerCoordinator = try SplitScannerCoordinator(scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
+            let splitScannerCoordinator = try SplitScannerCoordinator(scannerTitle: scannerTitle, scannerDismissTitle: scannerDismissTitle, scanHistoryDataSource: self, scanToContinueDataSource: self)
             splitScannerCoordinator.delegate = self
 
             let scannerViewController = try splitScannerCoordinator.makeRootViewController()
@@ -163,7 +163,7 @@ Please note that when initializing splitScannerCoordinator, the `scanToContinueD
 If you want your users to jump straight into an unexpirable scanning session, then simply just use nil for the `scanToContinueDataSource` parameter:
 
 ```swift
-splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scanHistoryDataSource: self, scanToContinueDataSource: nil)
+splitScannerCoordinator = try SplitScannerCoordinator(navigation: navigation, scannerTitle: scannerTitle, scannerDismissTitle: scannerDismissTitle, scanHistoryDataSource: self, scanToContinueDataSource: nil)
 ```
 
 <img src="Screenshots/scan_history_no_scans.png" height="50%" width="50%">

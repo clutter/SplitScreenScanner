@@ -34,6 +34,10 @@ class SplitScannerViewController: UIViewController {
             self?.scannerTitleLabel.text = scannerTitle
         }
 
+        viewModel.scannerDismissTitleBinding = { [weak self] dismissTitle in
+            self?.dismissButton.setTitle(dismissTitle, for: .normal)
+        }
+
         viewModel.torchButtonImageBinding = { [weak self] isTorchOn in
             let torchImage = ScannerStyleKit.imageOfTorchSymbol(isTorchOn: isTorchOn)
             self?.torchButton.setImage(torchImage, for: .normal)

@@ -25,7 +25,7 @@ class SplitScannerViewModelTests: XCTestCase {
         deviceProvider = TestDeviceProvider()
         sink = DelegateSink()
 
-        viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: "Unit Test Title")
+        viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: "Unit Test Title", scannerDismissTitle: "Done")
         viewModel.delegate = sink
     }
 
@@ -36,6 +36,15 @@ class SplitScannerViewModelTests: XCTestCase {
         }
 
         XCTAssertEqual(scannerTitle, "Unit Test Title")
+    }
+
+    func testScannerDismissTitle() {
+        var scannerDismissTitle: String?
+        viewModel.scannerDismissTitleBinding = { title in
+            scannerDismissTitle = title
+        }
+
+        XCTAssertEqual(scannerDismissTitle, "Done")
     }
 
     func testTorchButtonImage() {
