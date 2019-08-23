@@ -8,11 +8,12 @@
 import Foundation
 
 protocol SplitScannerViewModelDelegate: class {
-    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
+    func didPressDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
 }
 
 class SplitScannerViewModel {
     let scannerTitle: String
+    let scannerDismissTitle: String
     var deviceProvider: DeviceProviding
 
     weak var delegate: SplitScannerViewModelDelegate?
@@ -24,10 +25,11 @@ class SplitScannerViewModel {
     }
     var scannerState: ScannerState
 
-    init(deviceProvider: DeviceProviding, scannerTitle: String) {
+    init(deviceProvider: DeviceProviding, scannerTitle: String, scannerDismissTitle: String) {
         self.deviceProvider = deviceProvider
         self.scannerState = .notStarted
         self.scannerTitle = scannerTitle
+        self.scannerDismissTitle = scannerDismissTitle
     }
 
     // MARK: - Bindings, Observers, Getters
@@ -35,6 +37,12 @@ class SplitScannerViewModel {
     var scannerTitleBinding: ((String?) -> Void)? {
         didSet {
             scannerTitleBinding?(scannerTitle)
+        }
+    }
+
+    var scannerDismissTitleBinding: ((String?) -> Void)? {
+        didSet {
+            scannerDismissTitleBinding?(scannerDismissTitle)
         }
     }
 
@@ -49,8 +57,8 @@ class SplitScannerViewModel {
 
 // MARK: - Public Methods
 extension SplitScannerViewModel {
-    func doneButtonPressed() {
-        delegate?.didPressDoneButton(self)
+    func dismissButtonPressed() {
+        delegate?.didPressDismissButton(self)
     }
 
     func toggleTorch() {

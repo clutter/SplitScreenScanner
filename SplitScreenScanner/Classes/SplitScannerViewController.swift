@@ -10,7 +10,7 @@ import UIKit
 class SplitScannerViewController: UIViewController {
     @IBOutlet weak var scannerTitleLabel: UILabel!
     @IBOutlet weak var torchButton: UIButton!
-    @IBOutlet weak var doneButton: UIButton!
+    @IBOutlet weak var dismissButton: UIButton!
     @IBOutlet weak var barcodeScannerContainerView: UIView!
     @IBOutlet weak var scanHistoryContainerView: UIView!
 
@@ -24,7 +24,7 @@ class SplitScannerViewController: UIViewController {
         }
 
         torchButton.addTarget(self, action: #selector(torchButtonPressed), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(doneButtonPressed), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,6 +32,10 @@ class SplitScannerViewController: UIViewController {
 
         viewModel.scannerTitleBinding = { [weak self] scannerTitle in
             self?.scannerTitleLabel.text = scannerTitle
+        }
+
+        viewModel.scannerDismissTitleBinding = { [weak self] dismissTitle in
+            self?.dismissButton.setTitle(dismissTitle, for: .normal)
         }
 
         viewModel.torchButtonImageBinding = { [weak self] isTorchOn in
@@ -55,7 +59,7 @@ private extension SplitScannerViewController {
         viewModel.toggleTorch()
     }
 
-    @objc func doneButtonPressed() {
-        viewModel.doneButtonPressed()
+    @objc func dismissButtonPressed() {
+        viewModel.dismissButtonPressed()
     }
 }

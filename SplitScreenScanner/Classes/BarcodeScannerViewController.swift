@@ -13,36 +13,40 @@ class BarcodeScannerViewController: UIViewController {
     @IBOutlet weak var scannerOverlayView: UIView!
     @IBOutlet weak var scannerOverlayLabel: UILabel!
 
-    var viewModel: BarcodeScannerViewModel!
+    var viewModel: BarcodeScannerViewModel! {
+        didSet {
+            guard let viewModel = viewModel else { return }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+            viewModel.scannerOverlayObserver = { [weak self] scannerOverlayState in
+                DispatchQueue.main.async { [weak self] in
+                    guard let sSelf = self else { return }
 
-        viewModel.scannerOverlayObserver = { [weak self] scannerOverlayState in
-            DispatchQueue.main.async { [weak self] in
-                guard let sSelf = self else { return }
-
-                switch scannerOverlayState {
-                case .displaying(let message):
-                    UIView.transition(with: sSelf.view,
-                                      duration: 0.25,
-                                      options: .transitionCrossDissolve,
-                                      animations: {
-                                        sSelf.blockingView.backgroundColor = ScannerStyleKit.clutterMidGrey
-                                        sSelf.scannerOverlayView.alpha = 0.95
-                                        sSelf.scannerOverlayLabel.text = message
-                                      })
-                case .hidden:
-                    UIView.transition(with: sSelf.view,
-                                      duration: 0.75,
-                                      options: .transitionCrossDissolve,
-                                      animations: {
-                                        sSelf.blockingView.backgroundColor = .clear
-                                        sSelf.scannerOverlayView.alpha = 0
-                                      })
+                    switch scannerOverlayState {
+                    case .displaying(let message):
+                        UIView.transition(with: sSelf.view,
+                                          duration: 0.25,
+                                          options: .transitionCrossDissolve,
+                                          animations: {
+                                            sSelf.blockingView.backgroundColor = ScannerStyleKit.clutterMidGrey
+                                            sSelf.scannerOverlayView.alpha = 0.95
+                                            sSelf.scannerOverlayLabel.text = message
+                        })
+                    case .hidden:
+                        UIView.transition(with: sSelf.view,
+                                          duration: 0.75,
+                                          options: .transitionCrossDissolve,
+                                          animations: {
+                                            sSelf.blockingView.backgroundColor = .clear
+                                            sSelf.scannerOverlayView.alpha = 0
+                        })
+                    }
                 }
             }
         }
+    }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
 
         blockingView.backgroundColor = .clear
         scannerOverlayView.alpha = 0

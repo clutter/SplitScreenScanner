@@ -10,7 +10,7 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-    func didPressDoneButton(_ splitScannerCoordinator: SplitScannerCoordinator)
+    func didPressDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator)
 
     // Optional
     func shouldDismiss(after scanResult: ScanResult) -> Bool
@@ -54,12 +54,12 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
 
-    public init(scannerTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
+    public init(scannerTitle: String, scannerDismissTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
         let deviceProvider = DeviceProvider(device: videoDevice)
-        self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: scannerTitle)
+        self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: scannerTitle, scannerDismissTitle: scannerDismissTitle)
 
         self.scanHistoryDataSource = scanHistoryDataSource
         self.scanToContinueDataSource = scanToContinueDataSource
@@ -203,9 +203,8 @@ private extension SplitScannerCoordinator {
 
 // MARK: - SplitScannerViewModelDelegate
 extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
-    func didPressDoneButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
-        rootCoordinator?.popCoordinator(self)
-        delegate?.didPressDoneButton(self)
+    func didPressDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
+        delegate?.didPressDismissButton(self)
     }
 }
 

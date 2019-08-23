@@ -42,6 +42,7 @@ class BarcodeScannerViewModel {
 // MARK: - Public Methods
 extension BarcodeScannerViewModel {
     func startRunningBarcodeScanner() {
+        guard scannerOverlayState == .hidden else { return }
         barcodeScanner.startRunning()
     }
 
@@ -50,9 +51,10 @@ extension BarcodeScannerViewModel {
     }
 
     func blockScanner(withMessage message: String) {
-        guard case .hidden = scannerOverlayState else { return }
+        if case .hidden = scannerOverlayState {
+            barcodeScanner.stopRunning()
+        }
 
-        barcodeScanner.stopRunning()
         scannerOverlayState = .displaying(message: message)
     }
 
