@@ -54,12 +54,12 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
 
-    public init(scannerTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
+    public init(scannerTitle: String, scannerDismissTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
         let deviceProvider = DeviceProvider(device: videoDevice)
-        self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: scannerTitle)
+        self.viewModel = SplitScannerViewModel(deviceProvider: deviceProvider, scannerTitle: scannerTitle, scannerDismissTitle: scannerDismissTitle)
 
         self.scanHistoryDataSource = scanHistoryDataSource
         self.scanToContinueDataSource = scanToContinueDataSource
