@@ -98,6 +98,10 @@ extension ScanHistoryViewModel {
         }
     }
 
+    func cancelScannedBarcode(_ barcode: String) {
+        cancelScan(with: barcode)
+    }
+
     func createExpireSessionTimer() {
         guard isScanningSessionExpirable else { return }
 
@@ -145,5 +149,24 @@ private extension ScanHistoryViewModel {
             sections[firstRowIndexPath.section].rows.insert(historyRow, at: firstRowIndexPath.row)
             insertRowObserver?(firstRowIndexPath)
         }
+    }
+
+    func cancelScan(with barcode: String) {
+        let firstIndex = scans.firstIndex { scan in
+            if case .success = scan.scanResult, scan.barcode == barcode {
+                return true
+            }
+            return false
+        }
+
+        guard let index = firstIndex else { return }
+
+        let scan = scans[index]
+        let newScan = ScanHistory(barcode: scan.barcode, scanResult: .warning(description: "Scan Canceled"))
+        scans[index] = newScan
+
+        let indexPath = IndexPath(row: index, section: 0)
+        sections[indexPath.section].rows[indexPath.row] = .historyRow(barcode: newScan.barcode, scanResult: newScan.scanResult)
+        reloadRowObserver?(indexPath)
     }
 }

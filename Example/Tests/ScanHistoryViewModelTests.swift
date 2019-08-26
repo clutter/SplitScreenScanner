@@ -88,7 +88,7 @@ class ScanHistoryViewModelTests: XCTestCase {
     func testSubsequentScan() {
         let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil))
         let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"))
-        let scans = [firstScan, secondScan]
+        let scans = [secondScan, firstScan]
 
         setUpVM(scans: scans, isScanningSessionExpirable: true)
 
@@ -123,6 +123,40 @@ class ScanHistoryViewModelTests: XCTestCase {
         viewModel.didScan(barcode: "0000000001", with: .pending)
         XCTAssertNil(rowReloadedIndexPath)
         XCTAssertFalse(reloadedSectionHeader)
+    }
+
+    func testDropMostRecentScan() {
+        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil))
+        setUpVM(scans: [firstScan], isScanningSessionExpirable: true)
+
+        var rowReloadedIndexPath: IndexPath?
+        viewModel.reloadRowObserver = { indexPath in
+            rowReloadedIndexPath = indexPath
+        }
+
+        viewModel.cancelScannedBarcode(firstScan.barcode)
+        XCTAssertEqual(rowReloadedIndexPath, IndexPath(row: 0, section: 0))
+
+        let canceledScan = ScanHistory(barcode: firstScan.barcode, scanResult: .warning(description: "Scan Canceled"))
+        XCTAssertEqual(viewModel.sections[0].rows[0], .historyRow(barcode: canceledScan.barcode, scanResult: canceledScan.scanResult))
+    }
+
+    func testDropOlderScan() {
+        let firstScan = ScanHistory(barcode: "0000000001", scanResult: .success(description: nil))
+        let secondScan = ScanHistory(barcode: "0000000002", scanResult: .error(description: "We no longer store abstract concepts of thought"))
+        let scans = [secondScan, firstScan]
+        setUpVM(scans: scans, isScanningSessionExpirable: true)
+
+        var rowDeletedIndexPath: IndexPath?
+        viewModel.reloadRowObserver = { indexPath in
+            rowDeletedIndexPath = indexPath
+        }
+
+        viewModel.cancelScannedBarcode(firstScan.barcode)
+        XCTAssertEqual(rowDeletedIndexPath, IndexPath(row: 1, section: 0))
+
+        let canceledScan = ScanHistory(barcode: firstScan.barcode, scanResult: .warning(description: "Scan Canceled"))
+        XCTAssertEqual(viewModel.sections[0].rows[1], .historyRow(barcode: canceledScan.barcode, scanResult: canceledScan.scanResult))
     }
 
     func testCreateExpireSessionTimer() {
