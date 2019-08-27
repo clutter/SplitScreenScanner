@@ -110,6 +110,10 @@ extension SplitScannerCoordinator {
         barcodeScannerViewModel?.unblockScanner()
     }
 
+    public func cancelScannedBarcode(_ barcode: String) {
+        scanHistoryViewModel?.cancelScannedBarcode(barcode)
+    }
+
     public func resetLastScannedBarcode() {
         barcodeScannerViewModel?.resetLastScannedBarcode()
     }
