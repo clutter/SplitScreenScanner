@@ -24,7 +24,7 @@ class SplitScannerViewController: UIViewController {
         }
 
         torchButton.addTarget(self, action: #selector(torchButtonPressed), for: .touchUpInside)
-        dismissButton.addTarget(self, action: #selector(dismissButtonPressed), for: .touchUpInside)
+        dismissButton.addTarget(self, action: #selector(tappedDismissButton), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -59,7 +59,7 @@ private extension SplitScannerViewController {
         viewModel.toggleTorch()
     }
 
-    @objc func dismissButtonPressed() {
-        viewModel.dismissButtonPressed()
+    @objc func tappedDismissButton() {
+        viewModel.tappedDismissButton()
     }
 }
