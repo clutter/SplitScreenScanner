@@ -179,8 +179,8 @@ To avoid duplicate scans, the scanner will not scan the same barcode twice in a 
 
 ## Requirements
 
-- iOS 11.0+
-- Swift 4.1+
+- iOS 12.2+
+- Swift 5.0+
 
 ## Installation
 
