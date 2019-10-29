@@ -10,7 +10,7 @@ import AVFoundation
 
 public protocol SplitScannerCoordinatorDelegate: class {
     func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
-    func didPressDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator)
+    func didTapDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator)
 
     // Optional
     func shouldDismiss(after scanResult: ScanResult) -> Bool
@@ -54,7 +54,7 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     weak var rootCoordinator: RootCoordinator?
     public weak var delegate: SplitScannerCoordinatorDelegate?
 
-    public init(scannerTitle: String, scannerDismissTitle: String, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
+    public init(scannerTitle: String, scannerDismissTitle: String?, scanHistoryDataSource: ScanHistoryDataSource, scanToContinueDataSource: ScanToContinueDataSource?) throws {
         guard let videoDevice = AVCaptureDevice.default(for: .video) else {
             throw ContinuousBarcodeScannerError.noCamera
         }
@@ -207,8 +207,8 @@ private extension SplitScannerCoordinator {
 
 // MARK: - SplitScannerViewModelDelegate
 extension SplitScannerCoordinator: SplitScannerViewModelDelegate {
-    func didPressDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
-        delegate?.didPressDismissButton(self)
+    func didTapDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel) {
+        delegate?.didTapDismissButton(self)
     }
 }
 

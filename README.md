@@ -60,8 +60,9 @@ extension StartScanningViewController: SplitScannerCoordinatorDelegate {
         }
     }
 
-    // Called when the dismiss button is pressed. Dismiss the scanner as appropriate.
-    func didPressDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator) {
+    // Called when the dismiss button is tapped. Dismiss the scanner as appropriate.
+    // This will not be called if the `scannerDismissTitle` used to initialize the `SplitScannerCoordinator` is nil.
+    func didTapDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator) {
         print("Closing SplitScreenScanner")
         splitScannerCoordinator.popCoordinators()
         dismiss(animated: true)
