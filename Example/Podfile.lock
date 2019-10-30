@@ -9,7 +9,7 @@ DEPENDENCIES:
   - SwiftLint
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Sections
     - SwiftLint
 
@@ -19,9 +19,9 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   Sections: efc268a207d0e7afba82d2a0efd6cdf61872b5d4
-  SplitScreenScanner: 841005570bfad76fb89f6a48890a39404aff2e10
+  SplitScreenScanner: 58a45f5a8dd856836a3db74bd66a69f08dba6a47
   SwiftLint: 79d48a17c6565dc286c37efb8322c7b450f95c67
 
-PODFILE CHECKSUM: 662fda703b72b77c2ece8658c02a5b890176b006
+PODFILE CHECKSUM: 01d1369c36dc202dc53785bb7042960aab3924e6
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.8.4
