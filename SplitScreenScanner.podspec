@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SplitScreenScanner'
-  s.version          = '9.0.0'
+  s.version          = '9.0.1'
   s.summary          = 'Swift library for scanning barcodes with half the screen devoted to scan history'
 
 # This description is used to generate tags and improve search results.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Framework for scanning and verifying multiple barcodes, for example, in logistics applications.
                        DESC
 
   s.homepage         = 'https://github.com/clutter/SplitScreenScanner'
