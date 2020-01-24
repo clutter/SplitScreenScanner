@@ -67,19 +67,25 @@ final class ContinuousBarcodeScanner {
 
         do {
             try videoDevice.lockForConfiguration()
+            videoDevice.focusMode = .continuousAutoFocus
+            videoDevice.exposureMode = .continuousAutoExposure
+            videoDevice.whiteBalanceMode = .continuousAutoWhiteBalance
+
+            if videoDevice.isAutoFocusRangeRestrictionSupported {
+                videoDevice.autoFocusRangeRestriction = .near
+            }
+
+            if videoDevice.isSmoothAutoFocusSupported {
+                videoDevice.isSmoothAutoFocusEnabled = false
+            }
+
+            videoDevice.unlockForConfiguration()
         } catch {
             throw ContinuousBarcodeScannerError.couldNotInitCamera
         }
-        videoDevice.focusMode = .continuousAutoFocus
-        videoDevice.exposureMode = .continuousAutoExposure
-        videoDevice.whiteBalanceMode = .continuousAutoWhiteBalance
-        if videoDevice.isAutoFocusRangeRestrictionSupported {
-            videoDevice.autoFocusRangeRestriction = .near
-        }
-        videoDevice.unlockForConfiguration()
 
         captureSession = AVCaptureSession()
-        captureSession.sessionPreset = .high
+        captureSession.sessionPreset = .photo
 
         guard let videoInput = try? AVCaptureDeviceInput(device: videoDevice) else {
             throw ContinuousBarcodeScannerError.couldNotInitCamera
