@@ -45,7 +45,10 @@ final class ContinuousBarcodeScanner {
                 let scannedString = metadataObject.stringValue,
                 scannedString != lastBarcodeScanned {
                 lastBarcodeScanned = scannedString
-                barcodeScannedClosure?(scannedString)
+
+                DispatchQueue.main.async {
+                    self.barcodeScannedClosure?(scannedString)
+                }
             }
         }
     }
