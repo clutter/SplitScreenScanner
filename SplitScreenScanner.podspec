@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SplitScreenScanner'
-  s.version          = '9.0.1'
+  s.version          = '9.0.2'
   s.summary          = 'Swift library for scanning barcodes with half the screen devoted to scan history'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ Framework for scanning and verifying multiple barcodes, for example, in logistic
   s.source           = { :git => 'https://github.com/clutter/SplitScreenScanner.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '12.2'
+  s.ios.deployment_target = '13.3'
   s.swift_versions = ['5.0']
 
   s.source_files = 'SplitScreenScanner/Classes/**/*'
