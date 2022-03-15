@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol ScanToContinueViewModelDelegate: class {
+protocol ScanToContinueViewModelDelegate: AnyObject {
     func scanToContinueViewModel(_ scanToContinueViewModel: ScanToContinueViewModel, didScanStartingBarcode: String)
 }
 

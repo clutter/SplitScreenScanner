@@ -8,7 +8,7 @@
 import UIKit
 import AVFoundation
 
-public protocol SplitScannerCoordinatorDelegate: class {
+public protocol SplitScannerCoordinatorDelegate: AnyObject {
     func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult
     func didTapDismissButton(_ splitScannerCoordinator: SplitScannerCoordinator)
 

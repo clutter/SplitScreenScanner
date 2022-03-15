@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol BarcodeScannerViewModelDelegate: class {
+protocol BarcodeScannerViewModelDelegate: AnyObject {
     func didScanBarcode(_ barcodeScannerViewModel: BarcodeScannerViewModel, barcode: String)
 }
 

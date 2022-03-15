@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol Coordinator: class {
+protocol Coordinator: AnyObject {
     var identifier: UUID { get }
     var rootCoordinator: RootCoordinator? { get set }
 }
 
-protocol RootCoordinator: class {
+protocol RootCoordinator: AnyObject {
     var coordinators: [UUID: Coordinator] { get set }
 
     func pushCoordinator(_ coordinator: Coordinator)

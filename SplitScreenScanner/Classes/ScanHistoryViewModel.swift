@@ -8,7 +8,7 @@
 import Foundation
 import Sections
 
-protocol ScanHistoryViewModelDelegate: class {
+protocol ScanHistoryViewModelDelegate: AnyObject {
     func expireScanningSession(_ scanHistoryViewModel: ScanHistoryViewModel)
 }
 
