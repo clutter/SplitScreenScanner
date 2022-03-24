@@ -6,6 +6,7 @@
 //
 
 import AVFoundation
+import UIKit
 
 enum ContinuousBarcodeScannerError: Error {
     case noCamera
@@ -14,13 +15,13 @@ enum ContinuousBarcodeScannerError: Error {
     case couldNotAddMetadataOutput
 }
 
-protocol ContinuousBarcodeScannerDelegate: class {
+protocol ContinuousBarcodeScannerDelegate: AnyObject {
     func didScan(barcode: String)
 }
 
 final class ContinuousBarcodeScanner {
     class MetadataContinousCapture: NSObject, AVCaptureMetadataOutputObjectsDelegate {
-        typealias BarcodeScannedClosure = (_ barcode: String) -> Void
+        typealias BarcodeScannedClosure = (_ barcodeObject: AVMetadataMachineReadableCodeObject) -> Void
         private var barcodeScannedClosure: BarcodeScannedClosure?
 
         let metadataOutput: AVCaptureMetadataOutput
@@ -47,7 +48,7 @@ final class ContinuousBarcodeScanner {
                 lastBarcodeScanned = scannedString
 
                 DispatchQueue.main.async {
-                    self.barcodeScannedClosure?(scannedString)
+                    self.barcodeScannedClosure?(metadataObject)
                 }
             }
         }
@@ -59,7 +60,7 @@ final class ContinuousBarcodeScanner {
     private let captureSession: AVCaptureSession
     private var previewLayer: AVCaptureVideoPreviewLayer
     private let previewView: UIView
-
+    private var barcodeOverlayView: UIView? = nil
 
     init(previewView: UIView) throws {
         self.previewView = previewView
@@ -108,6 +109,52 @@ final class ContinuousBarcodeScanner {
         }
         captureSession.addOutput(metadataCapture.metadataOutput)
     }
+        
+    func drawOverlayFor(barcodeObject: AVMetadataMachineReadableCodeObject) -> UIView? {
+        
+        guard let barcode = barcodeObject.stringValue,
+              let bounds = self.previewLayer.transformedMetadataObject(for: barcodeObject)?.bounds else {
+                  return nil
+        }
+        
+        let overlayView = UIView(frame: bounds)
+        let overlayLabel = UILabel(frame: overlayView.bounds)
+                
+        overlayView.layer.borderWidth = 5.0
+        overlayView.backgroundColor = UIColor.green.withAlphaComponent(0.75)
+        overlayView.layer.borderColor = UIColor.green.cgColor
+        
+        overlayLabel.font = UIFont.boldSystemFont(ofSize: 18)
+        overlayLabel.text = barcode
+        overlayLabel.textColor = UIColor.white
+        overlayLabel.textAlignment = .center
+        overlayLabel.numberOfLines = 0
+        
+        if barcodeObject.type != .qr {
+            overlayLabel.sizeToFit()
+            overlayView.frame = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: bounds.width, height: overlayLabel.frame.height + 10)
+        }
+        
+        overlayLabel.center = overlayView.convert(overlayView.center, from: overlayLabel)
+
+        overlayView.addSubview(overlayLabel)
+
+        return overlayView
+    }
+    
+    func addBarcodeOverlayViewFor(barcodeObject: AVMetadataMachineReadableCodeObject) {
+        if let _ = self.barcodeOverlayView {
+            self.barcodeOverlayView?.removeFromSuperview()
+            self.barcodeOverlayView = nil
+        }
+        
+        guard let overlayView = self.drawOverlayFor(barcodeObject: barcodeObject) else {
+            return
+        }
+        
+        self.barcodeOverlayView = overlayView
+        self.previewView.addSubview(overlayView)
+    }
 }
 
 // MARK: - Public Methods
@@ -116,8 +163,9 @@ extension ContinuousBarcodeScanner {
         captureSession.startRunning()
 
         let rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: previewView.bounds)
-        metadataCapture.startRunning(rectOfInterest: rectOfInterest) { [weak self] barcode in
-            self?.delegate?.didScan(barcode: barcode)
+        metadataCapture.startRunning(rectOfInterest: rectOfInterest) { [weak self] barcodeObject in
+            self?.delegate?.didScan(barcode: barcodeObject.stringValue ?? "")
+            self?.addBarcodeOverlayViewFor(barcodeObject: barcodeObject)
         }
 
         if let sublayer = previewView.layer.sublayers?.first {
