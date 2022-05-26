@@ -10,6 +10,8 @@ import UIKit
 class ScanHistoryTableViewController: UITableViewController {
     var viewModel: ScanHistoryViewModel!
 
+    private var pendingInsertions: [IndexPath] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,8 +22,13 @@ class ScanHistoryTableViewController: UITableViewController {
         }
 
         viewModel.insertRowObserver = { [weak self] indexPath in
+            self?.pendingInsertions.insert(indexPath, at: 0)
             DispatchQueue.main.async {
-                self?.tableView.insertRows(at: [indexPath], with: .left)
+                guard let pendingInsertions = self?.pendingInsertions, !pendingInsertions.isEmpty else {
+                    return
+                }
+                self?.tableView.insertRows(at: pendingInsertions, with: .left)
+                self?.pendingInsertions = []
             }
         }
 
