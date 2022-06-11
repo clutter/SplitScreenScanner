@@ -51,9 +51,12 @@ class ScanHistoryViewModel {
 
     // MARK: - Bindings, Observers, Getters
 
-    var reloadRowObserver: ((IndexPath) -> Void)?
+    enum RowUpdate {
+        case insertRow(IndexPath)
+        case reloadRow(IndexPath)
+    }
 
-    var insertRowObserver: ((IndexPath) -> Void)?
+    var rowUpdateObserver: ((RowUpdate) -> Void)?
 
     var reloadSectionHeaderObserver: ((_ sectionIndex: Int) -> Void)?
 
@@ -144,10 +147,10 @@ private extension ScanHistoryViewModel {
         // replace nothingScannedRow with historyRow if this is the first scan
         if scans.count == 1 {
             sections[firstRowIndexPath.section].rows[firstRowIndexPath.row] = historyRow
-            reloadRowObserver?(firstRowIndexPath)
+            rowUpdateObserver?(.reloadRow(firstRowIndexPath))
         } else {
             sections[firstRowIndexPath.section].rows.insert(historyRow, at: firstRowIndexPath.row)
-            insertRowObserver?(firstRowIndexPath)
+            rowUpdateObserver?(.insertRow(firstRowIndexPath))
         }
     }
 
@@ -167,6 +170,6 @@ private extension ScanHistoryViewModel {
 
         let indexPath = IndexPath(row: index, section: 0)
         sections[indexPath.section].rows[indexPath.row] = .historyRow(barcode: newScan.barcode, scanResult: newScan.scanResult)
-        reloadRowObserver?(indexPath)
+        rowUpdateObserver?(.reloadRow(indexPath))
     }
 }

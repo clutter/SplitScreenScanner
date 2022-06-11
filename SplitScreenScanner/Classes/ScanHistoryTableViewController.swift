@@ -10,25 +10,29 @@ import UIKit
 class ScanHistoryTableViewController: UITableViewController {
     var viewModel: ScanHistoryViewModel!
 
-    private var pendingInsertions: [IndexPath] = []
+    private var pendingUpdates: [ScanHistoryViewModel.RowUpdate] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.reloadRowObserver = { [weak self] indexPath in
+        viewModel.rowUpdateObserver = { [weak self] rowUpdate in
+            self?.pendingUpdates.append(rowUpdate)
             DispatchQueue.main.async {
-                self?.tableView.reloadRows(at: [indexPath], with: .right)
-            }
-        }
+                guard let self = self, !self.pendingUpdates.isEmpty else { return }
 
-        viewModel.insertRowObserver = { [weak self] indexPath in
-            self?.pendingInsertions.insert(indexPath, at: 0)
-            DispatchQueue.main.async {
-                guard let pendingInsertions = self?.pendingInsertions, !pendingInsertions.isEmpty else {
-                    return
+                self.tableView.beginUpdates()
+                self.pendingUpdates.forEach { nextUpdate in
+                    switch nextUpdate {
+                    case .reloadRow(let indexPath):
+                        self.tableView.reloadRows(at: [indexPath], with: .right)
+                    case .insertRow(let indexPath):
+                        self.tableView.insertRows(at: [indexPath], with: .left)
+                    }
                 }
-                self?.tableView.insertRows(at: pendingInsertions, with: .left)
-                self?.pendingInsertions = []
+
+                self.pendingUpdates = []
+
+                self.tableView.endUpdates()
             }
         }
 
