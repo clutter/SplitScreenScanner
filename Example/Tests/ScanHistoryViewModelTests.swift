@@ -71,8 +71,13 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [], isScanningSessionExpirable: true)
 
         var rowReloadedIndexPath: IndexPath?
-        viewModel.reloadRowObserver = { indexPath in
-            rowReloadedIndexPath = indexPath
+        viewModel.rowUpdateObserver = { rowUpdate in
+            switch rowUpdate {
+            case .reloadRow(let indexPath):
+                rowReloadedIndexPath = indexPath
+            case .insertRow(let indexPath):
+                XCTFail("Expected Reload but got Insert for IndexPath: \(String(describing: indexPath))")
+            }
         }
 
         var reloadedSectionHeader = false
@@ -93,8 +98,13 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: scans, isScanningSessionExpirable: true)
 
         var rowInsertedIndexPath: IndexPath?
-        viewModel.insertRowObserver = { indexPath in
-            rowInsertedIndexPath = indexPath
+        viewModel.rowUpdateObserver = { rowUpdate in
+            switch rowUpdate {
+            case .insertRow(let indexPath):
+                rowInsertedIndexPath = indexPath
+            case .reloadRow(let indexPath):
+                XCTFail("Expected Insert but got Reload for IndexPath: \(String(describing: indexPath))")
+            }
         }
 
         var reloadedSectionHeader = false
@@ -111,8 +121,13 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [], isScanningSessionExpirable: true)
 
         var rowReloadedIndexPath: IndexPath?
-        viewModel.reloadRowObserver = { indexPath in
-            rowReloadedIndexPath = indexPath
+        viewModel.rowUpdateObserver = { rowUpdate in
+            switch rowUpdate {
+            case .reloadRow(let indexPath):
+                rowReloadedIndexPath = indexPath
+            case .insertRow(let indexPath):
+                XCTFail("Expected Reload but got Insert for IndexPath: \(String(describing: indexPath))")
+            }
         }
 
         var reloadedSectionHeader = false
@@ -130,8 +145,13 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: [firstScan], isScanningSessionExpirable: true)
 
         var rowReloadedIndexPath: IndexPath?
-        viewModel.reloadRowObserver = { indexPath in
-            rowReloadedIndexPath = indexPath
+        viewModel.rowUpdateObserver = { rowUpdate in
+            switch rowUpdate {
+            case .reloadRow(let indexPath):
+                rowReloadedIndexPath = indexPath
+            case .insertRow(let indexPath):
+                XCTFail("Expected Reload but got Insert for IndexPath: \(String(describing: indexPath))")
+            }
         }
 
         viewModel.cancelScannedBarcode(firstScan.barcode)
@@ -148,8 +168,13 @@ class ScanHistoryViewModelTests: XCTestCase {
         setUpVM(scans: scans, isScanningSessionExpirable: true)
 
         var rowDeletedIndexPath: IndexPath?
-        viewModel.reloadRowObserver = { indexPath in
-            rowDeletedIndexPath = indexPath
+        viewModel.rowUpdateObserver = { rowUpdate in
+            switch rowUpdate {
+            case .reloadRow(let indexPath):
+                rowDeletedIndexPath = indexPath
+            case .insertRow(let indexPath):
+                XCTFail("Expected Reload but got Insert for IndexPath: \(String(describing: indexPath))")
+            }
         }
 
         viewModel.cancelScannedBarcode(firstScan.barcode)
