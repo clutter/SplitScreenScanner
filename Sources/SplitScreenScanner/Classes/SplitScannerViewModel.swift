@@ -5,7 +5,7 @@
 //  Created by Sean Machen on 3/27/18.
 //
 
-import Foundation
+import UIKit
 
 protocol SplitScannerViewModelDelegate: AnyObject {
     func didTapDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel)

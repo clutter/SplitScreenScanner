@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Sections",
+        "repositoryURL": "https://github.com/litso/Sections.git",
+        "state": {
+          "branch": null,
+          "revision": "9d48e2858bd0b94e5f32b62057c0691df5ddb034",
+          "version": "0.10.1"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

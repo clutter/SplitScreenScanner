@@ -5,7 +5,7 @@
 //  Created by Sean Machen on 4/6/18.
 //
 
-import Foundation
+import UIKit
 
 protocol BarcodeScannerViewModelDelegate: AnyObject {
     func didScanBarcode(_ barcodeScannerViewModel: BarcodeScannerViewModel, barcode: String)
