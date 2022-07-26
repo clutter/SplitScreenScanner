@@ -1,0 +1,7 @@
+platform :ios, '14.0'
+use_frameworks!
+
+pod 'SplitScreenScanner', :path => '../..'
+
+target 'SplitScreenScanner_Example'
+target 'SplitScreenScanner_Tests'

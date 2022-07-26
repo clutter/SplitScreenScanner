@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SplitScannerViewModelDelegate: class {
+protocol SplitScannerViewModelDelegate: AnyObject {
     func didTapDismissButton(_ splitScreenScannerViewModel: SplitScannerViewModel)
 }
 

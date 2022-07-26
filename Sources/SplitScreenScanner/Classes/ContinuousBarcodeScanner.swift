@@ -60,7 +60,7 @@ final class ContinuousBarcodeScanner {
     private let captureSession: AVCaptureSession
     private var previewLayer: AVCaptureVideoPreviewLayer
     private let previewView: UIView
-    private var barcodeOverlayView: UIView? = nil
+    private var barcodeOverlayView: UIView?
 
     init(previewView: UIView) throws {
         self.previewView = previewView
@@ -109,49 +109,49 @@ final class ContinuousBarcodeScanner {
         }
         captureSession.addOutput(metadataCapture.metadataOutput)
     }
-        
+
     func drawOverlayFor(barcodeObject: AVMetadataMachineReadableCodeObject) -> UIView? {
-        
+
         guard let barcode = barcodeObject.stringValue,
               let bounds = self.previewLayer.transformedMetadataObject(for: barcodeObject)?.bounds else {
                   return nil
         }
-        
+
         let overlayView = UIView(frame: bounds)
         let overlayLabel = UILabel(frame: overlayView.bounds)
-                
+
         overlayView.layer.borderWidth = 5.0
         overlayView.backgroundColor = UIColor.green.withAlphaComponent(0.75)
         overlayView.layer.borderColor = UIColor.green.cgColor
-        
+
         overlayLabel.font = UIFont.boldSystemFont(ofSize: 18)
         overlayLabel.text = barcode
         overlayLabel.textColor = UIColor.white
         overlayLabel.textAlignment = .center
         overlayLabel.numberOfLines = 0
-        
+
         if barcodeObject.type != .qr {
             overlayLabel.sizeToFit()
             overlayView.frame = CGRect(x: bounds.origin.x, y: bounds.origin.y, width: bounds.width, height: overlayLabel.frame.height + 10)
         }
-        
+
         overlayLabel.center = overlayView.convert(overlayView.center, from: overlayLabel)
 
         overlayView.addSubview(overlayLabel)
 
         return overlayView
     }
-    
+
     func addBarcodeOverlayViewFor(barcodeObject: AVMetadataMachineReadableCodeObject) {
-        if let _ = self.barcodeOverlayView {
+        if self.barcodeOverlayView != nil {
             self.barcodeOverlayView?.removeFromSuperview()
             self.barcodeOverlayView = nil
         }
-        
+
         guard let overlayView = self.drawOverlayFor(barcodeObject: barcodeObject) else {
             return
         }
-        
+
         self.barcodeOverlayView = overlayView
         self.previewView.addSubview(overlayView)
     }

@@ -22,23 +22,18 @@ Framework for scanning and verifying multiple barcodes, for example, in logistic
                        DESC
 
   s.homepage         = 'https://github.com/clutter/SplitScreenScanner'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Sean Machen' => 'sean.machen@clutter.com' }
   s.source           = { :git => 'https://github.com/clutter/SplitScreenScanner.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '13.3'
+  s.ios.deployment_target = '14.0'
   s.swift_versions = ['5.0']
 
-  s.source_files = 'SplitScreenScanner/Classes/**/*'
+  s.source_files = 'Sources/SplitScreenScanner/Classes/**/*'
 
   s.resource_bundles = {
-      'SplitScreenScanner' => ['SplitScreenScanner/Assets/**/*.{xib,storyboard}']
+      'SplitScreenScanner' => ['Sources/SplitScreenScanner/Assets/**/*.{xib,storyboard}']
   }
 
   s.dependency 'Sections'
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
 end

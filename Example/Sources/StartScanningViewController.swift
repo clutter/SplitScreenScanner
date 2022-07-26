@@ -34,7 +34,7 @@ class StartScanningViewController: UIViewController {
 extension StartScanningViewController: SplitScannerCoordinatorDelegate {
     func didScanBarcode(_ splitScannerCoordinator: SplitScannerCoordinator, barcode: String) -> ScanResult {
         print("Scanned: " + barcode)
-        switch Int(arc4random_uniform(4)) {
+        switch Int.random(in: 0...4) {
         case 0...1:
             return .success(description: "Nice scan!")
         case 2:
@@ -57,7 +57,7 @@ extension StartScanningViewController: ScanHistoryDataSource {
     }
 
     var tableViewHeaderSubtitle: String? {
-        let uncompletedItemCount = arc4random_uniform(10)
+        let uncompletedItemCount = Int.random(in: 0...10)
         return "\(uncompletedItemCount) / 10"
     }
 
