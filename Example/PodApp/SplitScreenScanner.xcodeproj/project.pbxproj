@@ -302,7 +302,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\n  exit 0\nfi\n\nif which mint >/dev/null; then\n  cd ../..\n  echo `pwd`\n  mint run -m Mintfile SwiftLint .\nelse\n  echo \"Mint does not exist\"\n  exit 1\nfi\n";
+			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\n  exit 0\nfi\n\nif [ $CIRCLECI ]; then # CI runs lint through danger\n  exit 0\nfi\n\nPATH=$PATH:/opt/homebrew/bin #On AS brew installs here\nif which mint >/dev/null; then\n  cd ../..\n  echo `pwd`\n  mint run -m Mintfile SwiftLint .\nelse\n  echo \"Mint does not exist\"\n  exit 1\nfi\n";
 		};
 		D6A7D50011191BEB905D7F99 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;

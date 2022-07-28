@@ -6,9 +6,6 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: brew install mint
-      - run: mint bootstrap --link
-      - run: mint run -m Mintfile swiftlint version
       - run: bundle install
       - run:
           name: Fastlane
@@ -27,9 +24,6 @@ jobs:
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: brew install mint
-      - run: mint bootstrap --link
-      - run: mint run -m Mintfile swiftlint version
       - run: bundle install
       - run:
           name: Fastlane
@@ -42,6 +36,26 @@ jobs:
       - store_artifacts:
           path: ~/Library/Logs/scan
           destination: scan-logs
+  danger:
+    macos:
+      xcode: 13.4.1
+    working_directory: /Users/distiller/project
+    shell: /bin/bash --login -o pipefail
+    steps:
+      - run:
+         name: Setup Environment Variables
+         command: |
+           echo 'export PATH=~/.mint/bin:$PATH' >> $BASH_ENV
+      - checkout
+      - run: brew update
+      - run: brew install mint
+      - run: mint bootstrap --link --overwrite y
+      - run: swiftlint version
+      - run: brew tap danger/tap
+      - run: brew install danger/tap/danger-swift
+      - run:
+          name: Danger
+          command: danger-swift ci
 
 workflows:
   version: 2
@@ -49,3 +63,4 @@ workflows:
     jobs:
       - build-and-test-pods
       - build-and-test-spm
+      - danger

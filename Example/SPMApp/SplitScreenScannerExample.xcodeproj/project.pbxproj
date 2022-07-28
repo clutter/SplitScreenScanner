@@ -168,6 +168,7 @@
 				03469E1928907A470036BA6D /* Sources */,
 				03469E1A28907A470036BA6D /* Frameworks */,
 				03469E1B28907A470036BA6D /* Resources */,
+				03B8A4C1289352B600C6253C /* Run SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -238,6 +239,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		03B8A4C1289352B600C6253C /* Run SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Run SwiftLint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ $CONFIGURATION != \"Debug\" ]; then\n  exit 0\nfi\n\nif [ $CIRCLECI ]; then # CI runs lint through danger\n  exit 0\nfi\n\nPATH=$PATH:/opt/homebrew/bin #On AS brew installs here\nif which mint >/dev/null; then\n  cd ../..\n  echo `pwd`\n  mint run -m Mintfile SwiftLint .\nelse\n  echo \"Mint does not exist\"\n  exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		03469E0C28907A2A0036BA6D /* Sources */ = {
