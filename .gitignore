@@ -1,11 +1,11 @@
 # OS X
-.DS_Store
+.DS*
 
 # Xcode
 build/
 *.pbxuser
 !default.pbxuser
-*.mode1v3
+*.mode*
 !default.mode1v3
 *.mode2v3
 !default.mode2v3
@@ -18,9 +18,14 @@ profile
 DerivedData
 *.hmap
 *.ipa
+**/*.xcodeproj/*.mode*
+**/*.xcodeproj/*.pbxuser
+**/*.xcodeproj/*.xcworkspace
+**/*.xcodeproj/xcuserdata
+**/*.xcworkspace/xcuserdata
 
 # Pods
-/Example/Pods/*
+**/Pods/*
 
 # Bundler
 .bundle
@@ -29,3 +34,7 @@ DerivedData
 fastlane/report.xml
 fastlane/test_output/report.html
 fastlane/test_output/report.junit
+
+# SPM
+.swiftpm/*
+

@@ -89,9 +89,7 @@ class ScanHistoryTableViewController: UITableViewController {
         viewModel.isHapticFeedbackEnabled = false
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-
+    deinit {
         NotificationCenter.default.removeObserver(self)
     }
 
