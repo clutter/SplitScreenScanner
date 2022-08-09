@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VrF-uM-m7w">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VrF-uM-m7w">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -11,26 +13,26 @@
             <objects>
                 <viewController id="VrF-uM-m7w" customClass="SplitScannerViewController" customModule="SplitScreenScanner" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4TJ-b5-Zp4">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KIK-1o-Irv">
-                                <rect key="frame" x="0.0" y="20" width="600" height="52"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="52"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="4T8-tK-tow">
-                                        <rect key="frame" x="16" y="9" width="568" height="34"/>
+                                        <rect key="frame" x="16" y="9" width="382" height="34"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scanner Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rar-8r-fDF">
-                                                <rect key="frame" x="0.0" y="0.0" width="105.5" height="34"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="105" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <color key="textColor" red="0.12941176470588234" green="0.16078431372549018" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D3G-jG-FMq">
-                                                <rect key="frame" x="301" y="0.0" width="30" height="34"/>
+                                                <rect key="frame" x="207.5" y="0.0" width="30" height="34"/>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nA3-sz-7m8">
-                                                <rect key="frame" x="526" y="0.0" width="42" height="34"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nA3-sz-7m8">
+                                                <rect key="frame" x="340" y="0.0" width="42" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                                 <state key="normal" title="Done">
                                                     <color key="titleColor" red="0.0" green="0.59999999999999998" blue="0.5450980392" alpha="1" colorSpace="calibratedRGB"/>
@@ -48,12 +50,13 @@
                                 </constraints>
                             </view>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="biA-b2-Qqq">
-                                <rect key="frame" x="0.0" y="72" width="600" height="242"/>
+                                <rect key="frame" x="0.0" y="96" width="414" height="361"/>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0bl-Gg-sNm">
-                                <rect key="frame" x="0.0" y="314" width="600" height="286"/>
+                                <rect key="frame" x="0.0" y="457" width="414" height="405"/>
                             </containerView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="wmN-Dq-EBl"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="wmN-Dq-EBl" firstAttribute="trailing" secondItem="KIK-1o-Irv" secondAttribute="trailing" id="4Y9-fE-IUe"/>
@@ -68,7 +71,6 @@
                             <constraint firstItem="wmN-Dq-EBl" firstAttribute="centerY" secondItem="biA-b2-Qqq" secondAttribute="bottom" constant="-4" id="fRp-vA-Yb2"/>
                             <constraint firstItem="wmN-Dq-EBl" firstAttribute="trailing" secondItem="0bl-Gg-sNm" secondAttribute="trailing" id="zRi-45-tcb"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="wmN-Dq-EBl"/>
                     </view>
                     <connections>
                         <outlet property="barcodeScannerContainerView" destination="biA-b2-Qqq" id="MTp-08-3Ff"/>
@@ -85,22 +87,22 @@
         <!--Barcode Scanner View Controller-->
         <scene sceneID="r2O-tC-FHc">
             <objects>
-                <viewController storyboardIdentifier="BarcodeScanner" id="hUQ-W1-Sfk" customClass="BarcodeScannerViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="BarcodeScanner" id="hUQ-W1-Sfk" customClass="BarcodeScannerViewController" customModule="SplitScreenScanner" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mJl-lC-Ea8">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wr7-Pq-KaX">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNI-Us-qvf" userLabel="Rectangle View" customClass="ReticleView" customModule="SplitScreenScanner" customModuleProvider="target">
-                                        <rect key="frame" x="32" y="89" width="536" height="402"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QNI-Us-qvf" userLabel="Rectangle View" customClass="ReticleView" customModule="SplitScreenScanner">
+                                        <rect key="frame" x="32" y="278" width="350" height="262.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8H6-cR-bSW">
-                                                <rect key="frame" x="0.0" y="167" width="536" height="68"/>
+                                                <rect key="frame" x="0.0" y="97" width="350" height="68"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Blocking Scan" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="onX-sd-cML">
-                                                        <rect key="frame" x="8" y="18" width="520" height="32"/>
+                                                        <rect key="frame" x="8" y="18" width="334" height="32"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                                                         <color key="textColor" red="0.32156862745098036" green="0.32941176470588235" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -132,6 +134,7 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="kLo-EH-hPe"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="kLo-EH-hPe" firstAttribute="trailing" secondItem="wr7-Pq-KaX" secondAttribute="trailing" id="1Ay-3L-rtd"/>
@@ -139,7 +142,6 @@
                             <constraint firstItem="wr7-Pq-KaX" firstAttribute="top" secondItem="kLo-EH-hPe" secondAttribute="top" id="Uad-Y2-pwf"/>
                             <constraint firstItem="wr7-Pq-KaX" firstAttribute="leading" secondItem="kLo-EH-hPe" secondAttribute="leading" id="mIg-al-tlN"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="kLo-EH-hPe"/>
                     </view>
                     <connections>
                         <outlet property="blockingView" destination="wr7-Pq-KaX" id="P6n-FU-ses"/>
@@ -154,9 +156,9 @@
         <!--Scan History Table View Controller-->
         <scene sceneID="oyS-Fx-QdP">
             <objects>
-                <tableViewController storyboardIdentifier="ScanHistory" id="7ZG-w0-eJq" customClass="ScanHistoryTableViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ScanHistory" id="7ZG-w0-eJq" customClass="ScanHistoryTableViewController" customModule="SplitScreenScanner" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="xKb-Bt-CIO">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.96078431372549022" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="separatorColor" red="0.89019607840000003" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -173,22 +175,22 @@
         <!--Scan To Continue View Controller-->
         <scene sceneID="csk-gp-qW3">
             <objects>
-                <viewController storyboardIdentifier="ScanToContinue" id="ROn-EW-mQ1" customClass="ScanToContinueViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanToContinue" id="ROn-EW-mQ1" customClass="ScanToContinueViewController" customModule="SplitScreenScanner" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mSS-2C-P8m">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="LNg-Fp-5af">
-                                <rect key="frame" x="32" y="84" width="536" height="62"/>
+                                <rect key="frame" x="32" y="108" width="350" height="62"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan QR code to begin" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dTx-Pd-n4y">
-                                        <rect key="frame" x="0.0" y="0.0" width="536" height="25.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="25.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                         <color key="textColor" red="0.12941176469999999" green="0.16078431369999999" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scan the start code to start" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qeg-gD-nFb">
-                                        <rect key="frame" x="0.0" y="41.5" width="536" height="20.5"/>
+                                        <rect key="frame" x="0.0" y="41.5" width="350" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="0.32156862745098036" green="0.32941176470588235" blue="0.32941176470588235" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -196,13 +198,13 @@
                                 </subviews>
                             </stackView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="3NI-vv-bBR"/>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="LNg-Fp-5af" firstAttribute="leading" secondItem="3NI-vv-bBR" secondAttribute="leading" constant="32" id="Ize-fw-A0i"/>
                             <constraint firstItem="LNg-Fp-5af" firstAttribute="top" secondItem="3NI-vv-bBR" secondAttribute="top" constant="64" id="QPW-6x-InX"/>
                             <constraint firstItem="3NI-vv-bBR" firstAttribute="trailing" secondItem="LNg-Fp-5af" secondAttribute="trailing" constant="32" id="qF2-Cn-yK9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="3NI-vv-bBR"/>
                     </view>
                     <connections>
                         <outlet property="descriptionLabel" destination="Qeg-gD-nFb" id="GKB-7h-CMD"/>
@@ -216,25 +218,26 @@
         <!--Scan To Continue Error View Controller-->
         <scene sceneID="a6D-BL-Txl">
             <objects>
-                <viewController storyboardIdentifier="ScanToContinueError" id="xti-76-mK8" customClass="ScanToContinueErrorViewController" customModule="SplitScreenScanner" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ScanToContinueError" id="xti-76-mK8" customClass="ScanToContinueErrorViewController" customModule="SplitScreenScanner" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="j9T-jg-ub1">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="STi-Yc-4g7">
-                                <rect key="frame" x="284" y="52" width="32" height="32"/>
+                                <rect key="frame" x="191" y="76" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="cHm-Rm-cYw"/>
                                     <constraint firstAttribute="width" secondItem="STi-Yc-4g7" secondAttribute="height" multiplier="1:1" id="wcW-Y0-0sn"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wrong QR code scanned" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gc5-Y9-etw">
-                                <rect key="frame" x="181.5" y="116" width="237" height="25.5"/>
+                                <rect key="frame" x="89" y="140" width="236.5" height="25.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                 <color key="textColor" red="0.12941176469999999" green="0.16078431369999999" blue="0.15686274510000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="gdb-6O-u3k"/>
                         <color key="backgroundColor" red="0.94901960780000005" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Gc5-Y9-etw" firstAttribute="top" secondItem="STi-Yc-4g7" secondAttribute="bottom" constant="32" id="6Qs-1E-Cs1"/>
@@ -242,7 +245,6 @@
                             <constraint firstItem="STi-Yc-4g7" firstAttribute="centerX" secondItem="gdb-6O-u3k" secondAttribute="centerX" id="Keo-3U-YWR"/>
                             <constraint firstItem="Gc5-Y9-etw" firstAttribute="centerX" secondItem="gdb-6O-u3k" secondAttribute="centerX" id="dgW-aE-dle"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="gdb-6O-u3k"/>
                     </view>
                     <connections>
                         <outlet property="incorrectScanImageView" destination="STi-Yc-4g7" id="DA0-aR-og9"/>

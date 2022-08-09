@@ -67,13 +67,7 @@ public class SplitScannerCoordinator: RootCoordinator, Coordinator {
     }
 
     public func makeRootViewController() throws -> UIViewController {
-        let bundle = Bundle(for: SplitScannerCoordinator.self)
-        guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) else {
-                throw SplitScannerError.missingBundle(name: "SplitScreenScanner")
-        }
-
-        let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+        let storyboard = UIStoryboard(name: "SplitScanner", bundle: UIResources.resourceBundle)
         guard let splitScannerParentVC = storyboard.instantiateInitialViewController() as? SplitScannerViewController else {
             throw SplitScannerError.couldNotInstantiateInitialViewController
         }
@@ -134,11 +128,7 @@ private extension SplitScannerCoordinator {
         if let scanHistoryVC = scanHistoryVC {
             switchInfoView(to: scanHistoryVC)
         } else {
-            let bundle = Bundle(for: SplitScannerCoordinator.self)
-            guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-                let resourceBundle = Bundle(url: resourceBundleURL) else { return }
-
-            let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+            let storyboard = UIStoryboard(name: "SplitScanner", bundle: UIResources.resourceBundle)
             guard let scanHistoryVC = storyboard.instantiateViewController(withIdentifier: "ScanHistory") as? ScanHistoryTableViewController else { return }
 
             let isScanningSessionExpirable = scanToContinueDataSource != nil
@@ -158,11 +148,7 @@ private extension SplitScannerCoordinator {
         if let scanToContinueVC = scanToContinueVC {
             switchInfoView(to: scanToContinueVC)
         } else {
-            let bundle = Bundle(for: SplitScannerCoordinator.self)
-            guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-                let resourceBundle = Bundle(url: resourceBundleURL) else { return }
-
-            let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+            let storyboard = UIStoryboard(name: "SplitScanner", bundle: UIResources.resourceBundle)
             guard let scanToContinueVC = storyboard.instantiateViewController(withIdentifier: "ScanToContinue") as? ScanToContinueViewController else { return }
             scanToContinueViewModel = ScanToContinueViewModel(scanToContinueDataSource: scanToContinueDataSource, isScannerExpired: viewModel.scannerState == .expired)
             scanToContinueViewModel?.delegate = self

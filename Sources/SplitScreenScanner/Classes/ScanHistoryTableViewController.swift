@@ -46,12 +46,8 @@ class ScanHistoryTableViewController: UITableViewController {
             }
         }
 
-        let bundle = Bundle(for: SplitScannerCoordinator.self)
-        if let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) {
-            let scanHistoryCellNib = UINib(nibName: ScanHistoryCell.identifier, bundle: resourceBundle)
-            tableView.register(scanHistoryCellNib, forCellReuseIdentifier: ScanHistoryCell.identifier)
-        }
+        let scanHistoryCellNib = UINib(nibName: ScanHistoryCell.identifier, bundle: UIResources.resourceBundle)
+        tableView.register(scanHistoryCellNib, forCellReuseIdentifier: ScanHistoryCell.identifier)
 
         tableView.tableFooterView = UIView()
         tableView.separatorInset = .zero

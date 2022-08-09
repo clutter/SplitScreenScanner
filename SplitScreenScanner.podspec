@@ -32,7 +32,7 @@ Framework for scanning and verifying multiple barcodes, for example, in logistic
   s.source_files = 'Sources/SplitScreenScanner/Classes/**/*'
 
   s.resource_bundles = {
-      'SplitScreenScanner' => ['Sources/SplitScreenScanner/Assets/**/*.{xib,storyboard}']
+      'SplitScreenScanner_SplitScreenScanner' => ['Sources/SplitScreenScanner/Assets/**/*.{xib,storyboard}']
   }
 
   s.dependency 'Sections'

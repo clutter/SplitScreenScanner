@@ -20,11 +20,7 @@ class SubtitleHeaderView: UIView {
 // MARK: - Static Methods
 extension SubtitleHeaderView {
     static func instantiateFromNib() -> SubtitleHeaderView? {
-        let bundle = Bundle(for: SplitScannerCoordinator.self)
-        guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) else { return nil }
-
-        let subtitleHeaderViewNib = UINib(nibName: "SubtitleHeaderView", bundle: resourceBundle)
+        let subtitleHeaderViewNib = UINib(nibName: "SubtitleHeaderView", bundle: UIResources.resourceBundle)
         let views = subtitleHeaderViewNib.instantiate(withOwner: nil, options: nil)
 
         return views.compactMap({ $0 as? SubtitleHeaderView }).first
