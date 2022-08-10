@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'SplitScreenScanner'
-  s.version          = '10.0.0'
+  s.version          = '10.0.1'
   s.summary          = 'Swift library for scanning barcodes with half the screen devoted to scan history'
 
 # This description is used to generate tags and improve search results.
@@ -32,7 +32,7 @@ Framework for scanning and verifying multiple barcodes, for example, in logistic
   s.source_files = 'Sources/SplitScreenScanner/Classes/**/*'
 
   s.resource_bundles = {
-      'SplitScreenScanner' => ['Sources/SplitScreenScanner/Assets/**/*.{xib,storyboard}']
+      'SplitScreenScanner_SplitScreenScanner' => ['Sources/SplitScreenScanner/Assets/**/*.{xib,storyboard}']
   }
 
   s.dependency 'Sections'

@@ -78,11 +78,7 @@ class ScanToContinueViewController: UIViewController {
 // MARK: - Private Methods
 private extension ScanToContinueViewController {
     func displayWarningView(withWarningMessage warningMessage: String) {
-        let bundle = Bundle(for: ScanToContinueViewController.self)
-        guard let resourceBundleURL = bundle.url(forResource: "SplitScreenScanner", withExtension: "bundle"),
-            let resourceBundle = Bundle(url: resourceBundleURL) else { return }
-
-        let storyboard = UIStoryboard(name: "SplitScanner", bundle: resourceBundle)
+        let storyboard = UIStoryboard(name: "SplitScanner", bundle: UIResources.resourceBundle)
         guard let scanToContinueErrorVC = storyboard.instantiateViewController(withIdentifier: "ScanToContinueError") as? ScanToContinueErrorViewController else { return }
 
         addChild(scanToContinueErrorVC)
