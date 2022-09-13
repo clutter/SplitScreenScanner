@@ -35,8 +35,7 @@ final class ContinuousBarcodeScanner {
             metadataOutput.setMetadataObjectsDelegate(self, queue: metadataQueue)
         }
 
-        func startRunning(rectOfInterest: CGRect, _ barcodeScannedClosure: @escaping BarcodeScannedClosure) {
-            metadataOutput.rectOfInterest = rectOfInterest
+        func startRunning(barcodeScannedClosure: @escaping BarcodeScannedClosure) {
             metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
             self.barcodeScannedClosure = barcodeScannedClosure
         }
@@ -162,8 +161,7 @@ extension ContinuousBarcodeScanner {
     func startRunning() {
         captureSession.startRunning()
 
-        let rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: previewView.bounds)
-        metadataCapture.startRunning(rectOfInterest: rectOfInterest) { [weak self] barcodeObject in
+        metadataCapture.startRunning { [weak self] barcodeObject in
             self?.delegate?.didScan(barcode: barcodeObject.stringValue ?? "")
             self?.addBarcodeOverlayViewFor(barcodeObject: barcodeObject)
         }
