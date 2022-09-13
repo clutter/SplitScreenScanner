@@ -35,7 +35,8 @@ final class ContinuousBarcodeScanner {
             metadataOutput.setMetadataObjectsDelegate(self, queue: metadataQueue)
         }
 
-        func startRunning(barcodeScannedClosure: @escaping BarcodeScannedClosure) {
+        func startRunning(rectOfInterest: CGRect, _ barcodeScannedClosure: @escaping BarcodeScannedClosure) {
+            metadataOutput.rectOfInterest = rectOfInterest
             metadataOutput.metadataObjectTypes = metadataOutput.availableMetadataObjectTypes
             self.barcodeScannedClosure = barcodeScannedClosure
         }
@@ -99,7 +100,23 @@ final class ContinuousBarcodeScanner {
         captureSession.addInput(videoInput)
 
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = previewView.bounds
+
+        if previewView.bounds.height > previewView.bounds.width {
+            previewLayer.frame = .init(
+                x: 0,
+                y: 0,
+                width: previewView.bounds.height,
+                height: previewView.bounds.width
+            )
+        } else {
+            previewLayer.frame = .init(
+                x: 0,
+                y: 0,
+                width: previewView.bounds.width,
+                height: previewView.bounds.height
+            )
+        }
+
         previewLayer.videoGravity = .resizeAspectFill
 
         metadataCapture = MetadataContinousCapture()
@@ -161,7 +178,8 @@ extension ContinuousBarcodeScanner {
     func startRunning() {
         captureSession.startRunning()
 
-        metadataCapture.startRunning { [weak self] barcodeObject in
+        let rectOfInterest = previewLayer.metadataOutputRectConverted(fromLayerRect: previewView.bounds)
+        metadataCapture.startRunning(rectOfInterest: rectOfInterest) { [weak self] barcodeObject in
             self?.delegate?.didScan(barcode: barcodeObject.stringValue ?? "")
             self?.addBarcodeOverlayViewFor(barcodeObject: barcodeObject)
         }
