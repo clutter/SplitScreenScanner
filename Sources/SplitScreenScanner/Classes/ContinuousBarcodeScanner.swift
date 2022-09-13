@@ -100,7 +100,23 @@ final class ContinuousBarcodeScanner {
         captureSession.addInput(videoInput)
 
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
-        previewLayer.frame = previewView.bounds
+
+        if previewView.bounds.height > previewView.bounds.width {
+            previewLayer.frame = .init(
+                x: 0,
+                y: 0,
+                width: previewView.bounds.height,
+                height: previewView.bounds.width
+            )
+        } else {
+            previewLayer.frame = .init(
+                x: 0,
+                y: 0,
+                width: previewView.bounds.width,
+                height: previewView.bounds.height
+            )
+        }
+
         previewLayer.videoGravity = .resizeAspectFill
 
         metadataCapture = MetadataContinousCapture()
