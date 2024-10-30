@@ -33,7 +33,4 @@ nesting:
   type_level:
     warning: 2
 private_over_fileprivate:
-    validate_extensions: true
-
-excluded:
-  - Pods
+  validate_extensions: true

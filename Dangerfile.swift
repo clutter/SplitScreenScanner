@@ -94,5 +94,3 @@ danger.github.commits.forEach {
 if let additions = pullRequest.additions, let deletions = pullRequest.deletions, additions < deletions {
     message("🎉 This PR removes more code than it adds! (\(additions - deletions) net lines)")
 }
-
-SwiftLint.lint(inline: true, directory: "Session")
