@@ -13,21 +13,17 @@ default_platform(:ios)
 
 platform :ios do
   desc "Runs all the tests"
-  lane :test_pod do
-    cocoapods(podfile: './Example/PodApp/Podfile')
-    scan(
-      workspace: "./Example/PodApp/SplitScreenScanner.xcworkspace", 
-      scheme: "SplitScreenScanner-Example", 
-      device: "iPhone 8", 
-      clean: true
-      )
-  end
-  lane :test_spm do
+  lane :test do
     scan(
       workspace: './Example/SPMApp/SplitScreenScanner.xcworkspace',
       scheme: "SplitScreenScannerExample",
       device: "iPhone 8",
       clean: true
     )
+  end
+
+  desc "Runs swiftlint"
+  lane :lint do
+    swiftlint
   end
 end

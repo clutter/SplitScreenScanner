@@ -32,9 +32,8 @@ nesting:
   type_level:
     warning: 2
 private_over_fileprivate:
-    validate_extensions: true
+  validate_extensions: true
 
 excluded:
-  - Pods/**
-  - Example/PodApp/Pods/**
   - Sources/SplitScreenScanner/Classes/ScannerStyleKit.swift
+  - vendor/bundle

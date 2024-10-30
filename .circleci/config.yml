@@ -1,33 +1,20 @@
-version: 2
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@2.3.0
+
 jobs:
-  build-and-test-pods:
+  build-and-test:
     macos:
-      xcode: 13.4.1
+      xcode: 16.0.0
     shell: /bin/bash --login -o pipefail
     steps:
       - checkout
-      - run: bundle install
-      - run:
-          name: Fastlane
-          command: bundle exec fastlane ios test_pod
-      - store_test_results:
-          path: test_output/report.xml
-      - store_artifacts:
-          path: /tmp/test-results
-          destination: scan-test-results
-      - store_artifacts:
-          path: ~/Library/Logs/scan
-          destination: scan-logs
-  build-and-test-spm:
-    macos:
-      xcode: 13.4.1
-    shell: /bin/bash --login -o pipefail
-    steps:
-      - checkout
-      - run: bundle install
-      - run:
-          name: Fastlane
-          command: bundle exec fastlane ios test_spm
+      - run: ruby -v
+      - ruby/install-deps
+      - run: brew bundle
+      - run: bundle exec fastlane ios lint
+      - run: bundle exec fastlane ios test
       - store_test_results:
           path: test_output/report.xml
       - store_artifacts:
@@ -38,19 +25,11 @@ jobs:
           destination: scan-logs
   danger:
     macos:
-      xcode: 13.4.1
+      xcode: 16.0.0
     working_directory: /Users/distiller/project
     shell: /bin/bash --login -o pipefail
     steps:
-      - run:
-         name: Setup Environment Variables
-         command: |
-           echo 'export PATH=~/.mint/bin:$PATH' >> $BASH_ENV
       - checkout
-      - run: brew update
-      - run: brew install mint
-      - run: mint bootstrap --link --overwrite y
-      - run: swiftlint version
       - run: brew tap danger/tap
       - run: brew install danger/tap/danger-swift
       - run:
@@ -58,9 +37,8 @@ jobs:
           command: danger-swift ci
 
 workflows:
-  version: 2
+  version: 2.1
   build-test-adhoc:
     jobs:
-      - build-and-test-pods
-      - build-and-test-spm
+      - build-and-test
       - danger

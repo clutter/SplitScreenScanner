@@ -93,7 +93,7 @@ extension StartScanningViewController: scanHistoryDataSource {
     var tableViewHeaderTitle: String {
         return "Scanning Barcodes"
     }
-    
+
     // Subtitle for the scan history table view, displayed on the right side of the header
     // If this is nil, then the subtitle will not be displayed
     var tableViewHeaderSubtitle: String? {
@@ -105,7 +105,7 @@ extension StartScanningViewController: scanHistoryDataSource {
     var nothingScannedText: String {
         return "Start scanning"
     }
-    
+
     // Used for playing sounds just after a barcode scan is made
     func playBarcodeScanSound(for result: ScanResult) {
         // Play scanning sound
@@ -143,12 +143,12 @@ extension StartScanningViewController: ScanToContinueDataSource {
             return .error(description: "Wrong Barcode Scanned")
         }
     }
-    
+
     // Used for playing sounds just after a starting or continuing scan is made
     func playScanToContinueSound(for result: ScanResult) {
         // Play scanning sound
     }
-    
+
     // Called just after the scanning session expires
     func didExpireScanningSession() {
         print("Scanning session expired")
@@ -184,12 +184,7 @@ To avoid duplicate scans, the scanner will not scan the same barcode twice in a 
 
 ## Installation
 
-SplitScreenScanner is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod 'SplitScreenScanner', git: 'https://github.com/clutter/SplitScreenScanner'
-```
+SplitScreenScanner is available through Swift Package Manager.
 
 ## Author
 
